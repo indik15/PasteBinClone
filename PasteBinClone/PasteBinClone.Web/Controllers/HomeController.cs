@@ -13,12 +13,7 @@ namespace PasteBinClone.Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
+        public IActionResult HomeIndex()
         {
             return View();
         }
