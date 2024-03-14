@@ -2,13 +2,13 @@
 
     <div class="row">
 
-        <div class="col border border-1 p-0 mb-5">
+        <div class="col p-0 mb-5">
 
             <div class="row m-0">
                 @* Filter *@
-                <div class="col d-flex justify-content-center border border-1 flex-fill" style="margin-top:30px;">
+                <div class="col d-flex justify-content-center flex-fill filter">
 
-                    <div class="row border border-1" style="margin-left:20px;">
+                    <div class="row">
 
                         <div class="col">
                             <div class="mb-1">
@@ -17,7 +17,7 @@
 
                             <div class="mb-1">
                                 <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle" style="width:200px;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         Dropdown
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -36,7 +36,7 @@
 
                             <div class="mb-1">
                                 <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle" style="width:200px;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         Dropdown
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -55,7 +55,7 @@
 
                             <div class="mb-1">
                                 <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle" style="width:200px;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         Dropdown
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -74,7 +74,7 @@
 
                             <div class="mb-1">
                                 <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle" style="width:200px;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         Dropdown
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -89,101 +89,106 @@
 
                 </div>
                @*  Top rated pasts *@
-                <div class="col d-none d-lg-block d-lg-flex justify-content-center flex-fill border border-1 mt-4">
-                    <div style="margin-left:75px;">
-                        <span style="font-size:24px; margin-left:45px; font-family:'Playfair Display', sans-serif;">Top Rated Pasts</span>
-                        <div class="row m-0 d-flex justify-content-center pt-3" style="width:85%; min-width:320px; max-width:446px; padding-bottom:12px; border-radius:33px; border:1px; border-style:solid; border-color:#767373;">
+                <div class="col d-none d-lg-block d-lg-flex justify-content-center flex-fill mt-4">
+                    <div class="top-rated-pasts">
 
-                            <button class="btn p-0" style="height:57px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                        <span class="top-rated-pasts__title">Top Rated Pasts</span>
 
-                                <div class="row" style="min-height:20px; margin-left:19px;">
+                        <div class="row m-0 d-flex justify-content-center pt-3 top-rated-pasts__block">
+
+                            <button class="btn p-0 past-item past-item_size_small">
+
+                                <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
-                                        <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                        <span class="pe-2 past-item__content__type-rate">C#</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                     </div>
                                 </div>
                             </button>
 
-                            <button class="btn p-0" style="height:57px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                            <button class="btn p-0 past-item past-item_size_small">
 
-                                <div class="row" style="min-height:20px; margin-left:19px;">
+                                <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
-                                        <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                        <span class="pe-2 past-item__content__type-rate">C#</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                     </div>
                                 </div>
                             </button>
 
-                            <button class="btn p-0" style="height:57px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                            <button class="btn p-0 past-item past-item_size_small">
 
-                                <div class="row" style="min-height:20px; margin-left:19px;">
+                                <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
-                                        <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                        <span class="pe-2 past-item__content__type-rate">C#</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                     </div>
                                 </div>
                             </button>
 
-                            <button class="btn p-0" style="height:57px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                            <button class="btn p-0 past-item past-item_size_small">
 
-                                <div class="row" style="min-height:20px; margin-left:19px;">
+                                <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
-                                        <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                        <span class="pe-2 past-item__content__type-rate">C#</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                     </div>
                                 </div>
                             </button>
 
-                            <button class="btn p-0" style="height:57px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                            <button class="btn p-0 past-item past-item_size_small">
 
-                                <div class="row" style="min-height:20px; margin-left:19px;">
+                                <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
-                                        <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                        <span class="pe-2 past-item__content__type-rate">C#</span>
                                     </div>
 
                                     <div class="col p-0">
-                                        <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                     </div>
                                 </div>
                             </button>
+
+                            
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -191,358 +196,295 @@
         </div>
 
         @* Public pasts *@
-        <div class="col-5 border border-1 p-0 mx-auto" style="width:835px;">
+        <div class="col-5 p-0 mx-auto public-pasts">
 
             @* Title *@
             <div class="row m-0">
-                <div class="col-6 p-0" style="height:32px;">
-                    <span style="margin-left:23px; font-size:21px; font-family:'Playfair Display', sans-serif;">Title</span>
+                <div class="col-6 p-0 public-pasts__title-item">
+                    <span class="title-item__text title-item__text_margin">Title</span>
                 </div>
 
-                <div class="col p-0 text-center" style="height:32px; margin-left:15px;">
-                    <span style="font-size:21px; font-family:'Playfair Display', sans-serif;">Posted</span>
+                <div class="col p-0 text-center public-pasts__title-item  title-item_margin-l">
+                    <span class="title-item__text">Posted</span>
                 </div>
 
-                <div class="col p-0 text-center" style="height:32px; border:0px; border-right:1px; border-left:1px; border-style:solid; border-color:#D2D2D2;">
-                    <span style="font-size:21px; font-family:'Playfair Display', sans-serif;">Type</span>
+                <div class="col p-0 text-center public-pasts__title-item title-item_border">
+                    <span class="title-item__text">Type</span>
                 </div>
 
-                <div class="col p-0 text-center" style="height:32px; margin-right:15px;">
-                    <span style="font-size:21px; font-family:'Playfair Display', sans-serif;">Rate</span>
+                <div class="col p-0 text-center public-pasts__title-item title-item_margin-r">
+                    <span class="title-item__text">Rate</span>
                 </div>
             </div>
 
             @*Body*@
-            <div class="d-flex align-items-end border border-1">
+            <div class="d-flex align-items-end">
 
-                <div class="row m-0 d-flex justify-content-center pt-2" style="/* width:835px; */ padding-bottom:19px; border:0px; border-right:1px; border-left:1px; border-style:solid; border-color:#A9A7A7;">
-
+                <div class="row m-0 d-flex justify-content-center pt-2 w-100 body-block">
                     
-                    <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                    <button class="btn p-0 past-item past-item_size_big">
 
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                        <div class="row past-item__content">
 
                             <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                             </div>
 
                             <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                <span class="past-item__content__type-rate">5 h. ago</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                            </div>
+                        </div>
+                    </button>                                                                              
+                             
+                    <button class="btn p-0 past-item past-item_size_big">
+
+                        <div class="row past-item__content">
+
+                            <div class="col-6 d-flex justify-content-start p-0">
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                            </div>
+
+                            <div class="col p-0">
+                                <span class="past-item__content__type-rate">5 h. ago</span>
+                            </div>
+
+                            <div class="col p-0">
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
+                            </div>
+
+                            <div class="col p-0">
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                             </div>
                         </div>
                     </button>
-                    <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
 
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                    <button class="btn p-0 past-item past-item_size_big">
+
+                        <div class="row past-item__content">
 
                             <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                             </div>
 
                             <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                <span class="past-item__content__type-rate">5 h. ago</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                             </div>
                         </div>
                     </button>
-                     <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
 
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                    <button class="btn p-0 past-item past-item_size_big">
+
+                        <div class="row past-item__content">
 
                             <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                             </div>
 
                             <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                <span class="past-item__content__type-rate">5 h. ago</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                             </div>
                         </div>
                     </button>
-                     <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
 
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                    <button class="btn p-0 past-item past-item_size_big">
+
+                        <div class="row past-item__content">
 
                             <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                             </div>
 
                             <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                <span class="past-item__content__type-rate">5 h. ago</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                             </div>
                         </div>
                     </button>
-                     <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
 
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                    <button class="btn p-0 past-item past-item_size_big">
+
+                        <div class="row past-item__content">
 
                             <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                             </div>
 
                             <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                <span class="past-item__content__type-rate">5 h. ago</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                             </div>
                         </div>
                     </button>
-                    <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
 
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                    <button class="btn p-0 past-item past-item_size_big">
+
+                        <div class="row past-item__content">
 
                             <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                             </div>
 
                             <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                <span class="past-item__content__type-rate">5 h. ago</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                             </div>
                         </div>
                     </button>
-                    <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
 
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                    <button class="btn p-0 past-item past-item_size_big">
 
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">12 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">Text</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">25 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-
-                        </div>
-                    </button>
-                    <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
-
-                        <div class="row" style="min-height:20px; margin-left:19px;">
+                        <div class="row past-item__content">
 
                             <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                             </div>
 
                             <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">12 h. ago</span>
+                                <span class="past-item__content__type-rate">5 h. ago</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">Text</span>
+                                <span class="pe-2 past-item__content__type-rate">C#</span>
                             </div>
 
                             <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">25 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                             </div>
-
-                        </div>
-                    </button>
-                    <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
-
-                        <div class="row" style="min-height:20px; margin-left:19px;">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span style="font-size:18px; font-family:'Inter', sans-serif;">12 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">Text</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">25 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-
                         </div>
                     </button>
                 </div>
 
-            </div>
-            
+            </div>            
         </div>
         
         @* My pasts *@
-        <div class="col border border-1">
-            <div class="d-flex justify-content-center border border-1">
+        <div class="col">
+            <div class="d-flex justify-content-center">
                 
-                <div style="margin-left:20px; margin-top:20px;">
+                <div class="my-pasts">
 
-                    <div class="row m-0 border border-1">
-                        <div class="col-4 col-xs-3 p-0 border border-1" style="height:40px;">
-                            <span style="font-size:24px; margin-left:45px; font-family:'Playfair Display', sans-serif;">My Pasts</span>
+                    <div class="row m-0 mb-2">
+                        <div class="col-4 col-xs-3 p-0 pt-2 my-pasts__title">
+                            <span class="my-pasts__title__text">My Pasts</span>
                         </div>
 
-                        <div class="col-3 p-0 text-center border border-1" style="height:40px;">
-                            <button class="btn" type="submit" style="height:37px; width:73px; margin-left:25px; font-size:16px; font-family:'K2D', sans-serif; color:#000; background-color:#DAF1F8; border:1px; border-style:solid; border-color:#D8D8D8; border-radius:10px;">All</button>
+                        <div class="col-3 p-0 text-center my-pasts__title">
+                            <button class="btn my-pasts__title__btn-all" type="submit">All</button>
                         </div>
 
-                        <div class="col p-0 text-center border border-1" style="height:40px; margin-right:32px;">
-                            <button class="btn" type="submit" style="height:37px; width:142px; font-size:16px; font-family:'K2D', sans-serif; color:#000; background-color:#DAF1F8; border:1px; border-style:solid; border-color:#D8D8D8; border-radius:10px;">Create Past</button>
+                        <div class="col p-0 text-center my-pasts__title my-pasts__title_margin-r">
+                            <button class="btn my-pasts__title__btn-create-paste" type="submit">Create Past</button>
                         </div>
                     </div>
 
-                    <div class="row m-0 d-flex justify-content-center pt-3" style="width:95%; min-width:370px; max-width:480px; padding-bottom:14px; border-radius:15px; border:1px; border-style:solid; border-color:#767373;">
-                        <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                    <div class="row m-0 d-flex justify-content-center pt-3 my-pasts__body">
+                        <button class="btn p-0 past-item past-item_size_big">
 
-                            <div class="row" style="min-height:20px; margin-left:19px;">
+                            <div class="row past-item__content">
 
                                 <div class="col-6 d-flex justify-content-start p-0">
-                                    <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                    <span class="past-item__content__type-rate">5 h. ago</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                    <span class="pe-2 past-item__content__type-rate">C#</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                 </div>
                             </div>
                         </button>
 
-                        <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                        <button class="btn p-0 past-item past-item_size_big">
 
-                            <div class="row" style="min-height:20px; margin-left:19px;">
+                            <div class="row past-item__content">
 
                                 <div class="col-6 d-flex justify-content-start p-0">
-                                    <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                    <span class="past-item__content__type-rate">5 h. ago</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                    <span class="pe-2 past-item__content__type-rate">C#</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                 </div>
                             </div>
                         </button>
 
-                        <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
+                        <button class="btn p-0 past-item past-item_size_big">
 
-                            <div class="row" style="min-height:20px; margin-left:19px;">
-
-                                <div class="col-6 d-flex justify-content-start p-0">
-                                    <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
-
-                        <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
-
-                            <div class="row" style="min-height:20px; margin-left:19px;">
+                            <div class="row past-item__content">
 
                                 <div class="col-6 d-flex justify-content-start p-0">
-                                    <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
+                                    <span class="past-item__content__type-rate">5 h. ago</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
+                                    <span class="pe-2 past-item__content__type-rate">C#</span>
                                 </div>
 
                                 <div class="col p-0">
-                                    <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
-
-                        <button class="btn p-0" style="height:67px; max-width:96%; margin-bottom:14px; background-color:#fff; border:1px; border-style:solid; border-color:#989696; border-radius:15px;">
-
-                            <div class="row" style="min-height:20px; margin-left:19px;">
-
-                                <div class="col-6 d-flex justify-content-start p-0">
-                                    <span style="font-size:20px; font-family:'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span style="font-size:18px; font-family:'Inter', sans-serif;">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2" style="font-size:18px; font-family:'Inter', sans-serif;">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3" style="font-size:18px; font-family:'Inter', sans-serif;">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                 </div>
                             </div>
                         </button>

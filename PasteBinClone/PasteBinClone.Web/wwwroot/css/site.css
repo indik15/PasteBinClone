@@ -71,3 +71,167 @@ body {
     margin-top: 30px;
     margin-left: 20px;
 }
+.filter_dropdown_width {
+    width: 200px;
+}
+
+/*=========================== Main page Top Rated Pasts ===========================*/
+
+.top-rated-pasts {
+    margin-left: 75px;
+}
+
+.top-rated-pasts__title {
+    font-size: 24px;
+    margin-left: 45px;
+    font-family: 'Playfair Display', sans-serif;
+}
+.top-rated-pasts__block {
+    width: 85%;
+    min-width: 320px;
+    max-width: 446px;
+    padding-bottom: 12px;
+    border-radius: 33px;
+    border: 1px;
+    border-style: solid;
+    border-color: #767373;
+}
+
+.past-item_size_small {
+    height: 57px;
+}
+
+/*=========================== Main page Body ===========================*/
+
+.public-pasts {
+    width: 835px;
+}
+
+.public-pasts__title-item {
+    height: 32px;
+}
+
+.title-item_margin-l {
+    margin-left: 15px;
+}
+
+.title-item_margin-r {
+    margin-right: 15px;
+}
+
+.title-item_border {
+    border: 0px;
+    border-right: 1px;
+    border-left: 1px;
+    border-style: solid;
+    border-color: #D2D2D2;
+}
+
+.title-item__text {
+    font-size: 21px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.title-item__text_margin {
+    margin-left: 23px;
+}
+
+.body-block {
+    padding-bottom: 19px;
+    border: 0px;
+    border-right: 1px;
+    border-left: 1px;
+    border-style: solid;
+    border-color: #A9A7A7;
+}
+
+.past-item {
+    max-width: 96%;
+    margin-bottom: 14px;
+    background-color: #fff;
+    border: 1px;
+    border-style: solid;
+    border-color: #989696;
+    border-radius: 15px;
+}
+
+.past-item_size_big {
+    height: 67px;
+}
+
+.past-item__content {
+    min-height: 20px;
+    margin-left: 19px;
+}
+
+.past-item__content__title {
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.past-item__content__type-rate {
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+}
+
+/*=========================== Main page My Pasts ===========================*/
+
+.my-pasts {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.my-pasts__title {
+    height: 40px;
+}
+
+.my-pasts__title_margin-r {
+    margin-right: 32px;
+}
+
+.my-pasts__title__text {
+    font-size: 24px;
+    margin-left: 45px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.my-pasts__title__btn-all {
+    height: 37px;
+    width: 73px;
+    margin-left: 25px;
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+    color: #000;
+    background-color: #DAF1F8;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    border-radius: 10px;
+}
+
+.my-pasts__title__btn-create-paste {
+    height: 37px;
+    width: 142px;
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+    color: #000;
+    background-color: #DAF1F8;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    border-radius: 10px;
+}
+
+.my-pasts__body {
+    width: 95%;
+    min-width: 370px;
+    max-width: 480px;
+    padding-bottom: 14px;
+    border-radius: 15px;
+    border: 1px;
+    border-style: solid;
+    border-color: #767373;
+}
