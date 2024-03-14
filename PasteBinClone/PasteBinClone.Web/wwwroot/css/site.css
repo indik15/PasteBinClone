@@ -18,5 +18,56 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #FAFAFA;
+    min-width: 450px;
+}
+
+/*=========================== HEADER ===========================*/
+
+.navbar-background {
+    margin-bottom: 25px;
+    height: 80px;
+    background-color: #EEF9FC;
+    border: 0px;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: #BAB9B9;
+}
+
+.navbar-brand-text-style {
+    font-size: 36px;
+    font-family: 'Inria Serif', sans-serif;
+}
+
+.navbar__button {
+    margin-right: 7px;
+    height: 40px;
+    width: 113px;
+}
+
+.navbar__button-login {
+    font-size: 18px;
+    font-family: 'K2D', sans-serif;
+    color: #7D7D7D;
+    background-color: #fff;
+    border: 1px;
+    border-style: solid;
+    border-color: #A5A3A3;
+    border-radius: 10px;
+}
+
+.navbar__button-signup {
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+    color: #fff;
+    background-color: #313131;
+    border-radius: 10px;
+}
+
+/*=========================== Main page Filter ===========================*/
+
+.filter {
+    margin-top: 30px;
+    margin-left: 20px;
 }
