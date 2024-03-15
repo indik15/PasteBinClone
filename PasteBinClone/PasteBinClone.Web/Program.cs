@@ -23,6 +23,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=HomeIndex}/{id?}");
+    pattern: "{controller=Pasts}/{action=CreatePasts}/{id?}");
 
 app.Run();
