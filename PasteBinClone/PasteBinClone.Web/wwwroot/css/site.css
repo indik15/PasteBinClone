@@ -75,6 +75,11 @@ body {
     width: 200px;
 }
 
+.filter-text {
+    font-size: 18px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
 /*=========================== Main page Top Rated Pasts ===========================*/
 
 .top-rated-pasts {
@@ -234,4 +239,65 @@ body {
     border: 1px;
     border-style: solid;
     border-color: #767373;
+}
+
+/*=========================== Create Pasts Filter ===========================*/
+
+
+.type-menu {
+    margin-left: 70px;
+    margin-right: 95px;
+    max-width: 400px;
+    min-width: 280px;
+}
+
+.create-filter{
+    min-width:200px;
+}
+
+.create-paste-btn {
+    height: 37px;
+    width: 132px;
+    background-color: #53EC74;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+}
+.create-paste-btn_text {
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+}
+
+.back-btn {
+    height: 37px;
+    width: 105px;
+    background-color: #E8EDE9;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+}
+.back-btn_text {
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+}
+
+/*=========================== Create Pasts Body ===========================*/
+
+.title_input {
+    height: 39px;
+    width: 65%;
+    min-width: 200px;
+}
+
+.text-menu{
+    max-width: 1300px;
+}
+
+.href-txt {
+    font-size: 18px;
+    font-family: 'Playfair Display', sans-serif;
+    color: #000;
+    text-decoration: none;
 }
