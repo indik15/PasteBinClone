@@ -4,7 +4,7 @@ namespace PasteBinClone.Web.Controllers
 {
     public class PastsController : Controller
     {
-        public IActionResult CreatePasts()
+        public IActionResult Create()
         {
             return View();
         }
