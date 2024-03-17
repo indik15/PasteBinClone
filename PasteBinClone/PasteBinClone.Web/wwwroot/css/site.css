@@ -23,6 +23,13 @@ body {
     min-width: 450px;
 }
 
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
 /*=========================== HEADER ===========================*/
 
 .navbar-background {
@@ -133,7 +140,7 @@ body {
 }
 
 .title-item__text {
-    font-size: 21px;
+    font-size: 20px;
     font-family: 'Playfair Display', sans-serif;
 }
 
@@ -291,13 +298,82 @@ body {
     min-width: 200px;
 }
 
-.text-menu{
-    max-width: 1300px;
+.text-menu {
+    max-width: 1244px;
 }
 
 .href-txt {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     font-size: 18px;
-    font-family: 'Playfair Display', sans-serif;
     color: #000;
     text-decoration: none;
+}
+
+
+/*=========================== Details ===========================*/
+
+.details-body {
+    height: 65vh;
+    min-width: 60vw;
+    border: 1px;
+    border-style: solid;
+    border-color: #989898;
+    overflow: auto;
+}
+
+.private {
+    color: #D22D2D;
+}
+
+.public {
+    color: #2A9428;
+}
+
+.like-btn, .dislike-btn {
+    height: 33px;
+    max-width: 33px;
+    margin-left: 15px;
+    border:0px;
+    border-radius: 5px;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:transparent;
+}
+
+.dislike-btn i {
+    transform: scaleX(-1);        
+}
+
+.share-btn, .report-btn {
+    height: 37px;
+    max-width: 110px;
+    margin-left: 25px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+.comment-btn {
+    height: 37px;
+    border: 1px;
+    border-style: solid;
+    background-color: #FAFAFA;
+    border-color: #D8D8D8;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+.coments {
+    height: auto;
+    min-width: 60vw;
+    border: 1px;
+    border-style: solid;
+    border-color: #989898;
+    overflow: auto;
 }
