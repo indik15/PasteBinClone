@@ -377,3 +377,60 @@ body {
     border-color: #989898;
     overflow: auto;
 }
+
+/*=========================== Profile ===========================*/
+
+
+.profile-title {
+    font-size: 40px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.avatar {
+    height: 200px;
+    width: 200px;
+    border: 1px;
+    border-style: solid;
+    border-color: #989898;
+}
+
+.person-info {
+    font-size: 20px;
+    font-family: 'Playfair Display', sans-serif;
+    max-height: 20px;
+    padding-left: 10px;
+}
+
+.person-info__block {
+    min-width:130px;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 1px solid #D2D2D2;
+}
+
+.person-info__edit-btn {
+    height: 40px;
+    width: 90px;
+    background-color: #B6EBF6;
+    border: 1px;
+    border-style: solid;
+    border-color: #A3A4A5;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: 'K2D', sans-serif;
+}
+
+.my-pasts_size {
+    width: 95%;
+    min-width: 630px;
+    max-width: 930px;
+}
+
+.person-info-my-pasts {
+    padding-bottom: 14px;
+    border-radius: 15px;
+    border: 1px;
+    border-style: solid;
+    border-color: #767373;
+}
