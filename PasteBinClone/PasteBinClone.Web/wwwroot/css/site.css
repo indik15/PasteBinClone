@@ -434,3 +434,24 @@ body {
     border-style: solid;
     border-color: #767373;
 }
+
+/*=========================== Profile Edit ===========================*/
+
+.edit-img-btn{
+    height: 60px;
+    max-width: 60px;
+    border: 0px;
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: #cccccc;
+}
+
+.change-password {
+    max-width: 300px;
+    font-size: 18px;
+    font-family: 'Playfair Display', sans-serif;
+    max-height: 20px;
+}
