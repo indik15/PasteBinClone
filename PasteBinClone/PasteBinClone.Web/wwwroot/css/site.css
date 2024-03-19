@@ -480,16 +480,25 @@ body {
     font-family: 'K2D', sans-serif;
 }
 
-.create-category-btn {
+.method-btn {
     height: 37px;
     width: 112px;
-    background-color: #10c7f8;
     border-radius: 7px;
     border: 1px;
     border-style: solid;
     border-color: #D8D8D8;
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+}
+
+.method-btn_create {
+    background-color: #10c7f8;
 }
 
 .category-edit-btn{
     min-width: 35px;
+}
+
+.method-btn_delete {
+    background-color: #ff5e5e;
 }
