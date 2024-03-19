@@ -29,6 +29,12 @@ body {
     font-style: normal;
 }
 
+.playfair-display{
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
 
 /*=========================== HEADER ===========================*/
 
@@ -454,4 +460,10 @@ body {
     font-size: 18px;
     font-family: 'Playfair Display', sans-serif;
     max-height: 20px;
+}
+
+/*=========================== Filter Index ===========================*/
+
+.table-filter{
+    width:80%;
 }
