@@ -72,6 +72,20 @@ body {
     border-radius: 10px;
 }
 
+.navbar__button-admin {
+    margin-right: 7px;
+    height: 40px;
+    max-width: 150px;
+    font-size: 18px;
+    font-family: 'K2D', sans-serif;
+    color: #7D7D7D;
+    background-color: #fff;
+    border: 1px;
+    border-style: solid;
+    border-color: #A5A3A3;
+    border-radius: 10px;
+}
+
 /*=========================== Main page Filter ===========================*/
 
 .filter {
