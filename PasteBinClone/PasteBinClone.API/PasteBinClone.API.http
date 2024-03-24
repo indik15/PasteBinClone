@@ -1,0 +1,6 @@
+@PasteBinClone.API_HostAddress = http://localhost:5090
+
+GET {{PasteBinClone.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
