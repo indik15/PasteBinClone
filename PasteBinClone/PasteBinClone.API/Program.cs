@@ -1,5 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using PasteBinClone.Application.Interfaces;
+using PasteBinClone.Domain.Models;
 using PasteBinClone.Persistence.Data;
+using PasteBinClone.Persistence.Repository;
+using AutoMapper;
+using System.Reflection;
+using PasteBinClone.Application.Services;
+using PasteBinClone.Application.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +16,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(MappingConfiguration).Assembly);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(
