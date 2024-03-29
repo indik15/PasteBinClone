@@ -18,6 +18,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(MappingConfiguration).Assembly);
 
+builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<ICategoryServices, CategoryServices>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
