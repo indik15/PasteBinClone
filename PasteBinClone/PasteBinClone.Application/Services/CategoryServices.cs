@@ -2,6 +2,7 @@
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +28,48 @@ namespace PasteBinClone.Application.Services
         {
             Category category1 = _mapper.Map<Category>(category);
 
-            return await _categoryRepository.Create(category1);
+            int? result = await _categoryRepository.Create(category1);
+
+            if(result != 0 && result != null)
+            {
+                Log.Information("Object {@i} created successfully.", result);
+
+                return true;
+            }
+            else
+            {
+                Log.Error("Error creating object.");
+
+                return false;
+            }
         }
 
         public async Task<bool> DeleteCategory(int id)
         {
-            return await _categoryRepository.Delete(id);
+            int? result = await _categoryRepository.Delete(id);
+
+            if (result != 0 && result != null)
+            {
+                Log.Information("Object {@i} successfully deleted.", result);
+
+                return true;
+            }
+            else
+            {
+                Log.Error("Object deletion error.");
+
+                return false;
+            }
         }
 
         public async Task<IEnumerable<CategoryDto>> GetAllCategory()
         {
             IEnumerable<Category> categories = await _categoryRepository.Get();
+
+            if (categories.Count() == 0)
+            {
+                Log.Information("Object not found.");
+            }
 
             return _mapper.Map<IEnumerable<CategoryDto>>(categories);
         }
@@ -46,6 +78,10 @@ namespace PasteBinClone.Application.Services
         {
             Category category = await _categoryRepository.GetById(id);
 
+            if(category == null)
+            {
+                Log.Information("Object not found.");
+            }
             return _mapper.Map<CategoryDto>(category);
         }
 
@@ -53,7 +89,20 @@ namespace PasteBinClone.Application.Services
         {
             Category category = _mapper.Map<Category>(categoryDto);
 
-            return await _categoryRepository.Update(category);
+            int? result = await _categoryRepository.Update(category);
+
+            if (result != 0 && result != null)
+            {
+                Log.Information("Object {@i} updated.", result);
+
+                return true;
+            }
+            else
+            {
+                Log.Error("Object update error.");
+
+                return false;
+            }
         }
     }
 }
