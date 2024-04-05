@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
+using Microsoft.AspNetCore.Mvc;
+using PasteBinClone.Web.Interfaces;
+using PasteBinClone.Web.Models.ViewModel;
 
 namespace PasteBinClone.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        public IActionResult Index()
+        private readonly IBaseService _categoryService;
+
+        public CategoryController(IBaseService baseService)
         {
-            return View();
+            _categoryService = baseService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<CategoryVM> categoryVM = await _categoryService.GetAll<CategoryVM>();
+
+            return View(categoryVM);
         }
     }
 }
