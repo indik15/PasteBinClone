@@ -29,6 +29,12 @@ body {
     font-style: normal;
 }
 
+.playfair-display{
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
 
 /*=========================== HEADER ===========================*/
 
@@ -468,4 +474,45 @@ body {
     font-size: 18px;
     font-family: 'Playfair Display', sans-serif;
     max-height: 20px;
+}
+
+/*=========================== Filter Index ===========================*/
+
+.table-filter{
+    width:75%;
+}
+
+.create-back-btn {
+    height: 37px;
+    width: 90px;
+    background-color: #cee5df;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    border-radius: 7px;
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+}
+
+.method-btn {
+    height: 37px;
+    width: 112px;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+}
+
+.method-btn_create {
+    background-color: #10c7f8;
+}
+
+.category-edit-btn{
+    min-width: 35px;
+}
+
+.method-btn_delete {
+    background-color: #ff5e5e;
 }
