@@ -20,7 +20,7 @@ namespace PasteBinClone.Web.Services
             await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.DELETE,
-                Url = Settings.WebApiBase + "api/filter" + id
+                Url = Settings.WebApiBase + "api/filter/" + id
             });
         }
 
@@ -38,7 +38,7 @@ namespace PasteBinClone.Web.Services
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
-                Url = Settings.WebApiBase + "api/filter" + id
+                Url = Settings.WebApiBase + "api/filter/" + id
             });
         }
 
