@@ -24,12 +24,15 @@
 
                 <div class="position-absolute top-50 end-0 translate-middle-y me-3">
                     <div class="navbar-nav ms-auto">
-                        <select class="form-select navbar__button-admin nav-item" aria-label="Default select example">
-                            <option selected>Admin menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <div class="navbar__button-admin nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" style="color:#7D7D7D;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin menu
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a></li>
+                            </ul>
+                        </div>
                         <button class="btn navbar__button navbar__button-login" type="submit">LOG IN</button>
                         <button class="btn btn-outline-secondary navbar__button navbar__button-signup" type="submit">SIGN UP</button>
                     </div>
