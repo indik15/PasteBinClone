@@ -66,11 +66,8 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResponseAPI>> Post([FromBody] CategoryVM categoryVM)
+        public async Task<ActionResult<ResponseAPI>> Post([FromBody] CategoryDto categoryDto)
         {
-
-            CategoryDto categoryDto = _mapper.Map<CategoryDto>(categoryVM);
-
             bool result = await _categoryServices.CreateCategory(categoryDto);
 
             if (!result)
@@ -86,10 +83,8 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ResponseAPI>> Put([FromBody] CategoryVM categoryVM)
+        public async Task<ActionResult<ResponseAPI>> Put([FromBody] CategoryDto categoryDto)
         {
-            CategoryDto categoryDto = _mapper.Map<CategoryDto>(categoryVM);
-
             bool result = await _categoryServices.UpdateCategory(categoryDto);
 
             if (!result)
