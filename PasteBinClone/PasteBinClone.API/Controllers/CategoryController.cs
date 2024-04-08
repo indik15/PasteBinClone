@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PasteBinClone.API.Response;
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Application.ViewModels;
@@ -13,51 +14,106 @@ namespace PasteBinClone.API.Controllers
 
         private readonly ICategoryServices _categoryServices;
         private readonly IMapper _mapper;
+        private ResponseAPI _response;
 
         public CategoryController(ICategoryServices categoryServices, IMapper mapper)
         {
             _categoryServices = categoryServices;
             _mapper = mapper;
+            _response = new();
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryVM>>> GetAll()
+        public async Task<ActionResult<ResponseAPI>> GetAll()
         {
-           IEnumerable<CategoryDto> categoryDtoList = await _categoryServices.GetAllCategory();
-           
-           return Ok(_mapper.Map<IEnumerable<CategoryVM>>(categoryDtoList));
+            IEnumerable<CategoryDto> categoryDtoList = await _categoryServices.GetAllCategory();
+
+            if (categoryDtoList == null)
+            {
+                _response.IsSuccess = false;
+
+                return NotFound(_response);
+            }
+            else
+            {
+                var categoryVM = _mapper.Map<IEnumerable<CategoryVM>>(categoryDtoList);
+                _response.Data = categoryVM;
+
+                return Ok(_response);
+            }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryVM>> Get(int id)
+        public async Task<ActionResult<ResponseAPI>> Get(int id)
         {
             CategoryDto categoryDto = await _categoryServices.GetCategoryByID(id);
 
-            return Ok(_mapper.Map<CategoryVM>(categoryDto));
+
+            if (categoryDto == null)
+            {
+                _response.IsSuccess = false;
+
+                return NotFound(_response);
+            }
+            else
+            {
+                var categoryVM = _mapper.Map<CategoryVM>(categoryDto);
+                _response.Data = categoryVM;
+
+                return Ok(_response);
+            }
+
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CategoryDto categoryDto)
+        public async Task<ActionResult<ResponseAPI>> Post([FromBody] CategoryDto categoryDto)
         {
-            await _categoryServices.CreateCategory(categoryDto);
+            bool result = await _categoryServices.CreateCategory(categoryDto);
 
-            return Ok();
+            if (!result)
+            {
+                _response.IsSuccess = false;
+
+                return NotFound(_response);
+            }
+            else
+            {
+                return Ok(_response);
+            }
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] CategoryDto categoryDto)
+        public async Task<ActionResult<ResponseAPI>> Put([FromBody] CategoryDto categoryDto)
         {
-            await _categoryServices.UpdateCategory(categoryDto);
+            bool result = await _categoryServices.UpdateCategory(categoryDto);
 
-            return Ok();
+            if (!result)
+            {
+                _response.IsSuccess = false;
+
+                return NotFound(_response);
+            }
+            else
+            {
+                return Ok(_response);
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult<ResponseAPI>> Delete(int id)
         {
-            await _categoryServices.DeleteCategory(id);
+            bool result = await _categoryServices.DeleteCategory(id);
 
-            return Ok();
+            if (!result)
+            {
+                _response.IsSuccess = false;
+
+                return NotFound(_response);
+            }
+            else
+            {
+                return Ok(_response);
+            }
         }
 
     }
