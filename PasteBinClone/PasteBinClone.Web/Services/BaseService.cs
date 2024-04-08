@@ -15,18 +15,18 @@ namespace PasteBinClone.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task Delete<T>(int id)
+        public async Task<T> Delete<T>(int id)
         {
-            await Send<T>(new ApiRequest()
+            return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.DELETE,
                 Url = Settings.WebApiBase + "api/filter/" + id
             });
         }
 
-        public async Task<IEnumerable<T>> GetAll<T>()
+        public async Task<T> GetAll<T>()
         {
-            return await Send<IEnumerable<T>>(new ApiRequest()
+            return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
                 Url = Settings.WebApiBase + "api/filter"
@@ -42,9 +42,9 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task Post<T>(T categoryVM)
+        public async Task<T> Post<T>(object categoryVM)
         {
-            await Send<T>(new ApiRequest()
+            return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.POST,
                 Data = categoryVM,
@@ -52,9 +52,9 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task Put<T>(T categoryVM)
+        public async Task<T> Put<T>(object categoryVM)
         {
-            await Send<T>(new ApiRequest()
+            return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.PUT,
                 Data = categoryVM,
