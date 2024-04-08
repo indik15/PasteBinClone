@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PasteBinClone.Web.Interfaces;
+using PasteBinClone.Web.Models;
 using PasteBinClone.Web.Models.ViewModel;
 
 namespace PasteBinClone.Web.Controllers
@@ -15,9 +16,18 @@ namespace PasteBinClone.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<CategoryVM> categoryVM = await _categoryService.GetAll<CategoryVM>();
+            var response = await _categoryService.GetAll<ResponseAPI<IEnumerable<CategoryVM>>>();
 
-            return View(categoryVM);
+            if(response != null && response.IsSuccess == true)
+            {
+                IEnumerable<CategoryVM> categoryVM = response.Data;
+
+                return View(categoryVM);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         //Get-Create
@@ -31,20 +41,27 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryVM categoryVM)
         {
-            await _categoryService.Post<CategoryVM>(categoryVM);
+            var response = await _categoryService.Post<ResponseAPI<CategoryVM>>(categoryVM);
 
-            return RedirectToAction(nameof(Index));
+            if(response.IsSuccess == true)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         //Get-Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var result = await _categoryService.GetById<CategoryVM>(id);
+            var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id);
 
-            if(result != null)
+            if(response != null && response.IsSuccess == true)
             {
-                return View(result);
+                return View(response.Data);
             }
             else
             {
@@ -57,20 +74,27 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryVM categoryVM)
         {
-            await _categoryService.Put<CategoryVM>(categoryVM);
+            var response = await _categoryService.Put<ResponseAPI<CategoryVM>>(categoryVM);
 
-            return RedirectToAction(nameof(Index));
+            if (response.IsSuccess == true)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         //Get-Delete
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _categoryService.GetById<CategoryVM>(id);
+            var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id);
 
-            if (result != null)
+            if (response != null && response.IsSuccess == true)
             {
-                return View(result);
+                return View(response.Data);
             }
             else
             {
@@ -80,11 +104,18 @@ namespace PasteBinClone.Web.Controllers
 
         //Post-Delete
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int id)
+        public async Task<IActionResult> DeletePost(int id)
         {
-            _categoryService.Delete<CategoryVM>(id);
+            var response = await _categoryService.Delete<ResponseAPI<CategoryVM>>(id);
 
-            return RedirectToAction(nameof(Index));
+            if (response != null && response.IsSuccess == true)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
