@@ -39,9 +39,7 @@ namespace PasteBinClone.API.Controllers
 
                 if (categoryDtoList == null)
                 {
-                    _response.IsSuccess = false;
-
-                    return NotFound(_response);
+                    return NotFound();
                 }
                 else
                 {
@@ -54,9 +52,8 @@ namespace PasteBinClone.API.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, "An error occurred while processing GetAll() request.");
-                _response.IsSuccess = false;
 
-                return NotFound(_response);
+                return NotFound();
             }
         }
 
@@ -70,9 +67,7 @@ namespace PasteBinClone.API.Controllers
 
                 if (categoryDto == null)
                 {
-                    _response.IsSuccess = false;
-
-                    return NotFound(_response);
+                    return NotFound();
                 }
                 else
                 {
@@ -85,9 +80,8 @@ namespace PasteBinClone.API.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, "An error occurred while processing GetCategoryByID() request.");
-                _response.IsSuccess = false;
 
-                return NotFound(_response);
+                return NotFound();
             }
 
         }
@@ -101,18 +95,14 @@ namespace PasteBinClone.API.Controllers
 
                 if (!valid.IsValid)
                 {
-                    _response.IsSuccess = false;
-
-                    return NotFound(_response);
+                    return ValidationProblem();
                 }
 
                 bool result = await _categoryServices.CreateCategory(categoryDto);
 
                 if (!result)
                 {
-                    _response.IsSuccess = false;
-
-                    return NotFound(_response);
+                    return NotFound();
                 }
                 else
                 {
@@ -123,9 +113,8 @@ namespace PasteBinClone.API.Controllers
             {
 
                 Log.Error(ex, "An error occurred while processing Post() request.");
-                _response.IsSuccess = false;
 
-                return NotFound(_response);
+                return NotFound();
             }
         }
 
@@ -138,18 +127,14 @@ namespace PasteBinClone.API.Controllers
 
                 if (!valid.IsValid)
                 {
-                    _response.IsSuccess = false;
-
-                    return NotFound(_response);
+                    return ValidationProblem();
                 }
 
                 bool result = await _categoryServices.UpdateCategory(categoryDto);
 
                 if (!result)
                 {
-                    _response.IsSuccess = false;
-
-                    return NotFound(_response);
+                    return NotFound();
                 }
                 else
                 {
@@ -159,9 +144,8 @@ namespace PasteBinClone.API.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, "An error occurred while processing Put() request.");
-                _response.IsSuccess = false;
 
-                return NotFound(_response);
+                return NotFound();
             }
         }
 
@@ -174,9 +158,7 @@ namespace PasteBinClone.API.Controllers
 
                 if (!result)
                 {
-                    _response.IsSuccess = false;
-
-                    return NotFound(_response);
+                    return NotFound();
                 }
                 else
                 {
@@ -186,9 +168,8 @@ namespace PasteBinClone.API.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, "An error occurred while processing Delete() request.");
-                _response.IsSuccess = false;
 
-                return NotFound(_response);
+                return NotFound();
             }
         }
 
