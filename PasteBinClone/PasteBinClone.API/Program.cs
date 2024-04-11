@@ -8,19 +8,23 @@ using System.Reflection;
 using PasteBinClone.Application.Services;
 using PasteBinClone.Application.Mappings;
 using Serilog;
+using FluentValidation;
+using PasteBinClone.Application.Dto;
+using PasteBinClone.Application.Dto.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(MappingConfiguration).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
+builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(
@@ -34,7 +38,6 @@ Log.Logger = new LoggerConfiguration()
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
