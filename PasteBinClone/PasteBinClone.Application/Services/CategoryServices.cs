@@ -80,7 +80,7 @@ namespace PasteBinClone.Application.Services
 
             if(category == null)
             {
-                Log.Information("Object not found.");
+                Log.Information("Object {@i} not found.", id);
             }
             return _mapper.Map<CategoryDto>(category);
         }
