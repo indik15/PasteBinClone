@@ -1,6 +1,12 @@
-﻿namespace PasteBinClone.Web.Models.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PasteBinClone.Web.Models.ViewModel
 {
-    public record CategoryVM(
-    int id,
-    string CategoryName);
+    public class CategoryVM
+    {
+        public int id { get; set; }
+
+        [Required (ErrorMessage = "The Category field name is required.")]
+        public string CategoryName { get; set; }
+    }
 }
