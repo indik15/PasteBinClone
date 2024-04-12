@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Application.Services
 {
-    public class CategoryServices : ICategoryServices
+    public class CategoryService : ICategoryService
     {
 
         private readonly IBaseRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
 
 
-        public CategoryServices(IBaseRepository<Category> categoryRepository, IMapper mapper)
+        public CategoryService(IBaseRepository<Category> categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;

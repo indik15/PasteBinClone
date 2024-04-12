@@ -23,7 +23,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(MappingConfigura
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
-builder.Services.AddScoped<ICategoryServices, CategoryServices>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

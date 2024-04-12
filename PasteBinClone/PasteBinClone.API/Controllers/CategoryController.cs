@@ -15,16 +15,16 @@ namespace PasteBinClone.API.Controllers
     public class CategoryController : ControllerBase
     {
 
-        private readonly ICategoryServices _categoryServices;
+        private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
         private readonly IValidator<CategoryDto> _validator;
         private ResponseAPI _response;
 
-        public CategoryController(ICategoryServices categoryServices,
+        public CategoryController(ICategoryService categoryService,
             IMapper mapper,
             IValidator<CategoryDto> validator)
         {
-            _categoryServices = categoryServices;
+            _categoryService = categoryService;
             _mapper = mapper;
             _validator = validator;
             _response = new();
@@ -35,7 +35,7 @@ namespace PasteBinClone.API.Controllers
         {
             try
             {
-                IEnumerable<CategoryDto> categoryDtoList = await _categoryServices.GetAllCategory();
+                IEnumerable<CategoryDto> categoryDtoList = await _categoryService.GetAllCategory();
 
                 if (categoryDtoList == null)
                 {
@@ -51,7 +51,7 @@ namespace PasteBinClone.API.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An error occurred while processing GetAll() request.");
+                Log.Error(ex, "An error occurred while processing the request.");
 
                 return NotFound();
             }
@@ -62,7 +62,7 @@ namespace PasteBinClone.API.Controllers
         {
             try
             {
-                CategoryDto categoryDto = await _categoryServices.GetCategoryByID(id);
+                CategoryDto categoryDto = await _categoryService.GetCategoryByID(id);
 
 
                 if (categoryDto == null)
@@ -79,7 +79,7 @@ namespace PasteBinClone.API.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An error occurred while processing GetCategoryByID() request.");
+                Log.Error(ex, "An error occurred while processing the request.");
 
                 return NotFound();
             }
@@ -98,7 +98,7 @@ namespace PasteBinClone.API.Controllers
                     return ValidationProblem();
                 }
 
-                bool result = await _categoryServices.CreateCategory(categoryDto);
+                bool result = await _categoryService.CreateCategory(categoryDto);
 
                 if (!result)
                 {
@@ -112,7 +112,7 @@ namespace PasteBinClone.API.Controllers
             catch (Exception ex)
             {
 
-                Log.Error(ex, "An error occurred while processing Post() request.");
+                Log.Error(ex, "An error occurred while processing the request.");
 
                 return NotFound();
             }
@@ -130,7 +130,7 @@ namespace PasteBinClone.API.Controllers
                     return ValidationProblem();
                 }
 
-                bool result = await _categoryServices.UpdateCategory(categoryDto);
+                bool result = await _categoryService.UpdateCategory(categoryDto);
 
                 if (!result)
                 {
@@ -143,7 +143,7 @@ namespace PasteBinClone.API.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An error occurred while processing Put() request.");
+                Log.Error(ex, "An error occurred while processing the request.");
 
                 return NotFound();
             }
@@ -154,7 +154,7 @@ namespace PasteBinClone.API.Controllers
         {
             try
             {
-                bool result = await _categoryServices.DeleteCategory(id);
+                bool result = await _categoryService.DeleteCategory(id);
 
                 if (!result)
                 {
@@ -167,7 +167,7 @@ namespace PasteBinClone.API.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An error occurred while processing Delete() request.");
+                Log.Error(ex, "An error occurred while processing the request.");
 
                 return NotFound();
             }

@@ -2,7 +2,7 @@
 
 namespace PasteBinClone.Application.Interfaces
 {
-    public interface ICategoryServices
+    public interface ICategoryService
     {
         Task<CategoryDto> GetCategoryByID(int id);
         Task<IEnumerable<CategoryDto>> GetAllCategory();
