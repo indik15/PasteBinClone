@@ -33,55 +33,36 @@ namespace PasteBinClone.API.Controllers
         [HttpGet]
         public async Task<ActionResult<ResponseAPI>> GetAll()
         {
-            try
+            IEnumerable<CategoryDto> categoryDtoList = await _categoryService.GetAllCategory();
+
+            if (categoryDtoList == null)
             {
-                IEnumerable<CategoryDto> categoryDtoList = await _categoryService.GetAllCategory();
-
-                if (categoryDtoList == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    var categoryVM = _mapper.Map<IEnumerable<CategoryVM>>(categoryDtoList);
-                    _response.Data = categoryVM;
-
-                    return Ok(_response);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "An error occurred while processing the request.");
-
                 return NotFound();
+            }
+            else
+            {
+                var categoryVM = _mapper.Map<IEnumerable<CategoryVM>>(categoryDtoList);
+                _response.Data = categoryVM;
+
+                return Ok(_response);
             }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ResponseAPI>> Get(int id)
         {
-            try
+            CategoryDto categoryDto = await _categoryService.GetCategoryByID(id);
+
+            if (categoryDto == null)
             {
-                CategoryDto categoryDto = await _categoryService.GetCategoryByID(id);
-
-
-                if (categoryDto == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    var categoryVM = _mapper.Map<CategoryVM>(categoryDto);
-                    _response.Data = categoryVM;
-
-                    return Ok(_response);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "An error occurred while processing the request.");
-
                 return NotFound();
+            }
+            else
+            {
+                var categoryVM = _mapper.Map<CategoryVM>(categoryDto);
+                _response.Data = categoryVM;
+
+                return Ok(_response);
             }
 
         }
@@ -89,87 +70,59 @@ namespace PasteBinClone.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResponseAPI>> Post([FromBody] CategoryDto categoryDto)
         {
-            try
+            var valid = _validator.Validate(categoryDto);
+
+            if (!valid.IsValid)
             {
-                var valid = _validator.Validate(categoryDto);
-
-                if (!valid.IsValid)
-                {
-                    return ValidationProblem();
-                }
-
-                bool result = await _categoryService.CreateCategory(categoryDto);
-
-                if (!result)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(_response);
-                }
+                return ValidationProblem();
             }
-            catch (Exception ex)
+
+            bool result = await _categoryService.CreateCategory(categoryDto);
+
+            if (!result)
             {
-
-                Log.Error(ex, "An error occurred while processing the request.");
-
                 return NotFound();
+            }
+            else
+            {
+                return Ok(_response);
             }
         }
 
         [HttpPut]
         public async Task<ActionResult<ResponseAPI>> Put([FromBody] CategoryDto categoryDto)
         {
-            try
+            var valid = _validator.Validate(categoryDto);
+
+            if (!valid.IsValid)
             {
-                var valid = _validator.Validate(categoryDto);
-
-                if (!valid.IsValid)
-                {
-                    return ValidationProblem();
-                }
-
-                bool result = await _categoryService.UpdateCategory(categoryDto);
-
-                if (!result)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(_response);
-                }
+                return ValidationProblem();
             }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "An error occurred while processing the request.");
 
+            bool result = await _categoryService.UpdateCategory(categoryDto);
+
+            if (!result)
+            {
                 return NotFound();
+            }
+            else
+            {
+                return Ok(_response);
             }
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ResponseAPI>> Delete(int id)
         {
-            try
-            {
-                bool result = await _categoryService.DeleteCategory(id);
+            bool result = await _categoryService.DeleteCategory(id);
 
-                if (!result)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(_response);
-                }
-            }
-            catch (Exception ex)
+            if (!result)
             {
-                Log.Error(ex, "An error occurred while processing the request.");
-
                 return NotFound();
+            }
+            else
+            {
+                return Ok(_response);
             }
         }
 
