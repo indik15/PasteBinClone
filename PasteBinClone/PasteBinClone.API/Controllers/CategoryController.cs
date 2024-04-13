@@ -33,6 +33,8 @@ namespace PasteBinClone.API.Controllers
         [HttpGet]
         public async Task<ActionResult<ResponseAPI>> GetAll()
         {
+            Log.Information("Request to receive all objects");
+
             IEnumerable<CategoryDto> categoryDtoList = await _categoryService.GetAllCategory();
 
             if (categoryDtoList == null)
@@ -51,6 +53,8 @@ namespace PasteBinClone.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ResponseAPI>> Get(int id)
         {
+            Log.Information("Request to receive object by id: {@id}", id);
+
             CategoryDto categoryDto = await _categoryService.GetCategoryByID(id);
 
             if (categoryDto == null)
@@ -70,6 +74,8 @@ namespace PasteBinClone.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResponseAPI>> Post([FromBody] CategoryDto categoryDto)
         {
+            Log.Information("Request to create an object");
+
             var valid = _validator.Validate(categoryDto);
 
             if (!valid.IsValid)
@@ -92,6 +98,8 @@ namespace PasteBinClone.API.Controllers
         [HttpPut]
         public async Task<ActionResult<ResponseAPI>> Put([FromBody] CategoryDto categoryDto)
         {
+            Log.Information("Request to edit an object with id: {@id}", categoryDto.Id);
+
             var valid = _validator.Validate(categoryDto);
 
             if (!valid.IsValid)
@@ -114,6 +122,8 @@ namespace PasteBinClone.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<ResponseAPI>> Delete(int id)
         {
+            Log.Information("Request to delete an object with id: {@id}", id);
+
             bool result = await _categoryService.DeleteCategory(id);
 
             if (!result)

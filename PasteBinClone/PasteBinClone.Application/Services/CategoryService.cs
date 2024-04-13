@@ -62,25 +62,32 @@ namespace PasteBinClone.Application.Services
             }
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetAllCategory()
+        public async Task<IEnumerable<CategoryDto>?> GetAllCategory()
         {
             IEnumerable<Category> categories = await _categoryRepository.Get();
 
             if (categories.Count() == 0)
             {
                 Log.Information("Object not found.");
+
+                return null;
             }
+
+            Log.Information("Received objects: {@Count}", categories.Count());
 
             return _mapper.Map<IEnumerable<CategoryDto>>(categories);
         }
 
-        public async Task<CategoryDto> GetCategoryByID(int id)
+        public async Task<CategoryDto?> GetCategoryByID(int id)
         {
             Category category = await _categoryRepository.GetById(id);
 
+            category = null;
             if(category == null)
             {
                 Log.Information("Object {@i} not found.", id);
+
+                return null;
             }
             return _mapper.Map<CategoryDto>(category);
         }
