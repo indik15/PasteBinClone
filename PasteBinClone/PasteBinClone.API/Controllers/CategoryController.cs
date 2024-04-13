@@ -11,7 +11,7 @@ using System.Reflection;
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
-    [Route("api/filter")]
+    [Route("api/filter/category")]
     public class CategoryController : ControllerBase
     {
 
