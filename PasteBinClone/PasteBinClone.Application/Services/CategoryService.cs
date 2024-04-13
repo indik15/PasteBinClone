@@ -82,7 +82,6 @@ namespace PasteBinClone.Application.Services
         {
             Category category = await _categoryRepository.GetById(id);
 
-            category = null;
             if(category == null)
             {
                 Log.Information("Object {@i} not found.", id);
