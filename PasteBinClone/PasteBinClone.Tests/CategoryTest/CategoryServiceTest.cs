@@ -10,7 +10,7 @@ namespace PasteBinClone.Tests.CategoryTest
     public class CategoryServiceTest
     {
         private readonly Mock<IBaseRepository<Category>> _baseRepositoryMock;
-        private Mock<IMapper> _mapperMock;
+        private readonly Mock<IMapper> _mapperMock;
 
         public CategoryServiceTest()
         {
@@ -77,7 +77,57 @@ namespace PasteBinClone.Tests.CategoryTest
             //Assert
             Assert.Null(categoryServiceResult);
         }
-        #endregion       
+        #endregion
+
+        #region GetCategoryById
+
+        [Fact]
+        public async Task GetCategoryById_Result_Success()
+        {
+            //Arrange
+            var testCategory = new Category { Id = 1, CategoryName = "Test1" };
+            int testUserId = 1;
+
+            _baseRepositoryMock.Setup(u => u.GetById(testUserId))
+                .ReturnsAsync(testCategory);
+
+            _mapperMock.Setup(m => m.Map<CategoryDto>(testCategory))
+                .Returns(new CategoryDto
+                {
+                    Id = 1,
+                    CategoryName = "Test1"
+                });
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.GetCategoryByID(testUserId);
+
+            //Assert
+            Assert.IsType<CategoryDto>(categoryServiceResult);
+            Assert.Equal(testCategory.Id, categoryServiceResult.Id);
+        }
+
+        [Fact]
+        public async Task GetCategoryById_NotFound()
+        {
+            //Arrange
+            Category categoryTest = null;
+            int testUserId = 1;
+
+            _baseRepositoryMock.Setup(u => u.GetById(testUserId))
+                .ReturnsAsync(categoryTest);
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.GetCategoryByID(testUserId);
+
+            //Assert
+            Assert.Null(categoryServiceResult);
+
+        }
+        #endregion
 
         private IEnumerable<Category> CreateTestCategories()
         {
