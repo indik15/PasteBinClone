@@ -16,7 +16,6 @@ namespace PasteBinClone.Persistence.Repository
 
         public async Task Create(Category obj)
         {
-            throw new Exception();
             _db.Add(obj);
             await _db.SaveChangesAsync();
         }
