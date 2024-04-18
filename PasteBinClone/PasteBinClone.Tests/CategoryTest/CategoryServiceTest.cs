@@ -86,9 +86,9 @@ namespace PasteBinClone.Tests.CategoryTest
         {
             //Arrange
             var testCategory = new Category { Id = 1, CategoryName = "Test1" };
-            int testUserId = 1;
+            int testId = 1;
 
-            _baseRepositoryMock.Setup(u => u.GetById(testUserId))
+            _baseRepositoryMock.Setup(u => u.GetById(testId))
                 .ReturnsAsync(testCategory);
 
             _mapperMock.Setup(m => m.Map<CategoryDto>(testCategory))
@@ -101,7 +101,7 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
 
             //Act
-            var categoryServiceResult = await categoryService.GetCategoryByID(testUserId);
+            var categoryServiceResult = await categoryService.GetCategoryByID(testId);
 
             //Assert
             Assert.IsType<CategoryDto>(categoryServiceResult);
@@ -126,6 +126,132 @@ namespace PasteBinClone.Tests.CategoryTest
             //Assert
             Assert.Null(categoryServiceResult);
 
+        }
+        #endregion      
+
+        #region UpdateCategoryTest
+
+        [Fact]
+        public async Task UpdateCategory_Success()
+        {
+            //Arrange
+            CategoryDto categoryDtoTest = new CategoryDto { Id = 1, CategoryName = "Test1" };
+            Category categoryTest = new Category { Id = 1, CategoryName = "Test1" };
+
+            _baseRepositoryMock.Setup(u => u.Update(categoryTest))
+                .ReturnsAsync(categoryTest.Id);
+
+            _mapperMock.Setup(m => m.Map<Category>(categoryDtoTest))
+                .Returns(categoryTest);
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.UpdateCategory(categoryDtoTest);
+
+            //Assert
+            Assert.True(categoryServiceResult);
+        }
+
+        [Fact]
+        public async Task UpdateCategory_With_Zero_Response_From_Update_Method()
+        {
+            //Arrange
+            CategoryDto categoryDtoTest = new CategoryDto { Id = 1, CategoryName = "Test1" };
+            Category categoryTest = new Category { Id = 1, CategoryName = "Test1" };
+            int failResult = 0;
+
+            _baseRepositoryMock.Setup(m => m.Update(categoryTest))
+                .ReturnsAsync(failResult);
+            _mapperMock.Setup(m => m.Map<Category>(categoryDtoTest))
+                .Returns(categoryTest);
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.UpdateCategory(categoryDtoTest);
+
+            //Assert
+            Assert.False(categoryServiceResult);
+        }
+
+        [Fact]
+        public async Task UpdateCategory_With_Null_Response_From_Update_Method()
+        {
+            //Arrange
+            CategoryDto categoryDtoTest = new CategoryDto { Id = 1, CategoryName = "Test1" };
+            Category categoryTest = new Category { Id = 1, CategoryName = "Test1" };
+
+            _baseRepositoryMock.Setup(u => u.Update(categoryTest))
+                .ReturnsAsync((int?)null);
+            _mapperMock.Setup(m => m.Map<Category>(categoryDtoTest))
+                .Returns(categoryTest);
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.UpdateCategory(categoryDtoTest);
+
+            //Assert
+            Assert.False(categoryServiceResult);
+
+        }
+        #endregion
+
+        #region DeleteCategoryTest
+        [Fact]
+        public async Task DeleteCategory_Success()
+        {
+            //Arrange
+            int testId = 1;
+
+            _baseRepositoryMock.Setup(u => u.Delete(testId))
+                .ReturnsAsync(testId);
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.DeleteCategory(testId);
+
+            //Assert
+            Assert.True(categoryServiceResult);
+        }
+
+        [Fact]
+        public async Task DeleteCategory_With_Zero_Response_From_Delete_Method()
+        {
+            //Arrange
+            int testId = 1;
+            int failResponse = 0;
+
+            _baseRepositoryMock.Setup(m => m.Delete(testId))
+                .ReturnsAsync(failResponse);
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.DeleteCategory(testId);
+
+            //Assert
+            Assert.False(categoryServiceResult);
+        }
+
+        [Fact]
+        public async Task DeleteCategory_With_Null_Response_From_Delete_Method()
+        {
+            //Arrange
+            int testId = 1;
+
+            _baseRepositoryMock.Setup(u => u.Delete(testId))
+                .ReturnsAsync((int?)null);
+
+            var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var categoryServiceResult = await categoryService.DeleteCategory(testId);
+
+            //Assert
+            Assert.False(categoryServiceResult);
         }
         #endregion
 
