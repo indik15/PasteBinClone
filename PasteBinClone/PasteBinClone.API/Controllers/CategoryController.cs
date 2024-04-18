@@ -83,16 +83,9 @@ namespace PasteBinClone.API.Controllers
                 return ValidationProblem();
             }
 
-            bool result = await _categoryService.CreateCategory(categoryDto);
+            await _categoryService.CreateCategory(categoryDto);
 
-            if (!result)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(_response);
-            }
+            return Ok(_response);
         }
 
         [HttpPut]

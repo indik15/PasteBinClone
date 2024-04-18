@@ -24,41 +24,30 @@ namespace PasteBinClone.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> CreateCategory(CategoryDto category)
+        public async Task CreateCategory(CategoryDto category)
         {
             Category category1 = _mapper.Map<Category>(category);
 
-            int? result = await _categoryRepository.Create(category1);
+            await _categoryRepository.Create(category1);
 
-            if(result != 0 && result != null)
-            {
-                Log.Information("Object {@i} created successfully.", result);
-
-                return true;
-            }
-            else
-            {
-                Log.Error("Error creating object.");
-
-                return false;
-            }
+            Log.Information("Object {@i} created successfully.", category1.Id);
         }
 
         public async Task<bool> DeleteCategory(int id)
         {
             int? result = await _categoryRepository.Delete(id);
 
-            if (result != 0 && result != null)
-            {
-                Log.Information("Object {@i} successfully deleted.", result);
-
-                return true;
-            }
-            else
+            if (result == 0 || result == null)
             {
                 Log.Error("Object deletion error.");
 
                 return false;
+            }
+            else
+            {
+                Log.Information("Object {@i} successfully deleted.", result);
+
+                return true;
             }
         }
 
@@ -97,17 +86,17 @@ namespace PasteBinClone.Application.Services
 
             int? result = await _categoryRepository.Update(category);
 
-            if (result != 0 && result != null)
-            {
-                Log.Information("Object {@i} updated.", result);
-
-                return true;
-            }
-            else
+            if (result == 0 || result == null)
             {
                 Log.Error("Object update error.");
 
                 return false;
+            }
+            else
+            {
+                Log.Information("Object {@i} updated.", result);
+
+                return true;               
             }
         }
     }

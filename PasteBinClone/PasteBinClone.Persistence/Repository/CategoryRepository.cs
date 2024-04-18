@@ -14,12 +14,11 @@ namespace PasteBinClone.Persistence.Repository
             _db = db;     
         }
 
-        public async Task<int> Create(Category obj)
+        public async Task Create(Category obj)
         {
+            throw new Exception();
             _db.Add(obj);
             await _db.SaveChangesAsync();
-
-            return obj.Id;
         }
 
         public async Task<int?> Delete(int id)
