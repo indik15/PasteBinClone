@@ -28,6 +28,8 @@ namespace PasteBinClone.Persistence.Repository
 
             if(obj != null)
             {
+                _db.Entry(obj).State = EntityState.Deleted; 
+
                 _db.Categories.Remove(obj);
                 await _db.SaveChangesAsync();
 
@@ -55,11 +57,12 @@ namespace PasteBinClone.Persistence.Repository
         public async Task<int?> Update(Category obj)
         {
             var category = await _db.Categories
-                .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == obj.Id);
 
             if(category != null)
             {
+                _db.Entry(category).State = EntityState.Detached;
+
                 _db.Categories.Update(obj);
                 await _db.SaveChangesAsync();
 
