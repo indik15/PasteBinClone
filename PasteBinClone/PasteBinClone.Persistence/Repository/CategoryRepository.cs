@@ -23,7 +23,6 @@ namespace PasteBinClone.Persistence.Repository
         public async Task<int?> Delete(int id)
         {
             var obj = await _db.Categories
-                .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if(obj != null)
