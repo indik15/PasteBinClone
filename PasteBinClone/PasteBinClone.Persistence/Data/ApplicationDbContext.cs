@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
 using PasteBinClone.Persistence.EntityConfiguration;
 
 namespace PasteBinClone.Persistence.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
