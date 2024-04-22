@@ -7,16 +7,16 @@ namespace PasteBinClone.Persistence.Repository
 {
     public class CategoryRepository : IBaseRepository<Category>
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IApplicationDbContext _db;
 
-        public CategoryRepository(ApplicationDbContext db)
+        public CategoryRepository(IApplicationDbContext db)
         {
             _db = db;     
         }
 
         public async Task Create(Category obj)
         {
-            _db.Add(obj);
+            _db.Categories.Add(obj);
             await _db.SaveChangesAsync();
         }
 
@@ -27,7 +27,7 @@ namespace PasteBinClone.Persistence.Repository
 
             if(obj != null)
             {
-                _db.Entry(obj).State = EntityState.Deleted; 
+                _db.Categories.Entry(obj).State = EntityState.Deleted; 
 
                 _db.Categories.Remove(obj);
                 await _db.SaveChangesAsync();
@@ -60,7 +60,7 @@ namespace PasteBinClone.Persistence.Repository
 
             if(category != null)
             {
-                _db.Entry(category).State = EntityState.Detached;
+                _db.Categories.Entry(category).State = EntityState.Detached;
 
                 _db.Categories.Update(obj);
                 await _db.SaveChangesAsync();

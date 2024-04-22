@@ -11,6 +11,6 @@ namespace PasteBinClone.Application.Interfaces
     public interface IApplicationDbContext
     {
         DbSet<Category> Categories { get; }
-        Task<int> SaveChangesAsync(CancellationToken cancellation);
+        Task<int> SaveChangesAsync(CancellationToken cancellation = default);
     }
 }
