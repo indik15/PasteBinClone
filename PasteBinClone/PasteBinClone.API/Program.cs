@@ -26,7 +26,10 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<IBaseRepository<ContentType>, ContentTypeRepository>();
+
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
