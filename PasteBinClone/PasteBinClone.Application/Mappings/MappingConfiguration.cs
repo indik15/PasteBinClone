@@ -16,6 +16,8 @@ namespace PasteBinClone.Application.Mappings
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<CategoryDto, CategoryVM>().ReverseMap();
+
+            CreateMap<ContentType, ContentTypeDto>().ReverseMap();
         }
     }
 }
