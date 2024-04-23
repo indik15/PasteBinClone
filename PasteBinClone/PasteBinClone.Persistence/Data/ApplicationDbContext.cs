@@ -14,10 +14,12 @@ namespace PasteBinClone.Persistence.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ContentType> ContentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ContentTypeConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
