@@ -35,6 +35,7 @@ namespace PasteBinClone.Application.Services
 
         public async Task<bool> DeleteCategory(int id)
         {
+            //if the deletion was successful, the method will return the object id
             int? result = await _categoryRepository.Delete(id);
 
             if (result == 0 || result == null)
@@ -84,6 +85,7 @@ namespace PasteBinClone.Application.Services
         {
             Category category = _mapper.Map<Category>(categoryDto);
 
+            //if the update was successful, the method will return the object id
             int? result = await _categoryRepository.Update(category);
 
             if (result == 0 || result == null)
