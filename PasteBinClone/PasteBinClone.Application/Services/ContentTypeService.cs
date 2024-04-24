@@ -34,9 +34,9 @@ namespace PasteBinClone.Application.Services
         public async Task<bool> DeleteContentType(int id)
         {
             //if the deletion was successful, the method will return the object id
-            int? result = await _repository.Delete(id);
+            bool result = await _repository.Delete(id);
 
-            if(result == 0 || result == null)
+            if(!result)
             {
                 Log.Error("Object deletion error.");
 
@@ -44,7 +44,7 @@ namespace PasteBinClone.Application.Services
             }
             else
             {
-                Log.Information("Object {@i} successfully deleted.", result);
+                Log.Information("Object {@i} successfully deleted.", id);
 
                 return true;
             }
@@ -84,9 +84,9 @@ namespace PasteBinClone.Application.Services
             ContentType contentType = _mapper.Map<ContentType>(contentTypeDto);
 
             //if the update was successful, the method will return the object id
-            int? result = await _repository.Update(contentType);
+            bool result = await _repository.Update(contentType);
 
-            if(result == 0 || result == null)
+            if(!result)
             {
                 Log.Error("Object update error.");
 
@@ -94,7 +94,7 @@ namespace PasteBinClone.Application.Services
             }
             else
             {
-                Log.Information("Object {@i} updated.", result);
+                Log.Information("Object {@i} updated.", contentTypeDto.Id);
 
                 return true;
             }

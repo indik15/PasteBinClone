@@ -35,10 +35,10 @@ namespace PasteBinClone.Application.Services
 
         public async Task<bool> DeleteCategory(int id)
         {
-            //if the deletion was successful, the method will return the object id
-            int? result = await _categoryRepository.Delete(id);
+            //if the deletion was successful, the method will return true
+            bool result = await _categoryRepository.Delete(id);
 
-            if (result == 0 || result == null)
+            if (!result)
             {
                 Log.Error("Object deletion error.");
 
@@ -46,7 +46,7 @@ namespace PasteBinClone.Application.Services
             }
             else
             {
-                Log.Information("Object {@i} successfully deleted.", result);
+                Log.Information("Object {@i} successfully deleted.", id);
 
                 return true;
             }
@@ -86,9 +86,9 @@ namespace PasteBinClone.Application.Services
             Category category = _mapper.Map<Category>(categoryDto);
 
             //if the update was successful, the method will return the object id
-            int? result = await _categoryRepository.Update(category);
+            bool result = await _categoryRepository.Update(category);
 
-            if (result == 0 || result == null)
+            if (!result)
             {
                 Log.Error("Object update error.");
 
@@ -96,7 +96,7 @@ namespace PasteBinClone.Application.Services
             }
             else
             {
-                Log.Information("Object {@i} updated.", result);
+                Log.Information("Object {@i} updated.", categoryDto.Id);
 
                 return true;               
             }

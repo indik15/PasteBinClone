@@ -10,7 +10,7 @@ using FluentValidation;
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
-    [Route("api/filter/Type")]
+    [Route("api/filter/type")]
     public class ContentTypeController : ControllerBase
     {
         private readonly IContentTypeService _typeService;

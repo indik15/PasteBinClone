@@ -20,7 +20,7 @@ namespace PasteBinClone.Persistence.Repository
             await _db.SaveChangesAsync();
         }
 
-        public async Task<int?> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var obj = await _db.Categories
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -32,12 +32,12 @@ namespace PasteBinClone.Persistence.Repository
                 _db.Categories.Remove(obj);
                 await _db.SaveChangesAsync();
 
-                return id;
+                return true;
             }
 
             else
             {
-                return null;
+                return false;
             }
         }
 
@@ -53,7 +53,7 @@ namespace PasteBinClone.Persistence.Repository
             return await _db.Categories.FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<int?> Update(Category obj)
+        public async Task<bool> Update(Category obj)
         {
             var category = await _db.Categories
                 .FirstOrDefaultAsync(u => u.Id == obj.Id);
@@ -65,12 +65,12 @@ namespace PasteBinClone.Persistence.Repository
                 _db.Categories.Update(obj);
                 await _db.SaveChangesAsync();
 
-                return category.Id;
+                return true;
             }
 
             else
             {
-                return null;
+                return false;
             }
         }
     }
