@@ -30,7 +30,7 @@ namespace PasteBinClone.Application.Services
 
             await _categoryRepository.Create(category1);
 
-            Log.Information("Object {@i} created successfully.", category1.Id);
+            Log.Information("Object {@i} created successfully.", category.CategoryName);
         }
 
         public async Task<bool> DeleteCategory(int id)
