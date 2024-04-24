@@ -199,11 +199,8 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
 
             //Assert
 
-            //Verify that the result is not null
-            Assert.NotNull(result);
-
-            //Verify that the categoryTest Id equals result
-            Assert.Equal(categoryTest.Id, result);
+            //Verify that the result is true
+            Assert.True(result);
 
             //Verify that the object is actually updated
             Assert.Equal("Test1", updatedCategory.CategoryName);
@@ -224,8 +221,8 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
 
             //Assert
 
-            //Verify that the result is null
-            Assert.Null(result);
+            //Verify that the result false
+            Assert.False(result);
         }
 
         [Fact]
@@ -250,11 +247,8 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
 
             //Assert
 
-            //Verify that the result is not null
-            Assert.NotNull(result);
-
-            //Verify that the categoryTest Id equals result
-            Assert.Equal(categoryTest.Id, result);
+            //Verify that the result is true
+            Assert.True(result);
         }
 
         [Fact]
@@ -272,8 +266,8 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
 
             //Assert
 
-            //Verify that the result is not null
-            Assert.Null(result);
+            //Verify that the result is false
+            Assert.False(result);
 
         }
 
