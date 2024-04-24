@@ -32,6 +32,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IContentTypeService, ContentTypeService>();
 
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
+builder.Services.AddScoped<IValidator<ContentTypeDto>, ContentTypeDtoValidator>();
+
 builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
