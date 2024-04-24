@@ -109,7 +109,7 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ResponseAPI>> Delete(int id)
         {
             Log.Information("Request to delete an object with id: {@id}", id);
