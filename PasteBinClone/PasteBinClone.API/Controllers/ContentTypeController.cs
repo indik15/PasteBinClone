@@ -80,9 +80,16 @@ namespace PasteBinClone.API.Controllers
                 return ValidationProblem();
             }
 
-            await _typeService.CreateContentType(contentTypeDto);
+            bool result = await _typeService.CreateContentType(contentTypeDto);
 
-            return Ok(_response);
+            if (result)
+            {
+                return Ok(_response);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut]

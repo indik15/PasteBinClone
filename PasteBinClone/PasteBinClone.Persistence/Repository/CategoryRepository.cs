@@ -14,10 +14,18 @@ namespace PasteBinClone.Persistence.Repository
             _db = db;     
         }
 
-        public async Task Create(Category obj)
+        public async Task<bool> Create(Category obj)
         {
+            //Checks that the input object is not null
+            if (obj == null)
+            {
+                return false;
+            }
+
             _db.Categories.Add(obj);
             await _db.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> Delete(int id)
@@ -25,13 +33,16 @@ namespace PasteBinClone.Persistence.Repository
             var obj = await _db.Categories
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            if(obj != null)
+            //Checking if the object exists before deleting it
+            if (obj != null)
             {
+                //Separate the Category entity from the Db context
                 _db.Categories.Entry(obj).State = EntityState.Deleted; 
 
                 _db.Categories.Remove(obj);
                 await _db.SaveChangesAsync();
 
+                //Returns true if the object was successfully deleted. 
                 return true;
             }
 
@@ -55,16 +66,20 @@ namespace PasteBinClone.Persistence.Repository
 
         public async Task<bool> Update(Category obj)
         {
+            //Checks that the input object is not null
             var category = await _db.Categories
                 .FirstOrDefaultAsync(u => u.Id == obj.Id);
 
-            if(category != null)
+            //Checks if the object with this id is exists
+            if (category != null)
             {
+                //Separate the Category entity from the Db context
                 _db.Categories.Entry(category).State = EntityState.Detached;
 
                 _db.Categories.Update(obj);
                 await _db.SaveChangesAsync();
 
+                //Return true if the object exists and was updated 
                 return true;
             }
 

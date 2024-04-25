@@ -11,7 +11,7 @@ namespace PasteBinClone.Application.Interfaces
     {
         Task<ContentTypeDto> GetContentTypeById(int id);
         Task<IEnumerable<ContentTypeDto>> GetAllContentType();
-        Task CreateContentType(ContentTypeDto contentTypeDto);
+        Task<bool> CreateContentType(ContentTypeDto contentTypeDto);
         Task<bool> DeleteContentType(int id);
         Task<bool> UpdateContentType(ContentTypeDto contentTypeDto);
     }

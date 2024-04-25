@@ -6,7 +6,7 @@ namespace PasteBinClone.Application.Interfaces
     {
         Task<CategoryDto> GetCategoryByID(int id);
         Task<IEnumerable<CategoryDto>> GetAllCategory();
-        Task CreateCategory(CategoryDto category);
+        Task<bool> CreateCategory(CategoryDto category);
         Task<bool> DeleteCategory(int id);
         Task<bool> UpdateCategory(CategoryDto categoryDto);
     }

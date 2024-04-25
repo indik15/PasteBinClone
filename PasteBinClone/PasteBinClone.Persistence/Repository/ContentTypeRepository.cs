@@ -13,10 +13,18 @@ namespace PasteBinClone.Persistence.Repository
             _db = db;
         }
 
-        public async Task Create(ContentType obj)
+        public async Task<bool> Create(ContentType obj)
         {
+            //Checks that the input object is not null
+            if (obj == null)
+            {
+                return false;
+            }
+
             _db.ContentTypes.Add(obj);
             await _db.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> Delete(int id)

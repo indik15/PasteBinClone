@@ -24,13 +24,22 @@ namespace PasteBinClone.Application.Services
             _mapper = mapper;
         }
 
-        public async Task CreateCategory(CategoryDto category)
+        public async Task<bool> CreateCategory(CategoryDto category)
         {
             Category category1 = _mapper.Map<Category>(category);
 
-            await _categoryRepository.Create(category1);
+            bool result = await _categoryRepository.Create(category1);
 
-            Log.Information("Object {@i} created successfully.", category.CategoryName);
+            if (result)
+            {
+                Log.Information("Object {@i} created successfully.", category.CategoryName);
+                return true;
+            }
+            else
+            {
+                Log.Error("Error creating object.");
+                return false;
+            }
         }
 
         public async Task<bool> DeleteCategory(int id)

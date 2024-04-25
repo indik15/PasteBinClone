@@ -10,7 +10,7 @@ namespace PasteBinClone.Application.Interfaces
     {
         Task<IEnumerable<T>> Get();
         Task<T> GetById(int id);
-        Task Create(T obj);
+        Task<bool> Create(T obj);
         Task<bool> Update(T obj);
         Task<bool> Delete(int id);
     }

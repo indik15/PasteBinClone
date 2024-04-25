@@ -23,12 +23,21 @@ namespace PasteBinClone.Application.Services
             _mapper = mapper;
         }
 
-        public async Task CreateContentType(ContentTypeDto contentTypeDto)
+        public async Task<bool> CreateContentType(ContentTypeDto contentTypeDto)
         {
             ContentType contentType = _mapper.Map<ContentType>(contentTypeDto);
-            await _repository.Create(contentType);
+            bool result = await _repository.Create(contentType);
 
-            Log.Information("Object {@i} created successfully.", contentTypeDto.TypeName);
+            if (result)
+            {
+                Log.Information("Object {@i} created successfully.", contentTypeDto.TypeName);
+                return true;
+            }
+            else
+            {
+                Log.Error("Error creating object.");
+                return false;
+            }
         }
 
         public async Task<bool> DeleteContentType(int id)
