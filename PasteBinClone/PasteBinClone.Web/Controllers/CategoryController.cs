@@ -19,11 +19,9 @@ namespace PasteBinClone.Web.Controllers
         {
             var response = await _categoryService.GetAll<ResponseAPI<IEnumerable<CategoryVM>>>(RouteConst.CategoryRoute);
 
-            if(response != null && response.IsSuccess == true)
+            if(response != null && response.IsSuccess)
             {
-                IEnumerable<CategoryVM> categoryVM = response.Data;
-
-                return View(categoryVM);
+                return View(response.Data);
             }
             else
             {
@@ -44,7 +42,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var response = await _categoryService.Post<ResponseAPI<CategoryVM>>(categoryVM, RouteConst.CategoryRoute);
 
-            if(response.IsSuccess == true)
+            if(response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -60,7 +58,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id, RouteConst.CategoryRoute);
 
-            if(response != null && response.IsSuccess == true)
+            if(response != null && response.IsSuccess)
             {
                 return View(response.Data);
             }
@@ -77,7 +75,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var response = await _categoryService.Put<ResponseAPI<CategoryVM>>(categoryVM, RouteConst.CategoryRoute);
 
-            if (response.IsSuccess == true)
+            if (response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -93,7 +91,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id, RouteConst.CategoryRoute);
 
-            if (response != null && response.IsSuccess == true)
+            if (response != null && response.IsSuccess)
             {
                 return View(response.Data);
             }
@@ -109,7 +107,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var response = await _categoryService.Delete<ResponseAPI<CategoryVM>>(id, RouteConst.CategoryRoute);
 
-            if (response != null && response.IsSuccess == true)
+            if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }
