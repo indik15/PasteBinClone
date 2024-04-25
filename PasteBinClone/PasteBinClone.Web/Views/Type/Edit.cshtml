@@ -1,6 +1,11 @@
-﻿<div class="container h-100 w-100 d-flex justify-content-center">
+﻿@using PasteBinClone.Web.Models.ViewModel
+@model ContentTypeVM
 
-    <form class="border border-1 w-50 p-2 mt-4">
+<div class="container h-100 w-100 d-flex justify-content-center">
+
+    <form method="post" class="border border-1 w-50 p-2 mt-4">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group row text-center mb-4">
             <h2 class="text-info ps-4">Add Type</h2>
@@ -9,13 +14,20 @@
         <div class="mb-3 ps-3">
 
             <h6 class="form-label">Name</h6>
-            <input class="form-control mb-3 w-75">
+            <span asp-validation-for="TypeName" class="text-danger"></span>
+            <input asp-for=TypeName class="form-control mb-3 w-75 mt-1" />
 
-            <button type="submit" class="btn method-btn method-btn_create me-md-3 me-1">Create</button>
-            <button type="submit" class="btn create-back-btn">Back</button>
+            <button type="submit" class="btn method-btn method-btn_create me-md-3 me-1">Update</button>
+            <a asp-action="Index" class="btn create-back-btn">Back</a>
 
         </div>
 
     </form>
 
 </div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
