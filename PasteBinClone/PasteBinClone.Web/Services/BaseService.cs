@@ -15,50 +15,50 @@ namespace PasteBinClone.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<T> Delete<T>(int id)
+        public async Task<T> Delete<T>(int id, string route)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.DELETE,
-                Url = Settings.WebApiBase + "api/filter/category/" + id
+                Url = Settings.WebApiBase + route + id
             });
         }
 
-        public async Task<T> GetAll<T>()
+        public async Task<T> GetAll<T>(string route)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
-                Url = Settings.WebApiBase + "api/filter/category"
+                Url = Settings.WebApiBase + route
             });
         }
 
-        public async Task<T> GetById<T>(int id)
+        public async Task<T> GetById<T>(int id, string route)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
-                Url = Settings.WebApiBase + "api/filter/category/" + id
+                Url = Settings.WebApiBase + route + id
             });
         }
 
-        public async Task<T> Post<T>(object categoryVM)
+        public async Task<T> Post<T>(object categoryVM, string route)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.POST,
                 Data = categoryVM,
-                Url = Settings.WebApiBase + "api/filter/category"
+                Url = Settings.WebApiBase + route
             });
         }
 
-        public async Task<T> Put<T>(object categoryVM)
+        public async Task<T> Put<T>(object categoryVM, string route)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.PUT,
                 Data = categoryVM,
-                Url = Settings.WebApiBase + "api/filter/category"
+                Url = Settings.WebApiBase + route
             });
         }
     }

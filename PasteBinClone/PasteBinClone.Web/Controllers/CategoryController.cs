@@ -2,6 +2,7 @@
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
 using PasteBinClone.Web.Models.ViewModel;
+using PasteBinClone.Web.Request;
 
 namespace PasteBinClone.Web.Controllers
 {
@@ -16,7 +17,7 @@ namespace PasteBinClone.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var response = await _categoryService.GetAll<ResponseAPI<IEnumerable<CategoryVM>>>();
+            var response = await _categoryService.GetAll<ResponseAPI<IEnumerable<CategoryVM>>>(RouteConst.CategoryRoute);
 
             if(response != null && response.IsSuccess == true)
             {
@@ -41,7 +42,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryVM categoryVM)
         {
-            var response = await _categoryService.Post<ResponseAPI<CategoryVM>>(categoryVM);
+            var response = await _categoryService.Post<ResponseAPI<CategoryVM>>(categoryVM, RouteConst.CategoryRoute);
 
             if(response.IsSuccess == true)
             {
@@ -57,7 +58,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id);
+            var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id, RouteConst.CategoryRoute);
 
             if(response != null && response.IsSuccess == true)
             {
@@ -74,7 +75,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryVM categoryVM)
         {
-            var response = await _categoryService.Put<ResponseAPI<CategoryVM>>(categoryVM);
+            var response = await _categoryService.Put<ResponseAPI<CategoryVM>>(categoryVM, RouteConst.CategoryRoute);
 
             if (response.IsSuccess == true)
             {
@@ -90,7 +91,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id);
+            var response = await _categoryService.GetById<ResponseAPI<CategoryVM>>(id, RouteConst.CategoryRoute);
 
             if (response != null && response.IsSuccess == true)
             {
@@ -106,7 +107,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var response = await _categoryService.Delete<ResponseAPI<CategoryVM>>(id);
+            var response = await _categoryService.Delete<ResponseAPI<CategoryVM>>(id, RouteConst.CategoryRoute);
 
             if (response != null && response.IsSuccess == true)
             {
