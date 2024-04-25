@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PasteBinClone.API", "PasteB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{41111E4F-4198-4C79-8110-A5F6C6289194}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBinClone.Tests", "PasteBinClone.Tests\PasteBinClone.Tests.csproj", "{A71A5EF5-8AE9-4D65-BB11-842DA5A7D280}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PasteBinClone.Tests", "PasteBinClone.Tests\PasteBinClone.Tests.csproj", "{A71A5EF5-8AE9-4D65-BB11-842DA5A7D280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
