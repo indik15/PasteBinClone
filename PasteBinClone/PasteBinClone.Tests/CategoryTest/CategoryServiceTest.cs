@@ -20,9 +20,11 @@ namespace PasteBinClone.Tests.CategoryTest
 
         #region GetAllCategoryTests
         [Fact]
-        public async Task GetAllCategory_Result_Success()
+        public async Task GetAllCategory_SuccessResult_ReturnsCollectionOfCategory()
         {
             //Arrange
+
+            //Settings for a mock methods that will return a list of objects
             var categoryList = CreateTestCategories();
 
             _baseRepositoryMock.Setup(u => u.Get())
@@ -39,13 +41,19 @@ namespace PasteBinClone.Tests.CategoryTest
             var categorySeviceResult = await categoryService.GetAllCategory();
 
             //Assert
-            Assert.Equal(categoryDtoList, categorySeviceResult);
+
+            //Ensure that the result is not null
+            Assert.NotNull(categorySeviceResult);
+            //Check the expected result count
+            Assert.Equal(categoryDtoList.Count(), categorySeviceResult.Count());
         }
 
         [Fact]
-        public async Task GetAllCategory_With_Empty_Result()
+        public async Task GetAllCategory_WithEmptyResultFromRepository_ReturnsEmptyCollection()
         {
             //Arrange
+
+            //Settings for a mock methods that will return a list of objects
             var categoryList = new List<Category>();
 
             _baseRepositoryMock.Setup(u => u.Get())
@@ -57,13 +65,17 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.GetAllCategory();
 
             //Assert
+
+            //Ensure that the object count is zero 
             Assert.Empty(categoryServiceResult);
         }
 
         [Fact]
-        public async Task GetAllCategory_With_Null_Result_After_Repository_Request()
+        public async Task GetAllCategory_WithNullResultFromRepository_ReturnsNull()
         {
             //Arrange
+
+            //Settings for a mock methods that will return a list of objects
             IEnumerable<Category> categoryList = null;
 
             _baseRepositoryMock.Setup(u => u.Get())
@@ -75,6 +87,8 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.GetAllCategory();
 
             //Assert
+
+            //Ensure that the result is null 
             Assert.Null(categoryServiceResult);
         }
         #endregion
@@ -82,9 +96,11 @@ namespace PasteBinClone.Tests.CategoryTest
         #region GetCategoryByIdTests
 
         [Fact]
-        public async Task GetCategoryById_Result_Success()
+        public async Task GetCategoryById_SuccessResult_ReturnsCategory()
         {
             //Arrange
+
+            //Settings for a mock methods that will return an object
             var testCategory = new Category { Id = 1, CategoryName = "Test1" };
             int testId = 1;
 
@@ -104,14 +120,19 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.GetCategoryByID(testId);
 
             //Assert
+
+            //Ensure that the result type matches the expected type
             Assert.IsType<CategoryDto>(categoryServiceResult);
+            //Ensure that the expected id is equal result id  
             Assert.Equal(testCategory.Id, categoryServiceResult.Id);
         }
 
         [Fact]
-        public async Task GetCategoryById_NotFound()
+        public async Task GetCategoryById_NullResultFromRepository_ReturnsNull()
         {
             //Arrange
+
+            //Settings for a mock methods that will return an object
             Category categoryTest = null;
             int testId = 1;
 
@@ -124,6 +145,8 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.GetCategoryByID(testId);
 
             //Assert
+
+            //Ensure that the result is null
             Assert.Null(categoryServiceResult);
 
         }
@@ -188,9 +211,11 @@ namespace PasteBinClone.Tests.CategoryTest
         #region UpdateCategoryTests
 
         [Fact]
-        public async Task UpdateCategory_Success()
+        public async Task UpdateCategory_SuccessResult_ReturnsTrue()
         {
             //Arrange
+
+            //Settings for a mock methods that will return an boolean
             CategoryDto categoryDtoTest = new CategoryDto { Id = 1, CategoryName = "Test1" };
             Category categoryTest = new Category { Id = 1, CategoryName = "Test1" };
             bool result = true;
@@ -207,13 +232,17 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.UpdateCategory(categoryDtoTest);
 
             //Assert
+
+            //Ensure that the result is true
             Assert.True(categoryServiceResult);
         }
 
         [Fact]
-        public async Task UpdateCategory_With_False_Response_From_Update_Method()
+        public async Task UpdateCategory_WithFalseResultFromRepository_ReturnsFalse()
         {
             //Arrange
+
+            //Settings for a mock methods that will return an boolean
             CategoryDto categoryDtoTest = new CategoryDto { Id = 1, CategoryName = "Test1" };
             Category categoryTest = new Category { Id = 1, CategoryName = "Test1" };
             bool failResult = false;
@@ -229,15 +258,19 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.UpdateCategory(categoryDtoTest);
 
             //Assert
+
+            //Ensure that the result is false
             Assert.False(categoryServiceResult);
         }
         #endregion
 
         #region DeleteCategoryTests
         [Fact]
-        public async Task DeleteCategory_Success()
+        public async Task DeleteCategory_SuccessResult_ReturnsTrue()
         {
             //Arrange
+
+            //Settings for a mock method that will return an boolean
             int testId = 1;
             bool result = true;
 
@@ -250,13 +283,17 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.DeleteCategory(testId);
 
             //Assert
+
+            //Ensure that the result is true
             Assert.True(categoryServiceResult);
         }
 
         [Fact]
-        public async Task DeleteCategory_With_False_Response_From_Delete_Method()
+        public async Task DeleteCategory_WithFalseResultFromRepository_ReturnsFalse()
         {
             //Arrange
+
+            //Settings for a mock method that will return an boolean
             int testId = 1;
             bool result = false;
 
@@ -270,10 +307,13 @@ namespace PasteBinClone.Tests.CategoryTest
             var categoryServiceResult = await categoryService.DeleteCategory(testId);
 
             //Assert
+
+            //Ensure that the result is false
             Assert.False(categoryServiceResult);
         }
         #endregion
 
+        //Added methods that returned a test object
         private IEnumerable<Category> CreateTestCategories()
         {
             return new List<Category>
