@@ -79,7 +79,7 @@ namespace PasteBinClone.Tests.CategoryTest
         }
         #endregion
 
-        #region GetCategoryById
+        #region GetCategoryByIdTests
 
         [Fact]
         public async Task GetCategoryById_Result_Success()
@@ -113,15 +113,15 @@ namespace PasteBinClone.Tests.CategoryTest
         {
             //Arrange
             Category categoryTest = null;
-            int testUserId = 1;
+            int testId = 1;
 
-            _baseRepositoryMock.Setup(u => u.GetById(testUserId))
+            _baseRepositoryMock.Setup(u => u.GetById(testId))
                 .ReturnsAsync(categoryTest);
 
             var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
 
             //Act
-            var categoryServiceResult = await categoryService.GetCategoryByID(testUserId);
+            var categoryServiceResult = await categoryService.GetCategoryByID(testId);
 
             //Assert
             Assert.Null(categoryServiceResult);
@@ -129,7 +129,63 @@ namespace PasteBinClone.Tests.CategoryTest
         }
         #endregion      
 
-        #region UpdateCategoryTest
+        #region CreateCategoryTests
+        [Fact]
+        public async Task CreateCategory_WithFalseResultFromRepository_ReturnsFalse()
+        {
+            //Arrange
+
+            //Settings for a mock methods that will return an boolean
+            var testCategory = new Category { Id = 1, CategoryName = "Test1" };
+            var testCategoryDto = new CategoryDto { Id = 1, CategoryName = "Test1" };
+            bool testResult = false;
+
+            _baseRepositoryMock.Setup(u => u.Create(testCategory))
+                .ReturnsAsync(testResult);
+
+            _mapperMock.Setup(u => u.Map<Category>(testCategoryDto))
+                .Returns(testCategory);
+
+            var contentTypeService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var result = await contentTypeService.CreateCategory(testCategoryDto);
+
+            //Assert
+
+            //Ensure that the result is false
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task CreateCategory_SuccessResult_ReturnsTrue()
+        {
+            //Arrange
+
+            //Settings for a mock methods that will return an boolean
+            var testCategory = new Category { Id = 1, CategoryName = "Test1" };
+            var testCategoryDto = new CategoryDto { Id = 1, CategoryName = "Test1" };
+            bool testResult = true;
+
+            _baseRepositoryMock.Setup(u => u.Create(testCategory))
+                .ReturnsAsync(testResult);
+
+            _mapperMock.Setup(u => u.Map<Category>(testCategoryDto))
+                .Returns(testCategory);
+
+            var contentTypeService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
+
+            //Act
+            var result = await contentTypeService.CreateCategory(testCategoryDto);
+
+            //Assert
+
+            //Ensure that the result is true
+            Assert.True(result);
+        }
+        #endregion
+
+        #region UpdateCategoryTests
 
         [Fact]
         public async Task UpdateCategory_Success()
@@ -177,7 +233,7 @@ namespace PasteBinClone.Tests.CategoryTest
         }
         #endregion
 
-        #region DeleteCategoryTest
+        #region DeleteCategoryTests
         [Fact]
         public async Task DeleteCategory_Success()
         {
