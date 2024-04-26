@@ -33,7 +33,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
             //Act
 
             //Call the method with the test Category
-            await categoryRepository.Create(categoryTest);
+            var isSuccess = await categoryRepository.Create(categoryTest);
 
             //Verify that the Create method was called and the object was added to the database
             var result = await _dbContext.Categories.FirstOrDefaultAsync(u => u.Id ==  categoryTest.Id);
@@ -45,6 +45,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
 
             //Verify that the result is not null
             Assert.NotNull(result);
+            Assert.True(isSuccess);
         }
 
         [Fact]
