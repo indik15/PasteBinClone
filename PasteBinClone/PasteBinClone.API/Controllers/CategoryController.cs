@@ -80,6 +80,8 @@ namespace PasteBinClone.API.Controllers
 
             if (!valid.IsValid)
             {
+                Log.Error("Validation Error: {i}", valid.Errors);
+
                 return ValidationProblem();
             }
 
@@ -104,6 +106,8 @@ namespace PasteBinClone.API.Controllers
 
             if (!valid.IsValid)
             {
+                Log.Error("Validation Error: {i}", valid.Errors);
+
                 return ValidationProblem();
             }
 
