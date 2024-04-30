@@ -11,7 +11,8 @@ namespace PasteBinClone.Application.Dto.Validations
     {
         public CategoryDtoValidator()
         {
-            RuleFor(u => u.CategoryName).NotEmpty();
+            RuleFor(u => u.CategoryName).NotEmpty()
+                .MaximumLength(50);
         }
     }
 }

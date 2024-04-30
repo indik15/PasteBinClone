@@ -7,6 +7,7 @@ namespace PasteBinClone.Web.Models.ViewModel
         public int id { get; set; }
 
         [Required (ErrorMessage = "The Category field name is required.")]
+        [MaxLength (50)]
         public string CategoryName { get; set; }
     }
 }
