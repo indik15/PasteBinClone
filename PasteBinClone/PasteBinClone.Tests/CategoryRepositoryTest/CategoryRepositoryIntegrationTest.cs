@@ -24,7 +24,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         #region Create
 
         [Fact]
-        public async Task Create_Success()
+        public async Task Create_ResultSuccess_ReturnsTrue()
         {
             //Arrange
 
@@ -70,7 +70,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         #region GetById
 
         [Fact]
-        public async Task GetById_Success()
+        public async Task GetById_ResultSuccess_ReturnsCategory()
         {
             //Arrange
 
@@ -95,7 +95,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         }
 
         [Fact]
-        public async Task GetById_With_Incorrect_Id()
+        public async Task GetById_WithIncorrectId_ReturnsNull()
         {
             //Arrange
 
@@ -117,7 +117,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         }
 
         [Fact]
-        public async Task GetById_With_Empty_Db()
+        public async Task GetById_WithEmptyResultFromDb_ReturnsNull()
         {
             //Arrange
 
@@ -136,7 +136,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         #region Get
 
         [Fact]
-        public async Task Get_Success()
+        public async Task Get_ResultSuccess_ReturnsCollectionOfCategory()
         {
             //Arrange
 
@@ -162,7 +162,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         }
 
         [Fact]
-        public async Task Get_With_Empty_Db()
+        public async Task Get_WithEmptyResultFromDb_ReturnsZero()
         {
             //Arrange
 
@@ -179,7 +179,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         #region Update
 
         [Fact]
-        public async Task Update_Success()
+        public async Task Update_ResultSuccess_ReturnsTrue()
         {
             //Arrange
 
@@ -221,7 +221,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         }
 
         [Fact]
-        public async Task Update_NonExisting_Category()
+        public async Task Update_NonExistingObject_ReturnsFalse()
         {
             //Arrange
 
@@ -238,7 +238,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         #region Delete
 
         [Fact]
-        public async Task Delete_Success()
+        public async Task Delete_ResultSuccess_ReturnsTrue()
         {
             //Arrange
 
@@ -260,7 +260,7 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
         }
 
         [Fact]
-        public async Task Delete_NonExisting_Category()
+        public async Task Delete_NonExistingObject_ReturnsFalse()
         {
             //Arrange
 
