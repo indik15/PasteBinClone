@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
 using PasteBinClone.Web.Models.ViewModel;
@@ -19,11 +20,14 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await _baseService.GetAll<ResponseAPI<IEnumerable<ContentTypeVM>>>(RouteConst.TypeRoute);
+            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.TypeRoute);
 
             if(response != null && response.IsSuccess)
             {
-                return View(response.Data);
+                //Deserialization of the received object into a list of ContentTypes
+                List<ContentTypeVM> contentTypes = JsonConvert.DeserializeObject<List<ContentTypeVM>>(response.Data.ToString());
+
+                return View(contentTypes);
             }
             else
             {
@@ -41,7 +45,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ContentTypeVM typeVM)
         {
-            var response = await _baseService.Post<ResponseAPI<ContentTypeVM>>(typeVM,RouteConst.TypeRoute);
+            var response = await _baseService.Post<ResponseAPI>(typeVM,RouteConst.TypeRoute);
 
             if(response != null && response.IsSuccess)
             {
@@ -56,11 +60,14 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _baseService.GetById<ResponseAPI<ContentTypeVM>>(id, RouteConst.TypeRoute);
+            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.TypeRoute);
 
             if(response != null && response.IsSuccess)
             {
-                return View(response.Data);
+                //Deserialization of the received object into a list of ContentTypes
+                ContentTypeVM contentType = JsonConvert.DeserializeObject<ContentTypeVM>(response.Data.ToString());
+
+                return View(contentType);
             }
             else
             {
@@ -71,7 +78,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var response = await _baseService.Delete<ResponseAPI<ContentTypeVM>>(id, RouteConst.TypeRoute);
+            var response = await _baseService.Delete<ResponseAPI>(id, RouteConst.TypeRoute);
 
             if (response != null && response.IsSuccess)
             {
@@ -87,11 +94,14 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _baseService.GetById<ResponseAPI<ContentTypeVM>>(id, RouteConst.TypeRoute);
+            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.TypeRoute);
 
             if (response != null && response.IsSuccess)
             {
-                return View(response.Data);
+                //Deserialization of the received object into a list of ContentTypes
+                ContentTypeVM contentType = JsonConvert.DeserializeObject<ContentTypeVM>(response.Data.ToString());
+
+                return View(contentType);
             }
             else
             {
@@ -102,7 +112,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ContentTypeVM typeVM)
         {
-            var response = await _baseService.Put<ResponseAPI<ContentTypeVM>>(typeVM, RouteConst.TypeRoute);
+            var response = await _baseService.Put<ResponseAPI>(typeVM, RouteConst.TypeRoute);
 
             if (response != null && response.IsSuccess)
             {
