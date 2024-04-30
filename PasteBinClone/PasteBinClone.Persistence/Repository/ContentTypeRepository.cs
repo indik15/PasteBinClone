@@ -54,7 +54,7 @@ namespace PasteBinClone.Persistence.Repository
         {
             return await _db.ContentTypes
                 .AsNoTracking()
-                .ToArrayAsync();         
+                .ToListAsync();         
         }
 
         public async Task<ContentType> GetById(int id)
