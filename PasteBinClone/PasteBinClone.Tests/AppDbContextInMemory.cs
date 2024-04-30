@@ -13,7 +13,8 @@ namespace PasteBinClone.Tests
         public static ApplicationDbContext GetContextInMemory()
         {
             var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase("TestDb");
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
             var context = new ApplicationDbContext(dbContextOptions.Options);
 
             context.Database.EnsureCreated();
