@@ -67,6 +67,11 @@ namespace PasteBinClone.Persistence.Repository
         public async Task<bool> Update(Category obj)
         {
             //Checks that the input object is not null
+            if (obj == null)
+            {
+                return false;
+            }
+
             var category = await _db.Categories
                 .FirstOrDefaultAsync(u => u.Id == obj.Id);
 
