@@ -48,6 +48,23 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
             Assert.NotNull(result);
             Assert.True(isSuccess);
         }
+
+        [Fact]
+        public async Task Create_WithNullInputObject_ReturnsFalse()
+        {
+            //Arrange
+
+            //Create a test object
+            Category categoryTest = null;
+
+            //Act
+
+            //Call the method with the empty test Category
+            var result = await _categoryRepository.Create(categoryTest);
+
+            //Assert
+            Assert.False(result);
+        }
         #endregion
 
         #region GetById
@@ -184,6 +201,23 @@ namespace PasteBinClone.Tests.CategoryRepositoryTest
 
             //Verify that the object is actually updated
             Assert.Equal("Test1", updatedCategory.CategoryName);
+        }
+
+        [Fact]
+        public async Task Update_WithNullInputObject_ReturnsFalse()
+        {
+            //Arrange
+
+            //Create a test object
+            Category categoryTest = null;
+
+            //Act
+            var result = await _categoryRepository.Update(categoryTest);
+
+            //Assert
+
+            //Verify that the result is false
+            Assert.False(result);
         }
 
         [Fact]
