@@ -85,7 +85,7 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Verify that the result is not null
             Assert.NotNull(result);
 
-            //Verify that the result Id equals categoryTest Id
+            //Verify that the result Id equals contentTypeTest Id
             Assert.Equal(contentTypeTest.Id, result.Id);
         }
 
