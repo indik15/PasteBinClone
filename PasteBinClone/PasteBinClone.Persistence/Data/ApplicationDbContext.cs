@@ -15,6 +15,7 @@ namespace PasteBinClone.Persistence.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContentType> ContentTypes { get; set; }
+        public DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
