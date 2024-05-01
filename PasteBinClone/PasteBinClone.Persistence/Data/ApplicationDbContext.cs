@@ -21,6 +21,7 @@ namespace PasteBinClone.Persistence.Data
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ContentTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
