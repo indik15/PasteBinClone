@@ -28,6 +28,7 @@ namespace PasteBinClone.Application.Services
         {
             Category category1 = _mapper.Map<Category>(category);
 
+            //if the creation was successful, the method will return true
             bool result = await _categoryRepository.Create(category1);
 
             if (result)

@@ -26,6 +26,8 @@ namespace PasteBinClone.Application.Services
         public async Task<bool> CreateContentType(ContentTypeDto contentTypeDto)
         {
             ContentType contentType = _mapper.Map<ContentType>(contentTypeDto);
+
+            //if the creation was successful, the method will return true
             bool result = await _repository.Create(contentType);
 
             if (result)
