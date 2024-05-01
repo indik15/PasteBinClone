@@ -34,6 +34,7 @@ builder.Services.AddScoped<IContentTypeService, ContentTypeService>();
 
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 builder.Services.AddScoped<IValidator<ContentTypeDto>, ContentTypeDtoValidator>();
+builder.Services.AddScoped<IValidator<LanguageDto>, LanguageDtoValidator>();
 
 builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
