@@ -47,17 +47,15 @@ namespace PasteBinClone.Application.Services
             //if the deletion was successful, the method will return true
             bool result = await _categoryRepository.Delete(id);
 
-            if (!result)
+            if (result)
             {
-                Log.Error("Object deletion error.");
-
-                return false;
+                Log.Information("Object {@i} successfully deleted.", id);
+                return true;
             }
             else
             {
-                Log.Information("Object {@i} successfully deleted.", id);
-
-                return true;
+                Log.Error("Object deletion error.");
+                return false;
             }
         }
 
@@ -94,20 +92,18 @@ namespace PasteBinClone.Application.Services
         {
             Category category = _mapper.Map<Category>(categoryDto);
 
-            //if the update was successful, the method will return the object id
+            //if the update was successful, the method will return true
             bool result = await _categoryRepository.Update(category);
 
-            if (!result)
+            if (result)
             {
-                Log.Error("Object update error.");
-
-                return false;
+                Log.Information("Object {@i} updated.", categoryDto.Id);
+                return true;
             }
             else
             {
-                Log.Information("Object {@i} updated.", categoryDto.Id);
-
-                return true;               
+                Log.Error("Object update error.");
+                return false;
             }
         }
     }
