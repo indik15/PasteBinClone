@@ -4,5 +4,6 @@
     {
         public const string CategoryRoute = "api/filter/category/";
         public const string TypeRoute = "api/filter/type/";
+        public const string LanguageRoute = "api/filter/language/";
     }
 }
