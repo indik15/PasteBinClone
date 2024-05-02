@@ -1,21 +1,131 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PasteBinClone.Web.Interfaces;
+using PasteBinClone.Web.Models;
+using PasteBinClone.Web.Models.ViewModel;
+using PasteBinClone.Web.Request;
+using PasteBinClone.Web.Services;
 
 namespace PasteBinClone.Web.Controllers
 {
     public class LanguageController : Controller
     {
-        public IActionResult Index()
+        private readonly IBaseService _baseService;
+
+        public LanguageController(IBaseService baseService)
         {
-            return View();
+            _baseService = baseService;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.LanguageRoute);
+
+            if (response.IsSuccess)
+            {
+                //Deserialization of the received object into a list of Languages
+                List<LanguageVM> languages = JsonConvert.DeserializeObject<List<LanguageVM>>(response.Data.ToString());
+
+                return View(languages);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //Get - Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        public IActionResult Delete()
+        //Post - Create
+        [HttpPost]
+        public async Task<IActionResult> Create(LanguageVM languageVM)
         {
-            return View();
+            var response = await _baseService.Post<ResponseAPI>(languageVM, RouteConst.LanguageRoute);
+
+            if (response.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        //Get - Edit
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.LanguageRoute);
+
+            if (response != null && response.IsSuccess)
+            {
+                //Deserialization of the received object into a Language
+                LanguageVM language = JsonConvert.DeserializeObject<LanguageVM>(response.Data.ToString());
+
+                return View(language);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //Post - Edit
+        [HttpPost]
+        public async Task<IActionResult> Edit(LanguageVM languageVM)
+        {
+            var response = await _baseService.Put<ResponseAPI>(languageVM, RouteConst.LanguageRoute);
+
+            if (response.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //Get - Delete
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.LanguageRoute);
+
+            if (response != null && response.IsSuccess)
+            {
+                //Deserialization of the received object into a Language
+                LanguageVM language = JsonConvert.DeserializeObject<LanguageVM>(response.Data.ToString());
+
+                return View(language);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        //Post - Delete
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            var response = await _baseService.Delete<ResponseAPI>(id, RouteConst.LanguageRoute);
+
+            if (response.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
