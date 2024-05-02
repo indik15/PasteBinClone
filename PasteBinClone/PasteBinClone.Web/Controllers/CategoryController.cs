@@ -65,7 +65,7 @@ namespace PasteBinClone.Web.Controllers
 
             if(response != null && response.IsSuccess)
             {
-                //Deserialization of the received object into a list of Categories
+                //Deserialization of the received object into a Category
                 CategoryVM categories = JsonConvert.DeserializeObject<CategoryVM>(response.Data.ToString());
 
                 return View(categories);
@@ -101,7 +101,7 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                //Deserialization of the received object into a list of Categories
+                //Deserialization of the received object into a Category
                 CategoryVM categories = JsonConvert.DeserializeObject<CategoryVM>(response.Data.ToString());
 
                 return View(categories);

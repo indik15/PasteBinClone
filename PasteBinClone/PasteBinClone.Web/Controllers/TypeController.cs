@@ -36,12 +36,14 @@ namespace PasteBinClone.Web.Controllers
 
         }
 
+        //Get - Create
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        //Post - Create
         [HttpPost]
         public async Task<IActionResult> Create(ContentTypeVM typeVM)
         {
@@ -57,6 +59,7 @@ namespace PasteBinClone.Web.Controllers
             }
         }
 
+        //Get - Delete
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -64,7 +67,7 @@ namespace PasteBinClone.Web.Controllers
 
             if(response != null && response.IsSuccess)
             {
-                //Deserialization of the received object into a list of ContentTypes
+                //Deserialization of the received object into a ContentType
                 ContentTypeVM contentType = JsonConvert.DeserializeObject<ContentTypeVM>(response.Data.ToString());
 
                 return View(contentType);
@@ -75,6 +78,7 @@ namespace PasteBinClone.Web.Controllers
             }
         }
 
+        //Post - Delete
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
@@ -91,6 +95,7 @@ namespace PasteBinClone.Web.Controllers
         }
 
 
+        //Get - Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -98,7 +103,7 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                //Deserialization of the received object into a list of ContentTypes
+                //Deserialization of the received object into a ContentType
                 ContentTypeVM contentType = JsonConvert.DeserializeObject<ContentTypeVM>(response.Data.ToString());
 
                 return View(contentType);
@@ -109,6 +114,7 @@ namespace PasteBinClone.Web.Controllers
             }
         }
 
+        //Post - Edit
         [HttpPost]
         public async Task<IActionResult> Edit(ContentTypeVM typeVM)
         {
