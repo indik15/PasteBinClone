@@ -8,7 +8,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group row text-center mb-4">
-            <h2 class="text-info ps-4">Add Language</h2>
+            <h2 class="text-info ps-4">Update Language</h2>
         </div>
 
         <div class="mb-3 ps-3">
@@ -17,10 +17,8 @@
             <span asp-validation-for="LanguageName" class="text-danger"></span>
             <input asp-for=LanguageName class="form-control mb-3 w-75 mt-1" />
 
-            <div>
-                <button type="submit" class="btn method-btn method-btn_create me-md-3 me-1">Create</button>
-                <a asp-action="Index" class="btn create-back-btn">Back</a>
-            </div>
+            <button type="submit" class="btn method-btn method-btn_create me-md-3 me-1">Update</button>
+            <a asp-action="Index" class="btn create-back-btn">Back</a>
 
         </div>
 

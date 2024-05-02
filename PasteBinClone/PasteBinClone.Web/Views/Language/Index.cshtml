@@ -1,13 +1,16 @@
-﻿<div class="container h-100 w-100 pt-5 p-3">
+﻿@using PasteBinClone.Web.Models.ViewModel
+@model IEnumerable<LanguageVM>
 
-    <form method="post">
+<div class="container h-100 w-100 pt-5 p-3">
+
+    <form method="get">
 
         <div class="row">
             <div class="col">
                 <h2 class="playfair-display">Language List</h2>
             </div>
             <div class="col text-end">
-                <button type="submit" class="btn btn-primary">New Language</button>
+                <button asp-action="Create" type="submit" class="btn btn-primary">New Language</button>
             </div>
         </div>
 
@@ -21,50 +24,38 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="table-filter roboto-regular">
-                        Hello
-                    </td>
+                @if (Model.Any())
+                {
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td class="table-filter roboto-regular">
+                                @obj.LanguageName
+                            </td>
 
-                    <td class="text-center">
-                        <button type="button" class="btn btn-secondary me-2 w-25 category-edit-btn">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger w-25 category-edit-btn">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="table-filter roboto-regular">
-                        Hello
-                    </td>
-
-                    <td class="text-center">
-                        <button type="button" class="btn btn-secondary me-2 w-25 category-edit-btn">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger w-25 category-edit-btn">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="table-filter roboto-regular">
-                        Hello
-                    </td>
-
-                    <td class="text-center">
-                        <button type="button" class="btn btn-secondary me-2 w-25 category-edit-btn">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger w-25 category-edit-btn">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </td>
-                </tr>
+                            <td class="text-center">
+                                <button asp-action="Edit" asp-route-id="@obj.Id" type="submit" class="btn btn-secondary me-2 w-25 category-edit-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button asp-action="Delete" asp-route-id="@obj.Id" type="submit" class="btn btn-danger w-25 category-edit-btn">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <span class="table-filter roboto-regular">
+                                The list is empty.
+                            </span>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </form>
