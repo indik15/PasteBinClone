@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PasteBinClone.Tests", "Past
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{20AE1CB5-685F-4880-837B-84009C2AB6EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBinClone.Identity", "PasteBinClone.Identity\PasteBinClone.Identity.csproj", "{88AF07B1-9D29-49C9-9D72-048CBEA9028C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{A71A5EF5-8AE9-4D65-BB11-842DA5A7D280}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A71A5EF5-8AE9-4D65-BB11-842DA5A7D280}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A71A5EF5-8AE9-4D65-BB11-842DA5A7D280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88AF07B1-9D29-49C9-9D72-048CBEA9028C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88AF07B1-9D29-49C9-9D72-048CBEA9028C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88AF07B1-9D29-49C9-9D72-048CBEA9028C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88AF07B1-9D29-49C9-9D72-048CBEA9028C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{3D43ADFA-C721-43BD-B13E-A5C5F5C5717A} = {8E04F0F7-B398-4216-87C5-CEF9410B1F51}
 		{4CEBF0CC-F750-4B71-BE37-4E371B4A88B0} = {90658914-FC13-456F-B582-F9EDCA9CFC44}
 		{A71A5EF5-8AE9-4D65-BB11-842DA5A7D280} = {41111E4F-4198-4C79-8110-A5F6C6289194}
+		{88AF07B1-9D29-49C9-9D72-048CBEA9028C} = {20AE1CB5-685F-4880-837B-84009C2AB6EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B523782D-D043-48CE-9ADE-F9DD377A8849}
