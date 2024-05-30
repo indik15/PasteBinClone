@@ -1,0 +1,104 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="d-flex justify-content-center form-register-margin">
+
+    <form asp-controller="Account" asp-action="Register" method="post" class="form-floating">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="ReturnUrl" hidden/>
+
+        <div class="m-0 d-flex justify-content-center">
+            <a class="navbar-brand navbar-brand-text-style text-decoration-none text-dark" href="https://localhost:44306/Home/Index">PasteBin</a>
+        </div>
+
+        <div class="m-0 pt-3 form-auth__body p-4">
+
+            <div class="form-auth__body-object">
+                <h6 class="filter-text">Name</h6>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+                <input class="form-control" asp-for="UserName">
+            </div>
+
+            <div class="form-auth__body-object">
+                <h6 class="filter-text">First Name</h6>
+                <input class="form-control" asp-for="FirstName">
+            </div>
+
+            <div class="form-auth__body-object">
+                <h6 class="filter-text">Last Name</h6>
+                <input class="form-control" asp-for="LastName">
+            </div>
+
+            <div class="form-auth__body-object">
+                <h6 class="filter-text">Email</h6>
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <input type="email" class="form-control" placeholder="name@gmail.com" asp-for="Email">
+            </div>
+
+            <div class="form-auth__body-object">
+
+                <h6 class="filter-text">Password</h6>
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="d-flex align-items-center position-relative">
+                    <input type="password" class="password form-control" id="passwordInput" asp-for="Password">
+                    <i class="fa-solid fa-eye-slash show-password" id="togglePassword" style="right: 10px; cursor: pointer;"></i>
+                </div>
+
+            </div>
+
+            <div class="form-auth__body-object">
+
+                <h6 class="filter-text">Confirm Password</h6>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <div class="d-flex align-items-center position-relative">
+                    <input type="password" class="password form-control" id="confirmPasswordInput" asp-for="ConfirmPassword">
+                </div>
+
+            </div>
+
+            <div class="form-auth__body-object row">
+
+                <div class="col">
+                    <label class="form-check-label filter-text" for="flexCheckDefault">
+                        Remember me
+                    </label>
+                </div>
+                <div class="col-8">
+                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" asp-for="RememberMe">
+                </div>
+
+            </div>
+
+            <div class="form-auth__body-object">
+                <button class="login-btn login-btn_text" type="submit">Create</button>
+                <a class="btn register-btn register-btn_text" asp-action="Login">Login</a>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let togglePassword = document.getElementById("togglePassword");
+            let passwordInput = document.getElementById("passwordInput");
+            let confirmPasswordInput = document.getElementById("confirmPasswordInput");
+
+
+            togglePassword.onclick = function () {
+                let isPassword = passwordInput.type === "password";
+                passwordInput.type = isPassword ? "text" : "password";
+                confirmPasswordInput.type = isPassword ? "text" : "password";
+                togglePassword.classList.toggle("fa-eye");
+                togglePassword.classList.toggle("fa-eye-slash");
+            }
+        });
+    </script>
+
+    @{<partial name="_ValidationScriptsPartial" />}
+}
