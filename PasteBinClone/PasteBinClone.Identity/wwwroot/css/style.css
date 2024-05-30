@@ -1,0 +1,116 @@
+﻿
+
+.navbar-brand-text-style {
+    font-size: 36px;
+    font-family: 'Inria Serif', sans-serif;
+}
+
+body {
+    background-color: #FAFAFA;
+}
+
+/*=========================== Main page My Pasts ===========================*/
+
+.form-auth__body {
+    border-radius: 15px;
+    border: 1px;
+    border-style: solid;
+    border-color: #767373;
+    min-width:450px;
+    background-color:white;
+}
+
+.form-logout-margin {
+    margin-top: 260px;
+}
+
+.form-login-margin {
+    margin-top: 180px;
+}
+
+.form-register-margin {
+    margin-top: 60px;
+}
+
+.form-auth__body-object{
+    margin-bottom: 15px;
+}
+
+.login-btn {
+    height: 37px;
+    width: 100px;
+    background-color: #53EC74;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+}
+
+.login-btn_text {
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+}
+
+.register-btn {
+    height: 37px;
+    width: 120px;
+    background-color: #B6EBF6;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    margin-left: 15px;
+}
+
+.register-btn_text {
+    font-size: 16px;
+    font-family: 'K2D', sans-serif;
+}
+
+.filter-text {
+    font-size: 16px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.password {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.show-password {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+}
+
+.logout-text {
+    font-size: 22px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.logout-btn-yes {
+    height: 37px;
+    width: 100px;
+    background-color: #f55c51;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+}
+
+.logout-btn-no {
+    height: 37px;
+    width: 100px;
+    background-color: #53EC74;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    margin-left: 20px;
+}
