@@ -1,7 +1,13 @@
+using Duende.IdentityServer.Services;
+using Duende.IdentityServer.Validation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PasteBinClone.Identity;
 using PasteBinClone.Identity.Data;
+using PasteBinClone.Identity.IDbInitializer;
 using PasteBinClone.Identity.Models;
+using PasteBinClone.Identity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +17,48 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<AppUser, IdentityRole>()
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
+{
+    config.Password.RequiredLength = 8;
+    config.Password.RequireDigit = false;
+    config.Password.RequireNonAlphanumeric = false;
+    config.Password.RequireUppercase = false;
+})
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddRazorPages();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+
+builder.Services.AddIdentityServer(options =>
+{
+    options.Events.RaiseErrorEvents = true;
+    options.Events.RaiseInformationEvents = true;
+    options.Events.RaiseFailureEvents = true;
+    options.Events.RaiseSuccessEvents = true;
+    options.EmitStaticAudienceClaim = true;
+})
+    .AddInMemoryIdentityResources(Configurations.IdentityResources)
+    .AddInMemoryApiScopes(Configurations.ApiScopes)
+    .AddInMemoryClients(Configurations.Clients)
+    .AddAspNetIdentity<AppUser>()
+    .AddDeveloperSigningCredential()
+    .AddProfileService<ProfileService>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = "oidc";
+}).AddCookie();
+
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    config.LoginPath = "/Account/Login";
+    config.LogoutPath = "/Account/Logout";
+});
 
 var app = builder.Build();
 
@@ -30,7 +73,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+SeedDatabase();
+
 app.UseRouting();
+
+app.UseIdentityServer();
 
 app.UseAuthorization();
 app.MapRazorPages().RequireAuthorization();
@@ -40,3 +87,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PasteBinClone.Tests", "Past
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{20AE1CB5-685F-4880-837B-84009C2AB6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBinClone.Identity", "PasteBinClone.Identity\PasteBinClone.Identity.csproj", "{88AF07B1-9D29-49C9-9D72-048CBEA9028C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PasteBinClone.Identity", "PasteBinClone.Identity\PasteBinClone.Identity.csproj", "{88AF07B1-9D29-49C9-9D72-048CBEA9028C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
