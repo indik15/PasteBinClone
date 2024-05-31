@@ -20,23 +20,34 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-background">
             <div class="container-fluid d-flex justify-content-md-center">
 
-                <span class="navbar-brand navbar-brand-text-style">PasteBin</span>
+                <a class="navbar-brand navbar-brand-text-style text-decoration-none text-dark" asp-controller="Home" asp-action="Index">PasteBin</a>
 
                 <div class="position-absolute top-50 end-0 translate-middle-y me-3">
                     <div class="navbar-nav ms-auto">
-                        <div class="navbar__button-admin nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" style="color:#7D7D7D;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin menu
-                            </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="navbar__button-admin nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color:#7D7D7D;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Admin menu
+                                </a>
 
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Type" asp-action="Index">Type</a></li>
-                                <li><a class="nav-link text-dark" asp-area="" asp-controller="Language" asp-action="Index">Language</a></li>
-                            </ul>
-                        </div>
-                        <button class="btn navbar__button navbar__button-login" type="submit">LOG IN</button>
-                        <button class="btn btn-outline-secondary navbar__button navbar__button-signup" type="submit">SIGN UP</button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Type" asp-action="Index">Type</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="" asp-controller="Language" asp-action="Index">Language</a></li>
+                                </ul>
+                            </div>
+                        } 
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span style="font-size:20px">@User.Identity.Name</span>
+                            <a class="btn btn-outline-secondary navbar__button navbar__button-signup" asp-action="Logout" asp-controller="Home">LOG OUT</a>
+                        }
+                        else
+                        {
+                            <a class="btn navbar__button navbar__button-login" asp-action="Login" asp-controller="Home">LOG IN</a>
+                            <a class="btn btn-outline-secondary navbar__button navbar__button-signup" asp-action="Signup" asp-controller="Home">SIGN UP</a>
+                        }
                     </div>
                 </div>
 
