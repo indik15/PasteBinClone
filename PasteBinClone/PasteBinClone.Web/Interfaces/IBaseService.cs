@@ -2,10 +2,10 @@
 {
     public interface IBaseService : IRequestService
     {
-        Task<T> GetAll<T>(string route);
-        Task<T> GetById<T>(int id, string route);
-        Task<T> Post<T>(object obj, string route);
-        Task<T> Put<T>(object obj, string route);
-        Task<T> Delete<T>(int id, string route);
+        Task<T> GetAll<T>(string route, string token);
+        Task<T> GetById<T>(int id, string route, string token);
+        Task<T> Post<T>(object obj, string route, string token);
+        Task<T> Put<T>(object obj, string route, string token);
+        Task<T> Delete<T>(int id, string route, string token);
     }
 }

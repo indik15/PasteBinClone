@@ -15,50 +15,55 @@ namespace PasteBinClone.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<T> Delete<T>(int id, string route)
+        public async Task<T> Delete<T>(int id, string route, string token)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.DELETE,
-                Url = Settings.WebApiBase + route + id
+                Url = Settings.WebApiBase + route + id,
+                AccessToken = token
             });
         }
 
-        public async Task<T> GetAll<T>(string route)
+        public async Task<T> GetAll<T>(string route, string token)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
-                Url = Settings.WebApiBase + route
+                Url = Settings.WebApiBase + route,
+                AccessToken = token
             });
         }
 
-        public async Task<T> GetById<T>(int id, string route)
+        public async Task<T> GetById<T>(int id, string route, string token)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
-                Url = Settings.WebApiBase + route + id
+                Url = Settings.WebApiBase + route + id,
+                AccessToken = token
             });
         }
 
-        public async Task<T> Post<T>(object categoryVM, string route)
+        public async Task<T> Post<T>(object categoryVM, string route, string token)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.POST,
                 Data = categoryVM,
-                Url = Settings.WebApiBase + route
+                Url = Settings.WebApiBase + route,
+                AccessToken = token
             });
         }
 
-        public async Task<T> Put<T>(object categoryVM, string route)
+        public async Task<T> Put<T>(object categoryVM, string route, string token)
         {
             return await Send<T>(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.PUT,
                 Data = categoryVM,
-                Url = Settings.WebApiBase + route
+                Url = Settings.WebApiBase + route,
+                AccessToken = token
             });
         }
     }

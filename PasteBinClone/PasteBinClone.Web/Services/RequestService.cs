@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Request;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace PasteBinClone.Web.Services
@@ -32,6 +33,11 @@ namespace PasteBinClone.Web.Services
                     message.Content = new StringContent(JsonConvert
                         .SerializeObject(apiRequest.Data),
                         Encoding.UTF8, "application/json");
+                }
+
+                if (!string.IsNullOrEmpty(apiRequest.AccessToken))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.AccessToken);
                 }
 
                 switch (apiRequest.ApiMethod)
