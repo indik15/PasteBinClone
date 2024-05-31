@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
@@ -8,6 +10,7 @@ using PasteBinClone.Web.Services;
 
 namespace PasteBinClone.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LanguageController : Controller
     {
         private readonly IBaseService _baseService;
@@ -20,9 +23,11 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.LanguageRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            if (response.IsSuccess)
+            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.LanguageRoute, accessToken);
+
+            if (response != null && response.IsSuccess)
             {
                 //Deserialization of the received object into a list of Languages
                 List<LanguageVM> languages = JsonConvert.DeserializeObject<List<LanguageVM>>(response.Data.ToString());
@@ -46,9 +51,12 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(LanguageVM languageVM)
         {
-            var response = await _baseService.Post<ResponseAPI>(languageVM, RouteConst.LanguageRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            if (response.IsSuccess)
+            var response = await _baseService.Post<ResponseAPI>(languageVM, 
+                RouteConst.LanguageRoute, accessToken);
+
+            if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -61,7 +69,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.LanguageRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.GetById<ResponseAPI>(id, 
+                RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {
@@ -80,9 +91,12 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(LanguageVM languageVM)
         {
-            var response = await _baseService.Put<ResponseAPI>(languageVM, RouteConst.LanguageRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            if (response.IsSuccess)
+            var response = await _baseService.Put<ResponseAPI>(languageVM, 
+                RouteConst.LanguageRoute, accessToken);
+
+            if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -96,7 +110,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.LanguageRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.GetById<ResponseAPI>(id, 
+                RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {
@@ -116,9 +133,12 @@ namespace PasteBinClone.Web.Controllers
         [ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var response = await _baseService.Delete<ResponseAPI>(id, RouteConst.LanguageRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            if (response.IsSuccess)
+            var response = await _baseService.Delete<ResponseAPI>(id, 
+                RouteConst.LanguageRoute, accessToken);
+
+            if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }

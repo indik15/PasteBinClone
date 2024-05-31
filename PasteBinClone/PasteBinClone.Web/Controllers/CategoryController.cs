@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
@@ -8,6 +10,7 @@ using System.Text.Json.Serialization;
 
 namespace PasteBinClone.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly IBaseService _categoryService;
@@ -19,7 +22,10 @@ namespace PasteBinClone.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var response = await _categoryService.GetAll<ResponseAPI>(RouteConst.CategoryRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _categoryService.GetAll<ResponseAPI>(RouteConst.CategoryRoute,
+                accessToken);
 
             if(response != null && response.IsSuccess)
             {
@@ -45,9 +51,12 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryVM categoryVM)
         {
-            var response = await _categoryService.Post<ResponseAPI>(categoryVM, RouteConst.CategoryRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            if(response.IsSuccess)
+            var response = await _categoryService.Post<ResponseAPI>(categoryVM, 
+                RouteConst.CategoryRoute,accessToken);
+
+            if(response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -61,7 +70,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _categoryService.GetById<ResponseAPI>(id, RouteConst.CategoryRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _categoryService.GetById<ResponseAPI>(id, 
+                RouteConst.CategoryRoute, accessToken);
 
             if(response != null && response.IsSuccess)
             {
@@ -81,9 +93,12 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryVM categoryVM)
         {
-            var response = await _categoryService.Put<ResponseAPI>(categoryVM, RouteConst.CategoryRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            if (response.IsSuccess)
+            var response = await _categoryService.Put<ResponseAPI>(categoryVM, 
+                RouteConst.CategoryRoute, accessToken);
+
+            if (response != null && response.IsSuccess)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -97,7 +112,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _categoryService.GetById<ResponseAPI>(id, RouteConst.CategoryRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _categoryService.GetById<ResponseAPI>(id, 
+                RouteConst.CategoryRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {
@@ -116,7 +134,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var response = await _categoryService.Delete<ResponseAPI>(id, RouteConst.CategoryRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _categoryService.Delete<ResponseAPI>(id, 
+                RouteConst.CategoryRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {

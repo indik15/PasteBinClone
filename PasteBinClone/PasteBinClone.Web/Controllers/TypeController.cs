@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 
 namespace PasteBinClone.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TypeController : Controller
     {
         private readonly IBaseService _baseService;
@@ -20,7 +23,9 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.TypeRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.TypeRoute, accessToken);
 
             if(response != null && response.IsSuccess)
             {
@@ -47,7 +52,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ContentTypeVM typeVM)
         {
-            var response = await _baseService.Post<ResponseAPI>(typeVM,RouteConst.TypeRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.Post<ResponseAPI>(typeVM, 
+                RouteConst.TypeRoute, accessToken);
 
             if(response != null && response.IsSuccess)
             {
@@ -63,7 +71,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.TypeRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.GetById<ResponseAPI>(id, 
+                RouteConst.TypeRoute, accessToken);
 
             if(response != null && response.IsSuccess)
             {
@@ -82,7 +93,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
-            var response = await _baseService.Delete<ResponseAPI>(id, RouteConst.TypeRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.Delete<ResponseAPI>(id, 
+                RouteConst.TypeRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {
@@ -99,7 +113,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var response = await _baseService.GetById<ResponseAPI>(id, RouteConst.TypeRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.GetById<ResponseAPI>(id, 
+                RouteConst.TypeRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {
@@ -118,7 +135,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ContentTypeVM typeVM)
         {
-            var response = await _baseService.Put<ResponseAPI>(typeVM, RouteConst.TypeRoute);
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var response = await _baseService.Put<ResponseAPI>(typeVM, 
+                RouteConst.TypeRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {
