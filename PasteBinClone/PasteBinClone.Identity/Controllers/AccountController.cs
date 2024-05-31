@@ -4,6 +4,7 @@ using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PasteBinClone.Identity.Models;
 using PasteBinClone.Identity.Models.ViewModel;
@@ -165,10 +166,14 @@ namespace PasteBinClone.Identity.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Login failed.");
+                    ModelState.AddModelError(string.Empty, "Register failed.");
                 }
             }
-
+            else
+            {
+                ModelState.AddModelError(string.Empty, 
+                    result.Errors.Any() ? string.Join(",", result.Errors.Select(u => u.Description)) : "Register failed.");
+            }
             return View(viewModel);
         }
 
