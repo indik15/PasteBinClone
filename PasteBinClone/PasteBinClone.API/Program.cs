@@ -12,6 +12,8 @@ using FluentValidation;
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Dto.Validations;
 using PasteBinClone.API.ExceptionHandler;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +47,16 @@ options.UseSqlServer(
 
 builder.Services.AddSerilog();
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "https://localhost:44364/";
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters.ValidateAudience = false;
+        options.TokenValidationParameters.ValidateLifetime = true;
+        options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+    });
+
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
@@ -63,6 +75,7 @@ app.UseHttpsRedirection();
 
 app.UseSerilogRequestLogging();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
