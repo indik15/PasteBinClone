@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PasteBinClone.API.Response;
 using PasteBinClone.Application.Dto;
@@ -12,6 +13,7 @@ namespace PasteBinClone.API.Controllers
 {
     [ApiController]
     [Route("api/filter/language")]
+    [Authorize(Roles = "Admin")]
     public class LanguageController : ControllerBase
     {
         private readonly ILanguageService _languageService;

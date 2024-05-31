@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PasteBinClone.API.Response;
 using PasteBinClone.Application.Dto;
@@ -12,6 +13,7 @@ namespace PasteBinClone.API.Controllers
 {
     [ApiController]
     [Route("api/filter/category")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : ControllerBase
     {
 
@@ -31,6 +33,7 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<ResponseAPI>> GetAll()
         {
             Log.Information("Request to receive all objects");

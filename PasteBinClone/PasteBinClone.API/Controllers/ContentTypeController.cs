@@ -6,11 +6,13 @@ using PasteBinClone.API.Response;
 using PasteBinClone.Application.Dto;
 using Serilog;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
     [Route("api/filter/type")]
+    [Authorize(Roles = "Admin")]
     public class ContentTypeController : ControllerBase
     {
         private readonly IContentTypeService _typeService;
