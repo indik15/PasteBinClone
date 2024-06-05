@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PasteBinClone.Identity.Interfaces;
 using PasteBinClone.Identity.Models;
 using PasteBinClone.Identity.Models.ViewModel;
 using System.Security.Claims;
@@ -15,12 +16,14 @@ namespace PasteBinClone.Identity.Controllers
     public class AccountController(SignInManager<AppUser> signInManager,
         UserManager<AppUser> userManager,
         RoleManager<IdentityRole> roleManager,
-        IIdentityServerInteractionService interactionService) : Controller
+        IIdentityServerInteractionService interactionService,
+        IRequestService requestService) : Controller
     {
         private readonly SignInManager<AppUser> _signInManager = signInManager;
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly RoleManager<IdentityRole> _roleManager = roleManager;
         private readonly IIdentityServerInteractionService _interactionService = interactionService;
+        private readonly IRequestService _requestService = requestService;
 
         [HttpGet]
         public IActionResult Login(string returnUrl)
@@ -154,6 +157,14 @@ namespace PasteBinClone.Identity.Controllers
                     }
 
                     await HttpContext.SignInAsync(serverUser, authOptions);
+
+                    //Send the user to the API
+                    await _requestService.SendUser(new ApiUser
+                    {
+                        UserId = user.Id,
+                        Name = user.UserName,
+                        Email = user.Email,
+                    });
 
                     if (!string.IsNullOrEmpty(viewModel.ReturnUrl))
                     {
