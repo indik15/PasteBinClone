@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Identity;
+using PasteBinClone.Identity.Controllers;
 using PasteBinClone.Identity.Data;
 using PasteBinClone.Identity.IDbInitializer;
+using PasteBinClone.Identity.Interfaces;
 using PasteBinClone.Identity.Models;
 using PasteBinClone.Identity.Services;
 
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+builder.Services.AddHttpClient<IRequestService, RequestService>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
 {
@@ -32,6 +35,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 
 builder.Services.AddIdentityServer(options =>
 {
