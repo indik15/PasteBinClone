@@ -1,4 +1,4 @@
-﻿namespace PasteBinClone.Identity.IDbInitializer
+﻿namespace PasteBinClone.Identity.Interfaces
 {
     public interface IDbInitializer
     {
