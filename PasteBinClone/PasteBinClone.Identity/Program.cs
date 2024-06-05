@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Identity;
 using PasteBinClone.Identity.Controllers;
 using PasteBinClone.Identity.Data;
-using PasteBinClone.Identity.IDbInitializer;
+using PasteBinClone.Identity.DbInitializer;
 using PasteBinClone.Identity.Interfaces;
 using PasteBinClone.Identity.Models;
 using PasteBinClone.Identity.Services;

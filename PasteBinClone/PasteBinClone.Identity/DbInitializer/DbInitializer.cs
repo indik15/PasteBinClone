@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using PasteBinClone.Identity.Data;
 using PasteBinClone.Identity.Models;
+using PasteBinClone.Identity.Interfaces;
 using System.Security.Claims;
 
-namespace PasteBinClone.Identity.IDbInitializer
+namespace PasteBinClone.Identity.DbInitializer
 {
     public class DbInitializer(
         UserManager<AppUser> userManager,
