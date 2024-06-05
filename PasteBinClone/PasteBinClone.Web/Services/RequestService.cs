@@ -22,7 +22,7 @@ namespace PasteBinClone.Web.Services
             {
                 var client = _httpClient.CreateClient("PasteBinCloneAPI");
 
-                HttpRequestMessage message = new HttpRequestMessage();
+                using HttpRequestMessage message = new HttpRequestMessage();
 
                 message.Headers.Add("Accept", "application/json");
                 message.RequestUri = new Uri(apiRequest.Url);
