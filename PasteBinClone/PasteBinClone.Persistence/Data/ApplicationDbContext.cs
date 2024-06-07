@@ -16,12 +16,16 @@ namespace PasteBinClone.Persistence.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContentType> ContentTypes { get; set; }
         public DbSet<Language> Languages { get; set; }
+        public DbSet<ApiUser> ApiUsers { get; set; }
+        public DbSet<Paste> Pastes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ContentTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
+            modelBuilder.ApplyConfiguration(new ApiUserConfiguration());
+            modelBuilder.ApplyConfiguration(new PasteConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
