@@ -43,10 +43,7 @@ namespace PasteBinClone.Identity.Services
 
             request.Method = HttpMethod.Post;
 
-            var res = await client.SendAsync(request);
-
-            var apiContent = await res.Content
-                    .ReadAsStringAsync();
+            await client.SendAsync(request);
         }
     }
 }
