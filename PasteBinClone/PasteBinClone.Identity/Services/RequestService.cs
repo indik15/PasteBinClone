@@ -25,7 +25,7 @@ namespace PasteBinClone.Identity.Services
 
             var client = _httpClient.CreateClient("PasteBinCloneAPI");
 
-            string apiSecret = CreateHash(_configuration["SendUserSettings:SecretKey"]);
+            string apiSecret = _configuration["SendUserSettings:SecretKey"];
             string apiUrl = _configuration["SendUserSettings:Url"];
 
             using HttpRequestMessage request = new HttpRequestMessage();
@@ -47,23 +47,6 @@ namespace PasteBinClone.Identity.Services
 
             var apiContent = await res.Content
                     .ReadAsStringAsync();
-        }
-
-        private string CreateHash(string key)
-        {
-            using SHA256 sHA256 = SHA256.Create();
-
-            byte[] bytes = Encoding.UTF8.GetBytes(key);
-
-            var hash = sHA256.ComputeHash(bytes);
-
-            var result = new StringBuilder();
-
-            foreach (var item in hash)
-            {
-                result.Append(item.ToString("x2"));
-            }
-            return result.ToString();
         }
     }
 }
