@@ -30,10 +30,12 @@ builder.Services.AddProblemDetails();
 builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<IBaseRepository<ContentType>, ContentTypeRepository>();
 builder.Services.AddScoped<IBaseRepository<Language>, LanguageRepository>();
+builder.Services.AddScoped<IApiUserRepository, ApiUserRepository>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IContentTypeService, ContentTypeService>();
 builder.Services.AddScoped<ILanguageService, LanguageService>();
+builder.Services.AddScoped<IApiUserService, ApiUserService>();
 
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 builder.Services.AddScoped<IValidator<ContentTypeDto>, ContentTypeDtoValidator>();
