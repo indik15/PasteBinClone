@@ -31,15 +31,18 @@ builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<IBaseRepository<ContentType>, ContentTypeRepository>();
 builder.Services.AddScoped<IBaseRepository<Language>, LanguageRepository>();
 builder.Services.AddScoped<IApiUserRepository, ApiUserRepository>();
+builder.Services.AddScoped<IPasteRepository, PasteRepository>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IContentTypeService, ContentTypeService>();
 builder.Services.AddScoped<ILanguageService, LanguageService>();
 builder.Services.AddScoped<IApiUserService, ApiUserService>();
+builder.Services.AddScoped<IPasteService, PasteService>();
 
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 builder.Services.AddScoped<IValidator<ContentTypeDto>, ContentTypeDtoValidator>();
 builder.Services.AddScoped<IValidator<LanguageDto>, LanguageDtoValidator>();
+builder.Services.AddScoped<IValidator<PasteDto>, PasteDtoValidator>();
 
 builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
