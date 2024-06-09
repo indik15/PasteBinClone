@@ -33,7 +33,6 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<ResponseAPI>> GetAll()
         {
             Log.Information("Request to receive all objects");
