@@ -14,6 +14,8 @@ using PasteBinClone.Application.Dto.Validations;
 using PasteBinClone.API.ExceptionHandler;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Amazon.S3;
+using PasteBinClone.Persistence.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,7 @@ builder.Services.AddScoped<IBaseRepository<ContentType>, ContentTypeRepository>(
 builder.Services.AddScoped<IBaseRepository<Language>, LanguageRepository>();
 builder.Services.AddScoped<IApiUserRepository, ApiUserRepository>();
 builder.Services.AddScoped<IPasteRepository, PasteRepository>();
+builder.Services.AddScoped<IAmazonStorageService, AmazonStorageService>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IContentTypeService, ContentTypeService>();
@@ -51,6 +54,9 @@ options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSerilog();
+
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+builder.Services.AddAWSService<IAmazonS3>();
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
