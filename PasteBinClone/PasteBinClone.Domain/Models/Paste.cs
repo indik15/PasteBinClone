@@ -12,7 +12,8 @@ namespace PasteBinClone.Domain.Models
         public string Title { get ; set; }
         public string BodyUrl { get; set; }
         public bool IsPublic { get; set; }
-        public DateTime LifeTime { get; set; }
+        public DateTime CreateAt { get; set; }
+        public DateTime ExpireAt { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public int LanguageId { get; set; }

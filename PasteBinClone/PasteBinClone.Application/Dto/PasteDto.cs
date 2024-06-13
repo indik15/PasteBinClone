@@ -13,7 +13,8 @@ namespace PasteBinClone.Application.Dto
         public string Title { get; set; }
         public string Body { get; set; }
         public bool IsPublic { get; set; }
-        public DateTime LifeTime { get; set; }
+        public DateTime CreateAt { get; set; }
+        public DateTime ExpireAt { get; set; }
         public int CategoryId { get; set; }
         public int LanguageId { get; set; }
         public int TypeId { get; set; }
