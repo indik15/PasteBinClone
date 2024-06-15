@@ -23,6 +23,7 @@ namespace PasteBinClone.Persistence.Services
         {
             try
             {
+                //Send request
                 await _awsClient.DeleteObjectAsync(_bucketName, id);
 
                 return true;
@@ -37,10 +38,12 @@ namespace PasteBinClone.Persistence.Services
         {
             try
             {
+                //Send request
                 var result = await _awsClient.GetObjectAsync(_bucketName, id);
 
                 using var stream = new StreamReader(result.ResponseStream);
 
+                //Read and return text from the Stream
                 return await stream.ReadToEndAsync();
             }
             catch (Exception)
@@ -53,6 +56,7 @@ namespace PasteBinClone.Persistence.Services
         {
             try
             {
+                //Create a request
                 var request = new PutObjectRequest
                 {
                     Key = id,
@@ -60,6 +64,7 @@ namespace PasteBinClone.Persistence.Services
                     BucketName = _bucketName
                 };
 
+                //Send request
                 await _awsClient.PutObjectAsync(request);
 
                 return true;
@@ -77,6 +82,7 @@ namespace PasteBinClone.Persistence.Services
             {
                 string id = Guid.NewGuid().ToString();
 
+                //Create a request
                 var request = new PutObjectRequest
                 {
                     BucketName = _bucketName,
@@ -84,6 +90,7 @@ namespace PasteBinClone.Persistence.Services
                     ContentBody = body,
                 };
 
+                //Send request
                 await _awsClient.PutObjectAsync(request);
 
                 return (true, id);
