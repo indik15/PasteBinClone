@@ -12,8 +12,7 @@ namespace PasteBinClone.API.ExceptionHandler
             Exception exception, 
             CancellationToken cancellationToken)
         {
-            Log.Error("An error occurred while processing the request: {Message}",
-                exception.Message);
+            Log.Error($"An error occurred while processing the request: {exception.Message}, Exception: {exception.GetType().Name}");
 
             var problemDetails = new ProblemDetails
             {
