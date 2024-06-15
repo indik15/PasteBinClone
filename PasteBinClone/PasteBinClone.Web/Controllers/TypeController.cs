@@ -25,7 +25,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.TypeRoute, accessToken);
+            var response = await _baseService.GetAll(RouteConst.TypeRoute, accessToken);
 
             if(response != null && response.IsSuccess)
             {
@@ -54,7 +54,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.Post<ResponseAPI>(typeVM, 
+            var response = await _baseService.Post(typeVM, 
                 RouteConst.TypeRoute, accessToken);
 
             if(response != null && response.IsSuccess)
@@ -73,7 +73,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById<ResponseAPI>(id, 
+            var response = await _baseService.GetById(id, 
                 RouteConst.TypeRoute, accessToken);
 
             if(response != null && response.IsSuccess)
@@ -95,7 +95,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.Delete<ResponseAPI>(id, 
+            var response = await _baseService.Delete(id, 
                 RouteConst.TypeRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -115,7 +115,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById<ResponseAPI>(id, 
+            var response = await _baseService.GetById(id, 
                 RouteConst.TypeRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -137,7 +137,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.Put<ResponseAPI>(typeVM, 
+            var response = await _baseService.Put(typeVM, 
                 RouteConst.TypeRoute, accessToken);
 
             if (response != null && response.IsSuccess)

@@ -25,7 +25,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetAll<ResponseAPI>(RouteConst.LanguageRoute, accessToken);
+            var response = await _baseService.GetAll(RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)
             {
@@ -53,7 +53,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.Post<ResponseAPI>(languageVM, 
+            var response = await _baseService.Post(languageVM, 
                 RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -71,7 +71,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById<ResponseAPI>(id, 
+            var response = await _baseService.GetById(id, 
                 RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -93,7 +93,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.Put<ResponseAPI>(languageVM, 
+            var response = await _baseService.Put(languageVM, 
                 RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -112,7 +112,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById<ResponseAPI>(id, 
+            var response = await _baseService.GetById(id, 
                 RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -135,7 +135,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.Delete<ResponseAPI>(id, 
+            var response = await _baseService.Delete(id, 
                 RouteConst.LanguageRoute, accessToken);
 
             if (response != null && response.IsSuccess)

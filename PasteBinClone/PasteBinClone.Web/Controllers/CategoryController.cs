@@ -24,7 +24,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _categoryService.GetAll<ResponseAPI>(RouteConst.CategoryRoute,
+            var response = await _categoryService.GetAll(RouteConst.CategoryRoute,
                 accessToken);
 
             if(response != null && response.IsSuccess)
@@ -53,7 +53,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _categoryService.Post<ResponseAPI>(categoryVM, 
+            var response = await _categoryService.Post(categoryVM, 
                 RouteConst.CategoryRoute,accessToken);
 
             if(response != null && response.IsSuccess)
@@ -72,7 +72,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _categoryService.GetById<ResponseAPI>(id, 
+            var response = await _categoryService.GetById(id, 
                 RouteConst.CategoryRoute, accessToken);
 
             if(response != null && response.IsSuccess)
@@ -95,7 +95,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _categoryService.Put<ResponseAPI>(categoryVM, 
+            var response = await _categoryService.Put(categoryVM, 
                 RouteConst.CategoryRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -114,7 +114,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _categoryService.GetById<ResponseAPI>(id, 
+            var response = await _categoryService.GetById(id, 
                 RouteConst.CategoryRoute, accessToken);
 
             if (response != null && response.IsSuccess)
@@ -136,7 +136,7 @@ namespace PasteBinClone.Web.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _categoryService.Delete<ResponseAPI>(id, 
+            var response = await _categoryService.Delete(id, 
                 RouteConst.CategoryRoute, accessToken);
 
             if (response != null && response.IsSuccess)

@@ -1,11 +1,13 @@
-﻿namespace PasteBinClone.Web.Interfaces
+﻿using PasteBinClone.Web.Models;
+
+namespace PasteBinClone.Web.Interfaces
 {
-    public interface IBaseService : IRequestService
+    public interface IBaseService
     {
-        Task<T> GetAll<T>(string route, string token);
-        Task<T> GetById<T>(int id, string route, string token);
-        Task<T> Post<T>(object obj, string route, string token);
-        Task<T> Put<T>(object obj, string route, string token);
-        Task<T> Delete<T>(int id, string route, string token);
+        Task<ResponseAPI> GetAll(string route, string token);
+        Task<ResponseAPI> GetById(object id, string route, string token);
+        Task<ResponseAPI> Post(object obj, string route, string token);
+        Task<ResponseAPI> Put(object obj, string route, string token);
+        Task<ResponseAPI> Delete(object id, string route, string token);
     }
 }

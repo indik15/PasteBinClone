@@ -1,23 +1,17 @@
 ﻿using PasteBinClone.Web.Interfaces;
+using PasteBinClone.Web.Models;
 using PasteBinClone.Web.Models.ViewModel;
 using PasteBinClone.Web.Request;
 
 namespace PasteBinClone.Web.Services
 {
-    public class BaseService : RequestService,
-        IBaseService
+    public class BaseService(IRequestService requestService) : IBaseService
     {
-        private IHttpClientFactory _httpClient;
+        private readonly IRequestService _requestService = requestService;
 
-        public BaseService(IHttpClientFactory httpClient) 
-            : base(httpClient)
+        public async Task<ResponseAPI> Delete(object id, string route, string token)
         {
-            _httpClient = httpClient;
-        }
-
-        public async Task<T> Delete<T>(int id, string route, string token)
-        {
-            return await Send<T>(new ApiRequest()
+            return await _requestService.Send(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.DELETE,
                 Url = Settings.WebApiBase + route + id,
@@ -25,9 +19,9 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task<T> GetAll<T>(string route, string token)
+        public async Task<ResponseAPI> GetAll(string route, string token)
         {
-            return await Send<T>(new ApiRequest()
+            return await _requestService.Send(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
                 Url = Settings.WebApiBase + route,
@@ -35,9 +29,9 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task<T> GetById<T>(int id, string route, string token)
+        public async Task<ResponseAPI> GetById(object id, string route, string token)
         {
-            return await Send<T>(new ApiRequest()
+            return await _requestService.Send(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
                 Url = Settings.WebApiBase + route + id,
@@ -45,23 +39,23 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task<T> Post<T>(object categoryVM, string route, string token)
+        public async Task<ResponseAPI> Post(object objectVM, string route, string token)
         {
-            return await Send<T>(new ApiRequest()
+            return await _requestService.Send(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.POST,
-                Data = categoryVM,
+                Data = objectVM,
                 Url = Settings.WebApiBase + route,
                 AccessToken = token
             });
         }
 
-        public async Task<T> Put<T>(object categoryVM, string route, string token)
+        public async Task<ResponseAPI> Put(object objectVM, string route, string token)
         {
-            return await Send<T>(new ApiRequest()
+            return await _requestService.Send(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.PUT,
-                Data = categoryVM,
+                Data = objectVM,
                 Url = Settings.WebApiBase + route,
                 AccessToken = token
             });

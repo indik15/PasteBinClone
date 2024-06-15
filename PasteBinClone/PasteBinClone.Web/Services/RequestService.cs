@@ -1,6 +1,7 @@
 ﻿using Humanizer;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
+using PasteBinClone.Web.Models;
 using PasteBinClone.Web.Request;
 using System.Net.Http.Headers;
 using System.Text;
@@ -16,7 +17,7 @@ namespace PasteBinClone.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<TViewModel> Send<TViewModel>(ApiRequest apiRequest)
+        public async Task<ResponseAPI> Send(ApiRequest apiRequest)
         {
             try
             {
@@ -62,7 +63,7 @@ namespace PasteBinClone.Web.Services
                     .ReadAsStringAsync();
 
                 var apiResponseVM = JsonConvert
-                    .DeserializeObject<TViewModel>(apiContent);
+                    .DeserializeObject<ResponseAPI>(apiContent);
 
                 return apiResponseVM;
             }
