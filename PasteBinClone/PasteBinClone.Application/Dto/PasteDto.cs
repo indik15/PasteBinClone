@@ -12,6 +12,7 @@ namespace PasteBinClone.Application.Dto
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+        public string BodyUrl { get; set; }
         public bool IsPublic { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
