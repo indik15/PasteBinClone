@@ -50,9 +50,6 @@ namespace PasteBinClone.Persistence.Repository
         public async Task<IEnumerable<Paste>> Get()
         {
             return await _db.Pastes
-                .Include(u => u.Category)
-                .Include(u => u.Language)
-                .Include(u => u.Type)
                 .AsNoTracking()
                 .ToListAsync();
         }

@@ -11,18 +11,14 @@ namespace PasteBinClone.Application.Dto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public string BodyUrl { get; set; }
         public string Body { get; set; }
+        public string BodyUrl { get; set; }
         public bool IsPublic { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
         public int CategoryId { get; set; }
-        public Category? Category { get; set; }
         public int LanguageId { get; set; }
-        public Language? Language { get; set; }
         public int TypeId { get; set; }
-        public ContentType? Type { get; set; }
         public string UserId { get; set; }
-        public ApiUser? User { get; set; }
     }
 }

@@ -106,10 +106,6 @@ body {
     font-size: 18px;
     font-family: 'Playfair Display', sans-serif;
 }
-.filter-select {
-    max-width: 190px;
-    min-width: 180px;
-}
 
 /*=========================== Main page Top Rated Pasts ===========================*/
 
@@ -206,13 +202,6 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.past-item__list__empty {
-    margin-top: 10px;
-    font-size: 20px;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
 }
 
 .past-item__content__type-rate {

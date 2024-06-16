@@ -41,7 +41,6 @@ builder.Services.AddScoped<IContentTypeService, ContentTypeService>();
 builder.Services.AddScoped<ILanguageService, LanguageService>();
 builder.Services.AddScoped<IApiUserService, ApiUserService>();
 builder.Services.AddScoped<IPasteService, PasteService>();
-builder.Services.AddScoped<IFilterService, FilterService>();
 
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 builder.Services.AddScoped<IValidator<ContentTypeDto>, ContentTypeDtoValidator>();
