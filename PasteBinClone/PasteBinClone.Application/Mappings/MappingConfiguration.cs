@@ -15,12 +15,15 @@ namespace PasteBinClone.Application.Mappings
         public MappingConfiguration()
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, CategoryVM>().ReverseMap();
             CreateMap<CategoryDto, CategoryVM>().ReverseMap();
 
             CreateMap<ContentType, ContentTypeDto>().ReverseMap();
+            CreateMap<ContentType, ContentTypeVM>().ReverseMap();
             CreateMap<ContentTypeDto, ContentTypeVM>().ReverseMap();
 
             CreateMap<Language, LanguageDto>().ReverseMap();
+            CreateMap<Language, LanguageVM>().ReverseMap();
             CreateMap<LanguageDto, LanguageVM>().ReverseMap();
 
             CreateMap<Paste, PasteDto>().ReverseMap();
