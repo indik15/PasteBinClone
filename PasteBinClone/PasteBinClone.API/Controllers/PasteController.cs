@@ -14,9 +14,11 @@ namespace PasteBinClone.API.Controllers
     [ApiController]
     public class PasteController(IPasteService pasteService,
         IMapper mapper,
-        IValidator<PasteDto> validator) : ControllerBase
+        IValidator<PasteDto> validator,
+        IFilterService filterService) : ControllerBase
     {
         private readonly IPasteService _pasteService = pasteService;
+        private readonly IFilterService _filterService = filterService;
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<PasteDto> _validator = validator;
         private readonly ResponseAPI _responseAPI = new();
@@ -46,12 +48,13 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet]       
         public async Task<ActionResult<ResponseAPI>> Get()
         {
             Log.Information("Request to receive all Pastes");
 
             IEnumerable<PasteDto> pastes = await _pasteService.GetAllPaste();
+            FilterVM filter = await _filterService.GetAllFilters();
 
             if(pastes == null)
             {
@@ -60,7 +63,13 @@ namespace PasteBinClone.API.Controllers
             else
             {
                 var pasteVM = _mapper.Map<IEnumerable<PasteVM>>(pastes);
-                _responseAPI.Data = pasteVM;
+                _responseAPI.Data = new
+                {
+                    Pastes = pastes,
+                    filter.Categories,
+                    filter.ContentTypes,
+                    filter.Languages
+                };
 
                 return Ok(_responseAPI);
             }
