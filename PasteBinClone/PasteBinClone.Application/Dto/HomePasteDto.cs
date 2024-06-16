@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Application.Dto
 {
-    public class PasteDto
+    public class HomePasteDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public string BodyUrl { get; set; }
-        public string Body { get; set; }
         public bool IsPublic { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
@@ -23,6 +21,5 @@ namespace PasteBinClone.Application.Dto
         public int TypeId { get; set; }
         public ContentType? Type { get; set; }
         public string UserId { get; set; }
-        public ApiUser? User { get; set; }
     }
 }

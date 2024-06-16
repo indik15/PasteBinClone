@@ -1,107 +1,284 @@
-﻿<div class="h-100 w-100">
+﻿@model HomeVM
 
-    <div class="row">
+<form method="get" asp-controller="Home" asp-action="Index">
+    <div class="h-100 w-100">
 
-        <div class="col p-0 mb-5">
+        <div class="row">
 
-            <div class="row m-0">
-                @* Filter *@
-                <div class="col d-flex justify-content-center flex-fill filter">
+            <div class="col p-0 mb-5">
 
-                    <div class="row">
+                <div class="row m-0">
+                    @* Filter *@
+                    <div class="col d-flex justify-content-center flex-fill filter">
 
-                        <div class="col">
-                            <div class="mb-1">
-                                <span class="filter-text">Type</span>
+                        <div class="row">
+
+                            <div class="col">
+                                <div class="mb-1">
+                                    <span class="filter-text">Type</span>
+                                </div>
+
+                                <div class="mb-1 filter-select">
+                                    <select class="form-select" asp-items="@Model.ContentTypes" aria-label="Default select example">
+                                    </select>
+                                </div>
+                                
                             </div>
 
-                            <div class="mb-1">
-                                <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    </ul>
+                            <div class="col">
+                                <div class="mb-1">
+                                    <span class="filter-text">Sorted by</span>
+                                </div>
+
+                                <div class="mb-1 filter-select">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Open this</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col">
+                                <div class="mb-1">
+                                    <span class="filter-text">Category</span>
+                                </div>
+
+                                <div class="mb-1 filter-select">
+                                    <select class="form-select" asp-items="@Model.Categories" aria-label="Default select example">
+                                    </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col">
-                            <div class="mb-1">
-                                <span class="filter-text">Sorted by</span>
-                            </div>
+                            <div class="col">
+                                <div class="mb-1">
+                                    <span class="filter-text">Language</span>
+                                </div>
 
-                            <div class="mb-1">
-                                <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    </ul>
+                                <div class="mb-1 filter-select">
+                                    <select class="form-select" asp-items="@Model.Languages" aria-label="Default select example">
+                                    </select>
                                 </div>
                             </div>
+
                         </div>
 
-                        <div class="col">
-                            <div class="mb-1">
-                                <span class="filter-text">Category</span>
+                    </div>
+                    @*  Top rated pasts *@
+                    <div class="col d-none d-lg-block d-lg-flex justify-content-center flex-fill mt-4">
+                        <div class="top-rated-pasts">
+
+                            <span class="top-rated-pasts__title">Top Rated Pasts</span>
+
+                            <div class="row m-0 d-flex justify-content-center pt-3 top-rated-pasts__block">
+
+                                <button class="btn p-0 past-item past-item_size_small">
+
+                                    <div class="row past-item__content">
+
+                                        <div class="col-6 d-flex justify-content-start p-0">
+                                            <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-2 past-item__content__type-rate">C#</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button class="btn p-0 past-item past-item_size_small">
+
+                                    <div class="row past-item__content">
+
+                                        <div class="col-6 d-flex justify-content-start p-0">
+                                            <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-2 past-item__content__type-rate">C#</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button class="btn p-0 past-item past-item_size_small">
+
+                                    <div class="row past-item__content">
+
+                                        <div class="col-6 d-flex justify-content-start p-0">
+                                            <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-2 past-item__content__type-rate">C#</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button class="btn p-0 past-item past-item_size_small">
+
+                                    <div class="row past-item__content">
+
+                                        <div class="col-6 d-flex justify-content-start p-0">
+                                            <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-2 past-item__content__type-rate">C#</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button class="btn p-0 past-item past-item_size_small">
+
+                                    <div class="row past-item__content">
+
+                                        <div class="col-6 d-flex justify-content-start p-0">
+                                            <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-2 past-item__content__type-rate">C#</span>
+                                        </div>
+
+                                        <div class="col p-0">
+                                            <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                        </div>
+                                    </div>
+                                </button>
+
+
                             </div>
 
-                            <div class="mb-1">
-                                <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            @* Public pasts *@
+            <div class="col-5 p-0 mx-auto public-pasts">
+
+                @* Title *@
+                <div class="row m-0">
+                    <div class="col-6 p-0 public-pasts__title-item">
+                        <span class="title-item__text title-item__text_margin">Title</span>
+                    </div>
+
+                    <div class="col p-0 text-center public-pasts__title-item  title-item_margin-l">
+                        <span class="title-item__text">Posted</span>
+                    </div>
+
+                    <div class="col p-0 text-center public-pasts__title-item title-item_border">
+                        <span class="title-item__text">Type</span>
+                    </div>
+
+                    <div class="col p-0 text-center public-pasts__title-item title-item_margin-r">
+                        <span class="title-item__text">Rate</span>
+                    </div>
+                </div>
+
+                @*Body*@
+                <div class="d-flex align-items-end">
+
+                    <div class="row m-0 d-flex justify-content-center pt-2 w-100 body-block">
+
+                        @if (Model.PasteVMs.Any())
+                        {
+                            foreach(var item in Model.PasteVMs)
+                            {
+                                if (item.IsPublic)
+                                {
+                                    <button class="btn p-0 past-item past-item_size_big">
+
+                                        <div class="row past-item__content">
+
+                                            <div class="col-6 d-flex justify-content-start p-0">
+                                                <span class="past-item__content__title">@item.Title</span>
+                                            </div>
+
+                                            <div class="col p-0">
+                                                <span class="past-item__content__type-rate">5 h. ago</span>
+                                            </div>
+
+                                            <div class="col p-0">
+                                                <span class="pe-2 past-item__content__type-rate">@item.Category.CategoryName</span>
+                                            </div>
+
+                                            <div class="col p-0">
+                                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                            </div>
+                                        </div>
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    </ul>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <div class="p-0 past-item past-item_size_big">
+                                <div class="past-item__content">
+
+                                    <div class="d-flex justify-content-center">
+                                        <span class="past-item__list__empty">The Paste list is empty. <a asp-controller="Paste" asp-action="Create" class="text-decoration-none"> Be first!</a></span>
+                                    </div>
+                                    
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="mb-1">
-                                <span class="filter-text">Language</span>
-                            </div>
-
-                            <div class="mb-1">
-                                <div class="btn-group">
-                                    <button class="btn border border-1 dropdown-toggle filter_dropdown_width" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        }
 
                     </div>
 
                 </div>
-               @*  Top rated pasts *@
-                <div class="col d-none d-lg-block d-lg-flex justify-content-center flex-fill mt-4">
-                    <div class="top-rated-pasts">
+            </div>
 
-                        <span class="top-rated-pasts__title">Top Rated Pasts</span>
+            @* My pasts *@
+            <div class="col">
+                <div class="d-flex justify-content-center">
 
-                        <div class="row m-0 d-flex justify-content-center pt-3 top-rated-pasts__block">
+                    <div class="my-pasts">
 
-                            <button class="btn p-0 past-item past-item_size_small">
+                        <div class="row m-0 mb-2">
+                            <div class="col-4 col-xs-3 p-0 pt-2 my-pasts__title">
+                                <span class="my-pasts__title__text">My Pasts</span>
+                            </div>
+
+                            <div class="col-3 p-0 text-center my-pasts__title">
+                                <button class="btn my-pasts__title__btn-all" type="submit">All</button>
+                            </div>
+
+                            <div class="col p-0 text-center my-pasts__title my-pasts__title_margin-r">
+                                <button class="btn my-pasts__title__btn-create-paste" type="submit">Create Past</button>
+                            </div>
+                        </div>
+
+                        <div class="row m-0 d-flex justify-content-center pt-3 my-pasts__body">
+                            <button class="btn p-0 past-item past-item_size_big">
 
                                 <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
                                         <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                    </div>
+
+                                    <div class="col p-0">
+                                        <span class="past-item__content__type-rate">5 h. ago</span>
                                     </div>
 
                                     <div class="col p-0">
@@ -114,12 +291,16 @@
                                 </div>
                             </button>
 
-                            <button class="btn p-0 past-item past-item_size_small">
+                            <button class="btn p-0 past-item past-item_size_big">
 
                                 <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
                                         <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                    </div>
+
+                                    <div class="col p-0">
+                                        <span class="past-item__content__type-rate">5 h. ago</span>
                                     </div>
 
                                     <div class="col p-0">
@@ -132,12 +313,16 @@
                                 </div>
                             </button>
 
-                            <button class="btn p-0 past-item past-item_size_small">
+                            <button class="btn p-0 past-item past-item_size_big">
 
                                 <div class="row past-item__content">
 
                                     <div class="col-6 d-flex justify-content-start p-0">
                                         <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                    </div>
+
+                                    <div class="col p-0">
+                                        <span class="past-item__content__type-rate">5 h. ago</span>
                                     </div>
 
                                     <div class="col p-0">
@@ -150,352 +335,14 @@
                                 </div>
                             </button>
 
-                            <button class="btn p-0 past-item past-item_size_small">
-
-                                <div class="row past-item__content">
-
-                                    <div class="col-6 d-flex justify-content-start p-0">
-                                        <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                    </div>
-
-                                    <div class="col p-0">
-                                        <span class="pe-2 past-item__content__type-rate">C#</span>
-                                    </div>
-
-                                    <div class="col p-0">
-                                        <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </button>
-
-                            <button class="btn p-0 past-item past-item_size_small">
-
-                                <div class="row past-item__content">
-
-                                    <div class="col-6 d-flex justify-content-start p-0">
-                                        <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                    </div>
-
-                                    <div class="col p-0">
-                                        <span class="pe-2 past-item__content__type-rate">C#</span>
-                                    </div>
-
-                                    <div class="col p-0">
-                                        <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </button>
-
-                            
                         </div>
 
                     </div>
+
                 </div>
             </div>
 
         </div>
 
-        @* Public pasts *@
-        <div class="col-5 p-0 mx-auto public-pasts">
-
-            @* Title *@
-            <div class="row m-0">
-                <div class="col-6 p-0 public-pasts__title-item">
-                    <span class="title-item__text title-item__text_margin">Title</span>
-                </div>
-
-                <div class="col p-0 text-center public-pasts__title-item  title-item_margin-l">
-                    <span class="title-item__text">Posted</span>
-                </div>
-
-                <div class="col p-0 text-center public-pasts__title-item title-item_border">
-                    <span class="title-item__text">Type</span>
-                </div>
-
-                <div class="col p-0 text-center public-pasts__title-item title-item_margin-r">
-                    <span class="title-item__text">Rate</span>
-                </div>
-            </div>
-
-            @*Body*@
-            <div class="d-flex align-items-end">
-
-                <div class="row m-0 d-flex justify-content-center pt-2 w-100 body-block">
-                    
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>                                                                              
-                             
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>
-
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>
-
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>
-
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>
-
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>
-
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>
-
-                    <button class="btn p-0 past-item past-item_size_big">
-
-                        <div class="row past-item__content">
-
-                            <div class="col-6 d-flex justify-content-start p-0">
-                                <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="past-item__content__type-rate">5 h. ago</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-2 past-item__content__type-rate">C#</span>
-                            </div>
-
-                            <div class="col p-0">
-                                <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-
-            </div>            
-        </div>
-        
-        @* My pasts *@
-        <div class="col">
-            <div class="d-flex justify-content-center">
-                
-                <div class="my-pasts">
-
-                    <div class="row m-0 mb-2">
-                        <div class="col-4 col-xs-3 p-0 pt-2 my-pasts__title">
-                            <span class="my-pasts__title__text">My Pasts</span>
-                        </div>
-
-                        <div class="col-3 p-0 text-center my-pasts__title">
-                            <button class="btn my-pasts__title__btn-all" type="submit">All</button>
-                        </div>
-
-                        <div class="col p-0 text-center my-pasts__title my-pasts__title_margin-r">
-                            <button class="btn my-pasts__title__btn-create-paste" type="submit">Create Past</button>
-                        </div>
-                    </div>
-
-                    <div class="row m-0 d-flex justify-content-center pt-3 my-pasts__body">
-                        <button class="btn p-0 past-item past-item_size_big">
-
-                            <div class="row past-item__content">
-
-                                <div class="col-6 d-flex justify-content-start p-0">
-                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2 past-item__content__type-rate">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
-
-                        <button class="btn p-0 past-item past-item_size_big">
-
-                            <div class="row past-item__content">
-
-                                <div class="col-6 d-flex justify-content-start p-0">
-                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2 past-item__content__type-rate">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
-
-                        <button class="btn p-0 past-item past-item_size_big">
-
-                            <div class="row past-item__content">
-
-                                <div class="col-6 d-flex justify-content-start p-0">
-                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2 past-item__content__type-rate">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        
     </div>
-
-</div>
+</form>

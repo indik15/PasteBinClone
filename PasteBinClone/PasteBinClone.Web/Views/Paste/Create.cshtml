@@ -1,0 +1,140 @@
+﻿@model CreatePasteVM
+
+<div class="h-100 w-100">
+    <form asp-controller="Paste" method="post">
+        <div class="row mt-4">
+            @* Body *@
+            <div class="col text-menu order-md-2">
+
+                <div class="mb-1 ms-2">
+                    <span class="filter-text">Title</span>
+                </div>
+
+                <div class="mb-3">
+                    <div class="input-group input-group-sm mb-3 title_input">
+                        <input asp-for="PasteVM.Title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                </div>
+
+                <div class="mb-1 ms-2 d-flex justify-content-between">
+                    <span class="filter-text">New Post</span>
+                    <a class="me-2 link-dark href-txt" href="#">Download .txt</a>
+                </div>
+
+                <div class="mb-3 bg-white">
+                    <div>
+                        <textarea asp-for="PasteVM.Body" class="form-control summernote text-menu"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            @* Filter *@
+            <div class="col-3 type-menu order-md-1 mt-md-5 mt-4 d-flex">
+
+                <div class="col flex-fill create-filter">
+
+                    <div class="mb-1">
+                        <span class="filter-text">Type</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select" asp-for="PasteVM.TypeId" asp-items="@Model.ContentTypes" aria-label="Default select example">
+                        </select>
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Category</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select" asp-for="PasteVM.CategoryId" asp-items="@Model.Categories" aria-label="Default select example">
+                        </select>
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Access</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select" asp-for="PasteVM.IsPublic" aria-label="Default select example">
+                            <option value="1">Public</option>
+                            <option value="2">Private</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Life`s time</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select" asp-for="PasteVM.ExpireType" aria-label="Default select example">
+                            <option value="1">5 min</option>
+                            <option value="2">10 min</option>
+                            <option value="3">30 min</option>
+                            <option value="4">1 hour</option>
+                            <option value="5">1 day</option>
+                            <option value="6">3 days</option>
+                            <option value="7">30 days</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Language</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <select class="form-select" asp-for="PasteVM.LanguageId" asp-items="@Model.Languages" aria-label="Default select example">
+                        </select>
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Password</span>
+                        <input class="form-check-input ms-1" type="checkbox" value="" id="flexCheckDefault">
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-auto">
+                            <button class="btn ms-1 mb-2 create-paste-btn create-paste-btn_text" type="submit">Create Paste</button>
+                        </div>
+
+                        <div class="col-auto">
+                            <button class="btn back-btn back-btn_text" type="submit">Back</button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 600,
+                minWidth: 1244,
+                toolbar: [
+                    //[groupName, [list of button]]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ]
+            });
+        });
+    </script>
+
+}
