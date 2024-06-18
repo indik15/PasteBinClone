@@ -1,6 +1,6 @@
-﻿using Amazon.S3;
+﻿using Amazon;
+using Amazon.S3;
 using Amazon.S3.Model;
-using Amazon.S3.Transfer;
 using Microsoft.Extensions.Configuration;
 using PasteBinClone.Application.Interfaces;
 
@@ -8,23 +8,22 @@ namespace PasteBinClone.Persistence.Services
 {
     public class AmazonStorageService : IAmazonStorageService
     {
-        private readonly IAmazonS3 _awsClient;
         private readonly IConfiguration _configuration;
         private readonly string _bucketName;
+        private readonly AmazonS3Client _client;
 
-        public AmazonStorageService(IAmazonS3 awsClient,
-        IConfiguration configuration)
+        public AmazonStorageService(IConfiguration configuration)
         {
-            _awsClient = awsClient;
             _configuration = configuration;
-            _bucketName = _configuration["AWS:BucketName"]!;
+            _bucketName = _configuration["AWSBucket:BucketName"]!;
+            _client = new AmazonS3Client(_configuration["AWSSecret:AccessKey"], _configuration["AWSSecret:SecretKey"], RegionEndpoint.EUNorth1);
         }
         public async Task<bool> DeleteFile(string id)
         {
             try
             {
                 //Send request
-                await _awsClient.DeleteObjectAsync(_bucketName, id);
+                await _client.DeleteObjectAsync(_bucketName, id);
 
                 return true;
             }
@@ -39,7 +38,7 @@ namespace PasteBinClone.Persistence.Services
             try
             {
                 //Send request
-                var result = await _awsClient.GetObjectAsync(_bucketName, id);
+                var result = await _client.GetObjectAsync(_bucketName, id);
 
                 using var stream = new StreamReader(result.ResponseStream);
 
@@ -65,7 +64,7 @@ namespace PasteBinClone.Persistence.Services
                 };
 
                 //Send request
-                await _awsClient.PutObjectAsync(request);
+                await _client.PutObjectAsync(request);
 
                 return true;
             }
@@ -91,7 +90,7 @@ namespace PasteBinClone.Persistence.Services
                 };
 
                 //Send request
-                await _awsClient.PutObjectAsync(request);
+                await _client.PutObjectAsync(request);
 
                 return (true, id);
             }
