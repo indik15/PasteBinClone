@@ -31,7 +31,7 @@ namespace PasteBinClone.Application.Services
                     Title = pasteDto.Title,
                     BodyUrl = pasteId,
                     IsPublic = pasteDto.IsPublic,
-                    CreateAt = DateTime.Now,
+                    CreateAt = pasteDto.CreateAt,
                     ExpireAt = pasteDto.ExpireAt,
                     CategoryId = pasteDto.CategoryId,
                     TypeId = pasteDto.TypeId,
@@ -79,7 +79,7 @@ namespace PasteBinClone.Application.Services
             return false;
         }
 
-        public async Task<IEnumerable<PasteDto>> GetAllPaste()
+        public async Task<IEnumerable<HomePasteDto>> GetAllPaste()
         {
             IEnumerable<Paste> pastes = await _pasteRepository.Get();
 
@@ -89,10 +89,10 @@ namespace PasteBinClone.Application.Services
                 return null;
             }
             Log.Information("Received objects: {@Count}", pastes.Count());
-            return _mapper.Map<IEnumerable<PasteDto>>(pastes);
+            return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
         }
 
-        public async Task<PasteDto> GetPasteById(Guid id)
+        public async Task<GetPasteDto> GetPasteById(Guid id)
         {
             Paste paste = await _pasteRepository.GetById(id);
 
@@ -104,7 +104,7 @@ namespace PasteBinClone.Application.Services
 
             string pasteBody = await _amazonStorage.GetFile(paste.BodyUrl);
 
-            var pasteDto = _mapper.Map<PasteDto>(paste);
+            var pasteDto = _mapper.Map<GetPasteDto>(paste);
             pasteDto.Body = pasteBody;
 
             return pasteDto;
@@ -115,7 +115,7 @@ namespace PasteBinClone.Application.Services
             Paste paste = _mapper.Map<Paste>(pasteDto);
 
             bool updateResult = await _amazonStorage
-                .UpdateFile(pasteDto.BodyUrl, pasteDto.Body);
+                .UpdateFile(paste.BodyUrl, pasteDto.Body);
 
             //if the update was successful, the method will return true
             if (updateResult)
