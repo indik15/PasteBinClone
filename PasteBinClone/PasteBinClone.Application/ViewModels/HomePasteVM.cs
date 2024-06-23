@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Application.ViewModels
 {
-    public class PasteVM
+    public class HomePasteVM
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public string Body { get; set; }
         public bool IsPublic { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
-        public int CategoryId { get; set; }
-        public int LanguageId { get; set; }
-        public int TypeId { get; set; }
-        public string UserId { get; set; }
+        public CategoryVM Category { get; set; }
+        public ContentTypeVM ContentType { get; set; }
+        public LanguageVM Language { get; set; }
     }
 }
