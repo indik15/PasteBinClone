@@ -30,7 +30,7 @@ namespace PasteBinClone.API.Controllers
 
             var valid = _validator.Validate(pasteDto);
 
-            if (valid.IsValid)
+            if (!valid.IsValid)
             {
                 Log.Error("Validation Error: {i}", valid.Errors);
                 return ValidationProblem();
@@ -53,7 +53,7 @@ namespace PasteBinClone.API.Controllers
         {
             Log.Information("Request to receive all Pastes");
 
-            IEnumerable<PasteDto> pastes = await _pasteService.GetAllPaste();
+            IEnumerable<HomePasteDto> pastes = await _pasteService.GetAllPaste();
             FilterVM filter = await _filterService.GetAllFilters();
 
             if(pastes == null)
@@ -62,7 +62,7 @@ namespace PasteBinClone.API.Controllers
             }
             else
             {
-                var pasteVM = _mapper.Map<IEnumerable<PasteVM>>(pastes);
+                var pasteVM = _mapper.Map<IEnumerable<HomePasteVM>>(pastes);
                 _responseAPI.Data = new
                 {
                     Pastes = pastes,
@@ -80,7 +80,7 @@ namespace PasteBinClone.API.Controllers
         {
             Log.Information("Request to receive Paste by id: {@id}", id);
 
-            PasteDto pasteDto = await _pasteService.GetPasteById(id);
+            GetPasteDto pasteDto = await _pasteService.GetPasteById(id);
 
             if (pasteDto == null)
             {
@@ -88,7 +88,7 @@ namespace PasteBinClone.API.Controllers
             }
             else
             {
-                var pasteVM = _mapper.Map<PasteVM>(pasteDto);
+                var pasteVM = _mapper.Map<HomePasteVM>(pasteDto);
                 _responseAPI.Data = pasteVM;
 
                 return Ok(_responseAPI);
