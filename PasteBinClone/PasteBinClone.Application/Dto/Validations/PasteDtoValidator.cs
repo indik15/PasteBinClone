@@ -12,7 +12,7 @@ namespace PasteBinClone.Application.Dto.Validations
         public PasteDtoValidator()
         {
             RuleFor(u => u.Body).NotEmpty();
-            RuleFor(u => u.Title).NotEmpty().MaximumLength(60);
+            RuleFor(u => u.Title).NotEmpty().MaximumLength(30);
         }
     }
 }
