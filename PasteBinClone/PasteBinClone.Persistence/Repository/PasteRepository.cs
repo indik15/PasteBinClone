@@ -59,7 +59,12 @@ namespace PasteBinClone.Persistence.Repository
 
         public async Task<Paste> GetById(Guid id)
         {
-            return await _db.Pastes.FirstOrDefaultAsync(u => u.Id == id);
+            return await _db.Pastes
+            .Include(p => p.Category)
+            .Include(p => p.Language)
+            .Include(p => p.Type)
+            .Include(p => p.User)
+            .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<bool> Update(Paste paste)
