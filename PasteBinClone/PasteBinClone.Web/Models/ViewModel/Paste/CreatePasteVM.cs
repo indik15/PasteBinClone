@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace PasteBinClone.Web.Models.ViewModel
+namespace PasteBinClone.Web.Models.ViewModel.Paste
 {
     public class CreatePasteVM
     {

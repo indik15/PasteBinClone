@@ -1,4 +1,4 @@
-﻿namespace PasteBinClone.Web.Models.ViewModel
+﻿namespace PasteBinClone.Web.Models.ViewModel.Paste
 {
     public class HomePasteVM
     {
