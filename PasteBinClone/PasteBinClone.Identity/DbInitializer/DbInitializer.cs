@@ -9,12 +9,13 @@ namespace PasteBinClone.Identity.DbInitializer
 {
     public class DbInitializer(
         UserManager<AppUser> userManager,
-        RoleManager<IdentityRole> roleManager) : IDbInitializer
+        RoleManager<IdentityRole> roleManager,
+        IRequestService requestService) : IDbInitializer
     {
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly RoleManager<IdentityRole> _roleManager = roleManager;
-
-        public void Initialize()
+        private readonly IRequestService _requestService = requestService;
+        public async void Initialize()
         {
             if (_roleManager.FindByNameAsync(UserRoles.Admin).Result == null)
             {
@@ -49,6 +50,13 @@ namespace PasteBinClone.Identity.DbInitializer
                 new Claim(JwtClaimTypes.Name, admin.UserName),
                 new Claim(JwtClaimTypes.Role, UserRoles.Admin)
             }).Result;
+
+            await _requestService.SendUser(new ApiUser
+            {
+                UserId = admin.Id,
+                Name = admin.UserName,
+                Email = admin.Email,
+            });
         }
     }
 }
