@@ -1,4 +1,4 @@
-﻿using PasteBinClone.Domain.Models;
+﻿using PasteBinClone.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +14,8 @@ namespace PasteBinClone.Application.Dto
         public bool IsPublic { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
-        public int CategoryId { get; set; }
-        public Category? Category { get; set; }
-        public int LanguageId { get; set; }
-        public Language? Language { get; set; }
-        public int TypeId { get; set; }
-        public ContentType? Type { get; set; }
-        public string UserId { get; set; }
+        public CategoryVM Category { get; set; }
+        public ContentTypeVM ContentType { get; set; }
+        public LanguageVM Language { get; set; }
     }
 }
