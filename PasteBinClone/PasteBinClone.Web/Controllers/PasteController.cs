@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models.ViewModel;
+using PasteBinClone.Web.Models.ViewModel.Paste;
 using PasteBinClone.Web.Request;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace PasteBinClone.Web.Controllers
 {
@@ -22,7 +24,7 @@ namespace PasteBinClone.Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 //Deserialization of the received object into a Paste
-                PasteVM paste = JsonConvert.DeserializeObject<PasteVM>(response.Data.ToString());
+                GetPasteVM paste = JsonConvert.DeserializeObject<GetPasteVM>(response.Data.ToString());
                 return View(paste);
             }
             else
@@ -70,6 +72,45 @@ namespace PasteBinClone.Web.Controllers
         public async Task<IActionResult> Create(PasteVM pasteVM)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                var handler = new JwtSecurityTokenHandler();
+
+                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
+
+                var userId = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
+
+                pasteVM.UserId = userId;
+            }
+
+            switch (pasteVM.ExpireType)
+            {
+                case "1":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(5);
+                    break;
+                case "2":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
+                    break;
+                case "3":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(30);
+                    break;
+                case "4":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddHours(1);
+                    break;
+                case "5":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(1);
+                    break;
+                case "6":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(3);
+                    break;
+                case "7":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(30);
+                    break;
+                default: pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
+                    break;
+            }
+
 
             var response = await _baseService.Post(pasteVM, RouteConst.PasteRoute, accessToken);
 
