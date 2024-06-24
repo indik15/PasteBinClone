@@ -30,6 +30,7 @@ namespace PasteBinClone.Application.Mappings
             CreateMap<Paste, PasteDto>().ReverseMap();
             CreateMap<Paste, GetPasteDto>().ReverseMap();
             CreateMap<HomePasteVM, HomePasteDto>().ReverseMap();
+            CreateMap<GetPasteVM, GetPasteDto>().ReverseMap();
         }
     }
 }

@@ -88,7 +88,7 @@ namespace PasteBinClone.API.Controllers
             }
             else
             {
-                var pasteVM = _mapper.Map<HomePasteVM>(pasteDto);
+                var pasteVM = _mapper.Map<GetPasteVM>(pasteDto);
                 _responseAPI.Data = pasteVM;
 
                 return Ok(_responseAPI);
