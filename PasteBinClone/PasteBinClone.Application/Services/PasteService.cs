@@ -81,13 +81,45 @@ namespace PasteBinClone.Application.Services
 
         public async Task<IEnumerable<HomePasteDto>> GetAllPaste()
         {
-            IEnumerable<Paste> pastes = await _pasteRepository.Get();
+            List<Paste> pastes = await _pasteRepository.Get();
 
-            if(pastes == null)
+            List<Paste> removePasteFromDb = [];
+            List<string> removePasteFromS3 = [];
+
+
+            if (pastes == null)
             {
                 Log.Information("Object not found.");
                 return null;
             }
+
+            foreach(var obj in pastes)
+            {
+                if (DateTime.Now > obj.ExpireAt)
+                {
+                    removePasteFromS3.Add(obj.BodyUrl);
+                    removePasteFromDb.Add(obj);
+                }
+            }
+
+            pastes.RemoveAll(p => removePasteFromDb.Contains(p));
+
+            if (removePasteFromDb.Count > 0 && removePasteFromS3.Count > 0)
+            {
+                bool resultFromDb = await _pasteRepository.DeleteRange(removePasteFromDb);
+                bool resultFromS3 = await _amazonStorage.DeleteRangeFiles(removePasteFromS3);
+
+                if(!resultFromDb)
+                {
+                    Log.Information("Error deleting objects from the database");
+                }
+
+                if (!resultFromS3)
+                {
+                    Log.Information("Error deleting objects from the AWS S3");
+                }
+            }
+
             Log.Information("Received objects: {@Count}", pastes.Count());
             return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
         }
@@ -99,6 +131,14 @@ namespace PasteBinClone.Application.Services
             if(paste == null)
             {
                 Log.Information("Object {@i} not found.", id);
+                return null;
+            }
+
+            if(DateTime.Now > paste.ExpireAt)
+            {
+                await _amazonStorage.DeleteFile(paste.BodyUrl);
+                await _pasteRepository.Delete(id);
+
                 return null;
             }
 
