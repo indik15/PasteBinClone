@@ -24,7 +24,33 @@ namespace PasteBinClone.Persistence.Services
             {
                 //Send request
                 await _client.DeleteObjectAsync(_bucketName, id);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
+        public async Task<bool> DeleteRangeFiles(IEnumerable<string> keys)
+        {
+            try
+            {
+                var awsKeys = new List<KeyVersion>();
+
+                foreach(var key in keys)
+                {
+                    awsKeys.Add(new KeyVersion { Key = key });
+                }
+
+                var deleteRequest = new DeleteObjectsRequest
+                {
+                    BucketName = _bucketName,
+                    Objects = awsKeys
+                };
+
+                //Send request
+                await _client.DeleteObjectsAsync(deleteRequest);
                 return true;
             }
             catch (Exception)

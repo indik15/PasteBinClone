@@ -11,6 +11,7 @@ namespace PasteBinClone.Application.Interfaces
         Task<(bool, string)> UploadFile(string body);
         Task<string> GetFile(string id);
         Task<bool> DeleteFile(string id);
+        Task<bool> DeleteRangeFiles(IEnumerable<string> keys);
         Task<bool> UpdateFile(string id, string body);
     }
 }
