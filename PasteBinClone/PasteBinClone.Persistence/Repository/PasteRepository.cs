@@ -47,13 +47,33 @@ namespace PasteBinClone.Persistence.Repository
             return false;
         }
 
-        public async Task<IEnumerable<Paste>> Get()
+        public async Task<bool> DeleteRange(IEnumerable<Paste> pastes)
+        {
+            if(pastes != null)
+            {
+
+                foreach(var paste in pastes)
+                {
+                    //Separate the Paste entity from the Db context
+                    _db.Pastes.Entry(paste).State = EntityState.Deleted;
+                }
+
+                _db.Pastes.RemoveRange(pastes);
+                await _db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<List<Paste>> Get()
         {
             return await _db.Pastes
+                .AsNoTracking()
                 .Include(u => u.Category)
                 .Include(u => u.Language)
                 .Include(u => u.Type)
-                .AsNoTracking()
                 .ToListAsync();
         }
 
