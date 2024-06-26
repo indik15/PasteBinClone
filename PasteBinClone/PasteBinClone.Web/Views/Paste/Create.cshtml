@@ -90,14 +90,16 @@
 
                     <div class="mb-1">
                         <span class="filter-text">Password</span>
-                        <input class="form-check-input ms-1" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input ms-1" type="checkbox" id="flexCheckDefault">
                     </div>
 
                     <div class="mb-3">
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        <div class="d-flex position-relative input-group-sm mb-3">
+                            <input asp-for=PasteVM.Password type="password" class="password form-control" id="passwordInput" disabled>
+                            <i class="fa-solid fa-eye-slash show-password" id="togglePassword"></i>
                         </div>
                     </div>
+
 
                     <div class="row">
 
@@ -135,6 +137,33 @@
                     ['height', ['height']]
                 ]
             });
+        });
+
+        document.getElementById('flexCheckDefault').addEventListener('change', function () {
+            var passwordInput = document.getElementById('passwordInput');
+            if (this.checked) {
+                passwordInput.disabled = false;
+            } else {
+                passwordInput.disabled = true;
+                passwordInput.value = '';
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let togglePassword = document.getElementById("togglePassword");
+            let passwordInput = document.getElementById("passwordInput");
+
+            togglePassword.onclick = function () {
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    togglePassword.classList.remove("fa-eye-slash");
+                    togglePassword.classList.add("fa-eye");
+                } else {
+                    passwordInput.type = "password";
+                    togglePassword.classList.remove("fa-eye");
+                    togglePassword.classList.add("fa-eye-slash");
+                }
+            }
         });
     </script>
 }
