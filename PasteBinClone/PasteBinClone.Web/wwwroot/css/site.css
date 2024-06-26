@@ -321,6 +321,23 @@ body {
     font-family: 'K2D', sans-serif;
 }
 
+.show-password {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+}
+
+.password {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
 /*=========================== Create Pasts Body ===========================*/
 
 .title_input {
