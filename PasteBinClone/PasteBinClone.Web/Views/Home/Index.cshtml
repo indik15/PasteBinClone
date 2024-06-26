@@ -206,22 +206,17 @@
                             {
                                 if (item.IsPublic)
                                 {
-                                    <button class="btn p-0 past-item past-item_size_big">
-
+                                    <button asp-controller="Paste" asp-action="Details" asp-route-id="@item.Id" class="btn p-0 past-item past-item_size_big">
                                         <div class="row past-item__content">
-
                                             <div class="col-6 d-flex justify-content-start p-0">
                                                 <span class="past-item__content__title">@item.Title</span>
                                             </div>
-
                                             <div class="col p-0">
                                                 <span class="past-item__content__type-rate">5 h. ago</span>
                                             </div>
-
                                             <div class="col p-0">
-                                                <span class="pe-2 past-item__content__type-rate">@item.Category.CategoryName</span>
+                                                <span class="pe-2 past-item__content__type-rate">@* @item.Category.CategoryName *@</span>
                                             </div>
-
                                             <div class="col p-0">
                                                 <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                             </div>
@@ -264,7 +259,7 @@
                             </div>
 
                             <div class="col p-0 text-center my-pasts__title my-pasts__title_margin-r">
-                                <button class="btn my-pasts__title__btn-create-paste" type="submit">Create Past</button>
+                                <button asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste" type="submit">Create Past</button>
                             </div>
                         </div>
 
