@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" asp-for="PasteVM.IsPublic" aria-label="Default select example">
+                        <select class="form-select" asp-for="PasteVM.IsPublic" aria-label="Default select example" id="publicPrivateSelect">
                             <option value="true">Public</option>
                             <option value="false">Private</option>
                         </select>
@@ -90,12 +90,11 @@
 
                     <div class="mb-1">
                         <span class="filter-text">Password</span>
-                        <input class="form-check-input ms-1" type="checkbox" id="flexCheckDefault">
                     </div>
 
                     <div class="mb-3">
                         <div class="d-flex position-relative input-group-sm mb-3">
-                            <input asp-for=PasteVM.Password type="password" class="password form-control" id="passwordInput" disabled>
+                            <input type="password" class="password form-control" id="passwordInput" disabled>
                             <i class="fa-solid fa-eye-slash show-password" id="togglePassword"></i>
                         </div>
                     </div>
@@ -139,15 +138,24 @@
             });
         });
 
-        document.getElementById('flexCheckDefault').addEventListener('change', function () {
+        function updatePasswordField() {
+            var publicPrivateSelect = document.getElementById('publicPrivateSelect');
             var passwordInput = document.getElementById('passwordInput');
-            if (this.checked) {
+            var togglePassword = document.getElementById('togglePassword');
+
+            if (publicPrivateSelect.value === 'false') {
                 passwordInput.disabled = false;
+                togglePassword.style.display = 'inline';
             } else {
                 passwordInput.disabled = true;
-                passwordInput.value = '';
+                passwordInput.value = ''; // Clear the password field
+                togglePassword.style.display = 'none';
             }
-        });
+        }
+
+        document.getElementById('publicPrivateSelect').addEventListener('change', updatePasswordField);
+
+        document.addEventListener('DOMContentLoaded', updatePasswordField);
 
         document.addEventListener("DOMContentLoaded", function () {
             let togglePassword = document.getElementById("togglePassword");
