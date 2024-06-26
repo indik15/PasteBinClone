@@ -14,6 +14,7 @@ namespace PasteBinClone.Application.Dto
         public bool IsPublic { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
+        public string Password { get; set; }
         public int CategoryId { get; set; }
         public int LanguageId { get; set; }
         public int TypeId { get; set; }
