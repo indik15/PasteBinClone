@@ -21,6 +21,7 @@ namespace PasteBinClone.Persistence.EntityConfiguration
             builder.Property(u => u.BodyUrl).IsRequired();
             builder.Property(u => u.CreateAt).IsRequired();
             builder.Property(u => u.ExpireAt).IsRequired();
+            builder.Property(u => u.Password).IsRequired(false);
 
             builder
                 .HasOne(u => u.Category);
