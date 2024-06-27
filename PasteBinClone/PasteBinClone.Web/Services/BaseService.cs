@@ -29,15 +29,23 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task<ResponseAPI> GetById(object id, string route, string token)
+        public async Task<ResponseAPI> GetById(object id, string route, string token, string password = null)
         {
+            var url = $"{Settings.WebApiBase}{route}{id}";
+
+            if (!string.IsNullOrEmpty(password))
+            {
+                url += $"?password={password}";
+            }
+
             return await _requestService.Send(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
-                Url = Settings.WebApiBase + route + id,
-                AccessToken = token
+                Url = url,
+                AccessToken = token,
             });
         }
+
 
         public async Task<ResponseAPI> Post(object objectVM, string route, string token)
         {
