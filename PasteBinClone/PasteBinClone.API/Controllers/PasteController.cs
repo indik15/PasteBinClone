@@ -76,11 +76,11 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseAPI>> Get(Guid id)
+        public async Task<ActionResult<ResponseAPI>> Get(Guid id, [FromQuery] string password)
         {
             Log.Information("Request to receive Paste by id: {@id}", id);
 
-            GetPasteDto pasteDto = await _pasteService.GetPasteById(id);
+            GetPasteDto pasteDto = await _pasteService.GetPasteById(id, password);
 
             if (pasteDto == null)
             {
