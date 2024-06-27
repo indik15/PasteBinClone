@@ -15,22 +15,42 @@ namespace PasteBinClone.Web.Controllers
         private readonly IBaseService _baseService = baseService;
 
         [HttpGet]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(Guid id, string password = null)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken);
+            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, password);
 
             if (response != null && response.IsSuccess)
             {
                 //Deserialization of the received object into a Paste
+
                 GetPasteVM paste = JsonConvert.DeserializeObject<GetPasteVM>(response.Data.ToString());
+
+                if (!paste.IsPublic && paste.Body == null)
+                {
+                    return RedirectToAction("Password", new { id = id });
+                }
+
                 return View(paste);
             }
             else
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Password(Guid id)
+        {
+            var model = new PasswordVM { PasteId = id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Password(PasswordVM model)
+        {
+            return RedirectToAction("Details", new { id = model.PasteId, password = model.Password });
         }
 
         //Get-Create
@@ -87,7 +107,7 @@ namespace PasteBinClone.Web.Controllers
             switch (pasteVM.ExpireType)
             {
                 case "1":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(5);
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(1);
                     break;
                 case "2":
                     pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
@@ -119,7 +139,7 @@ namespace PasteBinClone.Web.Controllers
                 //var getCreatedPaste = await _baseService.GetById();
                 //return View();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Home");
             }
             else
             {
