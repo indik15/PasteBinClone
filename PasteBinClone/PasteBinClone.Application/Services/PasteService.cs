@@ -13,11 +13,13 @@ namespace PasteBinClone.Application.Services
 {
     public class PasteService(IPasteRepository pasteRepository, 
         IMapper mapper,
-        IAmazonStorageService amazonStorage) : IPasteService
+        IAmazonStorageService amazonStorage,
+        IPasswordHasher passwordHasher) : IPasteService
     {
         private readonly IPasteRepository _pasteRepository = pasteRepository;
         private readonly IMapper _mapper = mapper;
         private readonly IAmazonStorageService _amazonStorage = amazonStorage;
+        private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
         public async Task<bool> CreatePaste(PasteDto pasteDto)
         {
@@ -26,11 +28,14 @@ namespace PasteBinClone.Application.Services
 
             if (isCreate && pasteId != null)
             {
+                string passwordHash = _passwordHasher.PasswordHash(pasteDto.Password);
+
                 Paste paste = new()
                 {
                     Title = pasteDto.Title,
                     BodyUrl = pasteId,
                     IsPublic = pasteDto.IsPublic,
+                    Password = passwordHash,
                     CreateAt = pasteDto.CreateAt,
                     ExpireAt = pasteDto.ExpireAt,
                     CategoryId = pasteDto.CategoryId,
@@ -124,7 +129,7 @@ namespace PasteBinClone.Application.Services
             return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
         }
 
-        public async Task<GetPasteDto> GetPasteById(Guid id)
+        public async Task<GetPasteDto> GetPasteById(Guid id, string password = null)
         {
             Paste paste = await _pasteRepository.GetById(id);
 
@@ -142,12 +147,29 @@ namespace PasteBinClone.Application.Services
                 return null;
             }
 
+            if (!paste.IsPublic)
+            {
+                if (string.IsNullOrEmpty(password))
+                {
+                    return new GetPasteDto { IsPublic = false };
+                }
+                else
+                {
+                    bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
+
+                    if (!isCorrectPassword)
+                    {
+                        return null;
+                    }
+                }
+            }
             string pasteBody = await _amazonStorage.GetFile(paste.BodyUrl);
 
             var pasteDto = _mapper.Map<GetPasteDto>(paste);
             pasteDto.Body = pasteBody;
 
             return pasteDto;
+
         }
 
         public async Task<bool> UpdatePaste(PasteDto pasteDto)
