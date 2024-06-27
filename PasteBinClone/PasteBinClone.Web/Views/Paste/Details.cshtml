@@ -1,4 +1,6 @@
-﻿<div class="h-100 w-100">
+﻿@model GetPasteVM
+
+<div class="h-100 w-100">
     <div class="d-flex justify-content-center">
         <div>
             @* Title *@
@@ -8,7 +10,7 @@
 
             <div class="mb-3">
                 <div class="input-group input-group-sm mb-3 title_input roboto-regular">
-                    <p type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"> My First Paste</p>
+                    <p type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">@Model.Title</p>
                 </div>
             </div>
 
@@ -16,25 +18,52 @@
 
             <div class="row m-0 pb-1 d-flex justify-content-center">
                 <div class="col p-0 text-center">
-                    <span class="roboto-regular">C#</span>
+                    <span class="roboto-regular">@Model.Category.CategoryName</span>
                 </div>
 
                 <div class="col p-0 text-center title-item_border">
-                    <span class="roboto-regular">Programming</span>
+                    <span class="roboto-regular">@Model.Type.TypeName</span>
                 </div>
 
-                <div class="col p-0 text-center">
-                    <span class="roboto-regular public">Public</span>
-                </div>
+                @if (Model.IsPublic)
+                {
+                    <div class="col p-0 text-center">
+                        <span class="roboto-regular public">Public</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="col p-0 text-center">
+                        <span class="roboto-regular private">Private</span>
+                    </div>
+                }
 
                 <div class="col p-0 text-center title-item_border">
                     <i class="fa-regular fa-calendar-check me-1"></i>
-                    <span class="roboto-regular">10.05.2023</span>
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="@Model.CreateAt">
+                        <span class="roboto-regular">@Model.CreateAt.ToString("dd.MM.yyyy")</span>
+                    </span>
                 </div>
 
                 <div class="col p-0 text-center">
                     <i class="fa-regular fa-clock me-1"></i>
-                    <span class="roboto-regular text-nowrap">10 min.</span>
+                    @if (Model.TimeRemaining.Days != 0)
+                    {
+                        <span class="roboto-regular text-nowrap">@Model.TimeRemaining.Days d.</span>
+                    }
+                    else if (Model.TimeRemaining.Hours != 0)
+                    {
+                        <span class="roboto-regular text-nowrap">@Model.TimeRemaining.Hours h.</span>
+                    }
+
+                    else if (Model.TimeRemaining.Minutes != 0)
+                    {
+                        <span class="roboto-regular text-nowrap">@Model.TimeRemaining.Minutes m.</span>
+                    }
+                    else if (Model.TimeRemaining.Seconds != 0)
+                    {
+                        <span class="roboto-regular text-nowrap">@Model.TimeRemaining.Seconds s.</span>
+                    }
                 </div>
 
                 <div class="col p-0 text-center title-item_border">
@@ -48,26 +77,8 @@
             </div>
 
             @* Pasts Body *@
-            <div class="mb-3 bg-white">
-                <p class="text-secondary details-body text-menu p-1">
-                    @* @Html.Raw() *@
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    fffffffffffffffffffffffffffffffffffffffffffffffffff
-                </p>
+            <div class="mb-3 bg-white details-body text-menu p-1">
+                    @Html.Raw(Model.Body)
             </div>
 
             @* Like/Dislike Share Report *@
