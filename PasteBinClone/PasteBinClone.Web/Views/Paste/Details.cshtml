@@ -93,7 +93,7 @@
                 </button>
 
                 <div class="col p-0">
-                    <button class="btn btn-outline-info share-btn roboto-regular" type="submit">Share</button>
+                    <button class="btn btn-outline-info share-btn roboto-regular" type="submit" onclick="copyCurrentURL()">Share</button>
                 </div>
 
                 <div class="col p-0 text-end me-3">
@@ -121,3 +121,23 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        function copyCurrentURL() {
+            var currentURL = new URL(window.location.href);
+            currentURL.searchParams.delete('password');
+
+            var urlWithoutPassword = currentURL.href;
+
+            var tempInput = document.createElement("input");
+            tempInput.value = urlWithoutPassword;
+
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            alert("Link copied");
+        }
+    </script>
+}
