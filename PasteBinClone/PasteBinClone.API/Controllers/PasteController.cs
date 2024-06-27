@@ -76,7 +76,7 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseAPI>> Get(Guid id, [FromQuery] string password)
+        public async Task<ActionResult<ResponseAPI>> Get(Guid id, [FromQuery] string password = null)
         {
             Log.Information("Request to receive Paste by id: {@id}", id);
 
