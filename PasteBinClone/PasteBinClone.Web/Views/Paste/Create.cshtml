@@ -21,11 +21,6 @@
                     </div>
                 </div>
 
-                <div class="mb-1 ms-2 d-flex justify-content-between">
-                    <span class="filter-text">New Post</span>
-                    <a class="me-2 link-dark href-txt" href="#">Download .txt</a>
-                </div>
-
                 <span asp-validation-for="PasteVM.Body" class="text-danger"></span>
 
                 <div class="mb-3 bg-white">
@@ -154,8 +149,7 @@
                     ['font', ['strikethrough', 'superscript', 'subscript']],
                     ['fontsize', ['fontsize']],
                     ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']]
+                    ['para', ['ul', 'ol', 'paragraph']]
                 ]
             });
         });
