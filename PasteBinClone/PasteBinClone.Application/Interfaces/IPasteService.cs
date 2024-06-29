@@ -10,7 +10,7 @@ namespace PasteBinClone.Application.Interfaces
     public interface IPasteService
     {
         Task<bool> CreatePaste(PasteDto pasteDto);
-        Task<GetPasteDto> GetPasteById(Guid id, string password = null);
+        Task<(GetPasteDto, string)> GetPasteById(Guid id, string password = null);
         Task<IEnumerable<HomePasteDto>> GetAllPaste();
         Task<bool> DeletePaste(Guid id);
         Task<bool> UpdatePaste(PasteDto pasteDto);

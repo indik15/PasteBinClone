@@ -129,14 +129,14 @@ namespace PasteBinClone.Application.Services
             return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
         }
 
-        public async Task<GetPasteDto> GetPasteById(Guid id, string password = null)
+        public async Task<(GetPasteDto, string)> GetPasteById(Guid id, string password = null)
         {
             Paste paste = await _pasteRepository.GetById(id);
 
             if(paste == null)
             {
                 Log.Information("Object {@i} not found.", id);
-                return null;
+                return (null, "");
             }
 
             if(DateTime.Now > paste.ExpireAt)
@@ -144,14 +144,14 @@ namespace PasteBinClone.Application.Services
                 await _amazonStorage.DeleteFile(paste.BodyUrl);
                 await _pasteRepository.Delete(id);
 
-                return null;
+                return (null, "");
             }
 
             if (!paste.IsPublic)
             {
                 if (string.IsNullOrEmpty(password))
                 {
-                    return new GetPasteDto { IsPublic = false };
+                    return (new GetPasteDto { IsPublic = false }, "");
                 }
                 else
                 {
@@ -159,7 +159,7 @@ namespace PasteBinClone.Application.Services
 
                     if (!isCorrectPassword)
                     {
-                        return null;
+                        return (new GetPasteDto { IsPublic = false }, "Incorrect password");
                     }
                 }
             }
@@ -168,7 +168,7 @@ namespace PasteBinClone.Application.Services
             var pasteDto = _mapper.Map<GetPasteDto>(paste);
             pasteDto.Body = pasteBody;
 
-            return pasteDto;
+            return (pasteDto, "");
 
         }
 
