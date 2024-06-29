@@ -1,15 +1,19 @@
 ﻿@model CreatePasteVM
 
 <div class="h-100 w-100">
-    <form asp-controller="Paste" method="post">
+    <form asp-controller="Paste" method="post" onsubmit="return validateForm();">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="row mt-4">
             @* Body *@
             <div class="col text-menu order-md-2">
 
-                <div class="mb-1 ms-2">
+                <div class="mb-1 ms-2 d-flex">
                     <span class="filter-text">Title</span>
                 </div>
+
+                <span asp-validation-for="PasteVM.Title" class="text-danger"></span>
 
                 <div class="mb-3">
                     <div class="input-group input-group-sm mb-3 title_input">
@@ -21,6 +25,8 @@
                     <span class="filter-text">New Post</span>
                     <a class="me-2 link-dark href-txt" href="#">Download .txt</a>
                 </div>
+
+                <span asp-validation-for="PasteVM.Body" class="text-danger"></span>
 
                 <div class="mb-3 bg-white">
                     <div>
@@ -92,6 +98,8 @@
                         <span class="filter-text">Password</span>
                     </div>
 
+                    <span asp-validation-for="PasteVM.Password" class="text-danger"></span>
+
                     <div class="mb-3">
                         <div class="d-flex position-relative input-group-sm mb-3">
                             <input asp-for=PasteVM.Password type="password" class="password form-control" id="passwordInput" disabled>
@@ -121,7 +129,39 @@
 </div>
 
 @section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
     <script>
+        function validateForm() {
+            var isValid = true;
+
+            // Validate Summernote body
+            var bodyValue = $('.summernote').val();
+            if (!bodyValue) {
+                isValid = false;
+                $('span[data-valmsg-for="PasteVM.Body"]').text('The field is required.');
+            } else {
+                $('span[data-valmsg-for="PasteVM.Body"]').text('');
+            }
+
+            // Validate password if IsPublic is false
+            var isPublic = document.getElementById('publicPrivateSelect').value;
+            var passwordValue = document.getElementById('passwordInput').value;
+
+            if (isPublic === 'false') {
+                if (!passwordValue) {
+                    isValid = false;
+                    $('span[data-valmsg-for="PasteVM.Password"]').text('The password field is required.');
+                } else {
+                    $('span[data-valmsg-for="PasteVM.Password"]').text('');
+                }
+            } else {
+                $('span[data-valmsg-for="PasteVM.Password"]').text('');
+            }
+
+            return isValid;
+        }
         $(document).ready(function () {
             $('.summernote').summernote({
                 height: 600,

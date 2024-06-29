@@ -1,8 +1,12 @@
-﻿namespace PasteBinClone.Web.Models.ViewModel.Paste
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PasteBinClone.Web.Models.ViewModel.Paste
 {
     public class PasteVM
     {
         public Guid Id { get; set; }
+        [Required]
+        [MaxLength(30)]
         public string Title { get; set; }
         public string Body { get; set; }
         public bool IsPublic { get; set; }
