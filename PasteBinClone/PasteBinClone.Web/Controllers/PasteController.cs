@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models.ViewModel;
@@ -26,6 +27,11 @@ namespace PasteBinClone.Web.Controllers
                 //Deserialization of the received object into a Paste
 
                 GetPasteVM paste = JsonConvert.DeserializeObject<GetPasteVM>(response.Data.ToString());
+                
+                if(response.Errors != null && response.Errors.Count() > 0)
+                {
+                    return RedirectToAction("Password", new { id = id, validationError = response.Errors.FirstOrDefault() });
+                }
 
                 if (!paste.IsPublic && paste.Body == null)
                 {
@@ -41,8 +47,12 @@ namespace PasteBinClone.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Password(Guid id)
+        public async Task<IActionResult> Password(Guid id, string validationError)
         {
+            if (!string.IsNullOrEmpty(validationError))
+            {
+                ModelState.AddModelError("Password", validationError);
+            }
             var model = new PasswordVM { PasteId = id };
             return View(model);
         }
