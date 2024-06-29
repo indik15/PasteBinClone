@@ -200,7 +200,7 @@
 
                     <div class="row m-0 d-flex justify-content-center pt-2 w-100 body-block">
 
-                        @if (Model.PasteVMs.Any())
+                        @if (Model.PasteVMs.Any(u => u.IsPublic == true))
                         {
                             foreach(var item in Model.PasteVMs)
                             {
