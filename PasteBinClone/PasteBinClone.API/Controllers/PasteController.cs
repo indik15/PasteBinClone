@@ -80,14 +80,19 @@ namespace PasteBinClone.API.Controllers
         {
             Log.Information("Request to receive Paste by id: {@id}", id);
 
-            GetPasteDto pasteDto = await _pasteService.GetPasteById(id, password);
+            (GetPasteDto pasteDto, string validationError ) = await _pasteService.GetPasteById(id, password);
 
             if (pasteDto == null)
             {
                 return NotFound();
-            }
+            }           
             else
             {
+                if (!string.IsNullOrEmpty(validationError))
+                {
+                    _responseAPI.Errors.Add(validationError);
+                }
+
                 var pasteVM = _mapper.Map<GetPasteVM>(pasteDto);
                 _responseAPI.Data = pasteVM;
 
