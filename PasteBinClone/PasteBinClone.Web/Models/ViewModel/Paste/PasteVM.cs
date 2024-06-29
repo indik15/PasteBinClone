@@ -1,5 +1,4 @@
-﻿using PasteBinClone.Web.Attributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PasteBinClone.Web.Models.ViewModel.Paste
 {
