@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PasteBinClone.Web.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace PasteBinClone.Web.Models.ViewModel.Paste
 {
@@ -11,6 +12,7 @@ namespace PasteBinClone.Web.Models.ViewModel.Paste
         public string Body { get; set; }
         public bool IsPublic { get; set; }
         public string ExpireType { get; set; }
+        [Required]
         public string Password { get; set; } = "";
         public DateTime CreateAt { get; set; } = DateTime.Now;
         public DateTime ExpireAt { get; set; } = DateTime.Now;
