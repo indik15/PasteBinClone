@@ -135,8 +135,6 @@
     <script>
         function validateForm() {
             var isValid = true;
-
-            // Validate Summernote body
             var bodyValue = $('.summernote').val();
             if (!bodyValue) {
                 isValid = false;
@@ -144,22 +142,6 @@
             } else {
                 $('span[data-valmsg-for="PasteVM.Body"]').text('');
             }
-
-            // Validate password if IsPublic is false
-            var isPublic = document.getElementById('publicPrivateSelect').value;
-            var passwordValue = document.getElementById('passwordInput').value;
-
-            if (isPublic === 'false') {
-                if (!passwordValue) {
-                    isValid = false;
-                    $('span[data-valmsg-for="PasteVM.Password"]').text('The password field is required.');
-                } else {
-                    $('span[data-valmsg-for="PasteVM.Password"]').text('');
-                }
-            } else {
-                $('span[data-valmsg-for="PasteVM.Password"]').text('');
-            }
-
             return isValid;
         }
         $(document).ready(function () {
