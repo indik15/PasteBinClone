@@ -10,5 +10,7 @@
         public CategoryVM Category { get; set; }
         public ContentTypeVM ContentType { get; set; }
         public LanguageVM Language { get; set; }
+
+        public TimeSpan Time => DateTime.Now - CreateAt;
     }
 }

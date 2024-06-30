@@ -212,10 +212,25 @@
                                                 <span class="past-item__content__title">@item.Title</span>
                                             </div>
                                             <div class="col p-0">
-                                                <span class="past-item__content__type-rate">5 h. ago</span>
+                                                @if (item.Time.Days != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Days d. ago</span>
+                                                }
+                                                @if (item.Time.Hours != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Hours h. ago</span>
+                                                }
+                                                @if (item.Time.Minutes != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Minutes m. ago</span>
+                                                }
+                                                @if (item.Time.Seconds != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Seconds s. ago</span>
+                                                }
                                             </div>
                                             <div class="col p-0">
-                                                <span class="pe-2 past-item__content__type-rate">@* @item.Category.CategoryName *@</span>
+                                                <span class="pe-2 past-item__content__type-rate">@item.Category.CategoryName</span>
                                             </div>
                                             <div class="col p-0">
                                                 <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
