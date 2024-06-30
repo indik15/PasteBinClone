@@ -10,7 +10,7 @@
 
             <div class="mb-3">
                 <div class="input-group input-group-sm mb-3 title_input roboto-regular">
-                    <p type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">@Model.Title</p>
+                    <p type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="title">@Model.Title</p>
                 </div>
             </div>
 
@@ -72,14 +72,16 @@
                 </div>
 
                 <div class="col p-0 text-center">
-                    <a class="me-2 link-dark href-txt" href="#">Download .txt</a>
+                    <a id="downloadTxtLink" class="me-2 link-dark href-txt" href="#">Download .txt</a>
                 </div>
             </div>
 
             @* Pasts Body *@
-            <div class="mb-3 bg-white details-body text-menu p-1">
-                    @Html.Raw(Model.Body)
+            <div class="mb-3 bg-white details-body text-menu p-1" style="word-wrap: break-word;">
+                @Html.Raw(Model.Body)
             </div>
+
+
 
             @* Like/Dislike Share Report *@
             <div class="row mb-5">
@@ -123,6 +125,49 @@
 </div>
 @section Scripts{
     <script>
+        function stripHtmlTags(html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
+    }
+
+    // Function to download text as file
+        function downloadTxtFile() {
+            // Retrieve the content from Model.Body
+            var htmlContent = '@Html.Raw(Model.Body)';
+
+            // Strip HTML tags and get plain text content
+            var plainTextContent = stripHtmlTags(htmlContent);
+
+            // Get the title text
+            var title = document.getElementById('title').innerText.trim();
+
+            // Create a Blob object
+            var blob = new Blob([plainTextContent], { type: 'text/plain' });
+
+            // Create a link element
+            var a = document.createElement("a");
+            var url = URL.createObjectURL(blob);
+
+            // Set the download attribute of a element
+            a.href = url;
+            a.download = title + '.txt';
+
+            // Append a element to the body
+            document.body.appendChild(a);
+
+            // Click event on the a element triggers the download
+            a.click();
+
+            // Remove the a element from the body
+            document.body.removeChild(a);
+        }
+
+
+    // Attach click event handler to the download link
+    document.getElementById('downloadTxtLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action of the link
+        downloadTxtFile(); // Call download function
+    });
         function copyCurrentURL() {
             var currentURL = new URL(window.location.href);
             currentURL.searchParams.delete('password');
