@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PasteBinClone.API.Response;
@@ -23,6 +24,7 @@ namespace PasteBinClone.API.Controllers
         private readonly IValidator<PasteDto> _validator = validator;
         private readonly ResponseAPI _responseAPI = new();
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ResponseAPI>> Post([FromBody] PasteDto pasteDto)
         {
@@ -75,6 +77,7 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ResponseAPI>> Get(Guid id, [FromQuery] string password = null)
         {
@@ -100,6 +103,7 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult<ResponseAPI>> Update([FromBody] PasteDto pasteDto)
         {
@@ -126,6 +130,7 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<ResponseAPI>> Delete(Guid id)
         {

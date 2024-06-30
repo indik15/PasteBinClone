@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +16,7 @@ namespace PasteBinClone.Web.Controllers
     {
         private readonly IBaseService _baseService = baseService;
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Details(Guid id, string password = null)
         {
@@ -46,6 +48,7 @@ namespace PasteBinClone.Web.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Password(Guid id, string validationError)
         {
@@ -64,6 +67,7 @@ namespace PasteBinClone.Web.Controllers
         }
 
         //Get-Create
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -98,6 +102,7 @@ namespace PasteBinClone.Web.Controllers
         }
 
         //Post-Create
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(PasteVM pasteVM)
         {
@@ -158,6 +163,7 @@ namespace PasteBinClone.Web.Controllers
         }
 
         //Get-Edit
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -179,6 +185,7 @@ namespace PasteBinClone.Web.Controllers
         }
 
         //Post-Edit
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(PasteVM pasteVM)
         {
@@ -200,6 +207,7 @@ namespace PasteBinClone.Web.Controllers
         }
 
         //Get-Delete
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -221,6 +229,7 @@ namespace PasteBinClone.Web.Controllers
         }
 
         //Post-Delete
+        [Authorize]
         [HttpPost]
         [ActionName("Delete")]
         public async Task<IActionResult> DeletePaste(Guid id)
