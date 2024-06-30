@@ -216,15 +216,15 @@
                                                 {
                                                     <span class="past-item__content__type-rate">@item.Time.Days d. ago</span>
                                                 }
-                                                @if (item.Time.Hours != 0)
+                                                else if (item.Time.Hours != 0)
                                                 {
                                                     <span class="past-item__content__type-rate">@item.Time.Hours h. ago</span>
                                                 }
-                                                @if (item.Time.Minutes != 0)
+                                                else if (item.Time.Minutes != 0)
                                                 {
                                                     <span class="past-item__content__type-rate">@item.Time.Minutes m. ago</span>
                                                 }
-                                                @if (item.Time.Seconds != 0)
+                                                else if (item.Time.Seconds != 0)
                                                 {
                                                     <span class="past-item__content__type-rate">@item.Time.Seconds s. ago</span>
                                                 }
