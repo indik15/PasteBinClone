@@ -178,10 +178,13 @@ namespace PasteBinClone.Application.Services
 
         public async Task<bool> UpdatePaste(PasteDto pasteDto)
         {
+
+            var pasteFromDb = await _pasteRepository.GetById(pasteDto.Id);
             Paste paste = _mapper.Map<Paste>(pasteDto);
+            paste.BodyUrl = pasteFromDb.BodyUrl;
 
             bool updateResult = await _amazonStorage
-                .UpdateFile(paste.BodyUrl, pasteDto.Body);
+                .UpdateFile(pasteFromDb.BodyUrl, pasteDto.Body);
 
             //if the update was successful, the method will return true
             if (updateResult)
