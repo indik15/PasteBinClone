@@ -1,27 +1,34 @@
-﻿<div class="h-100 w-100">
-    <form method="post">
+﻿@model CreatePasteVM
+
+<div class="h-100 w-100">
+    <form asp-controller="Paste" method="post" onsubmit="return validateForm();">
+
+        <input value="@Model.PasteVM.Id" asp-for="PasteVM.Id" hidden/>
+        <input value="@Model.PasteVM.UserId" asp-for="PasteVM.UserId" hidden />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <div class="row mt-4">
             @* Body *@
             <div class="col text-menu order-md-2">
 
-                <div class="mb-1 ms-2">
+                <div class="mb-1 ms-2 d-flex">
                     <span class="filter-text">Title</span>
                 </div>
 
+                <span asp-validation-for="PasteVM.Title" class="text-danger"></span>
+
                 <div class="mb-3">
                     <div class="input-group input-group-sm mb-3 title_input">
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        <input asp-for="PasteVM.Title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="@Model.PasteVM.Title">
                     </div>
                 </div>
 
-                <div class="mb-1 ms-2 d-flex justify-content-between">
-                    <span class="filter-text">New Post</span>
-                    <a class="me-2 link-dark href-txt" href="#">Download .txt</a>
-                </div>
+                <span asp-validation-for="PasteVM.Body" class="text-danger"></span>
 
                 <div class="mb-3 bg-white">
                     <div>
-                        <textarea class="form-control summernote text-menu"></textarea>
+                        <textarea asp-for="PasteVM.Body" class="form-control summernote text-menu"> @Model.PasteVM.Body </textarea>
                     </div>
                 </div>
 
@@ -36,11 +43,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" asp-for="PasteVM.TypeId" asp-items="@Model.ContentTypes" aria-label="Default select example">
                         </select>
                     </div>
 
@@ -49,11 +52,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" asp-for="PasteVM.CategoryId" asp-items="@Model.Categories" aria-label="Default select example">
                         </select>
                     </div>
 
@@ -62,11 +61,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" asp-for="PasteVM.IsPublic" aria-label="Default select example" id="publicPrivateSelect">
+                            <option value="true">Public</option>
+                            <option value="false">Private</option>
                         </select>
                     </div>
 
@@ -75,11 +72,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" asp-for="PasteVM.ExpireType" aria-label="Default select example">
+                            <option value="1">5 min</option>
+                            <option value="2">10 min</option>
+                            <option value="3">30 min</option>
+                            <option value="4">1 hour</option>
+                            <option value="5">1 day</option>
+                            <option value="6">3 days</option>
+                            <option value="7">30 days</option>
                         </select>
                     </div>
 
@@ -88,28 +88,28 @@
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
+                        <select class="form-select" asp-for="PasteVM.LanguageId" asp-items="@Model.Languages" aria-label="Default select example">
                         </select>
                     </div>
 
                     <div class="mb-1">
                         <span class="filter-text">Password</span>
-                        <input class="form-check-input ms-1" type="checkbox" value="" id="flexCheckDefault">
                     </div>
 
+                    <span asp-validation-for="PasteVM.Password" class="text-danger"></span>
+
                     <div class="mb-3">
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        <div class="d-flex position-relative input-group-sm mb-3">
+                            <input asp-for=PasteVM.Password type="password" class="password form-control" id="passwordInput" disabled>
+                            <i class="fa-solid fa-eye-slash show-password" id="togglePassword"></i>
                         </div>
                     </div>
+
 
                     <div class="row">
 
                         <div class="col-auto">
-                            <button class="btn ms-1 mb-2 create-paste-btn create-paste-btn_text" type="submit">Create Paste</button>
+                            <button class="btn ms-1 mb-2 create-paste-btn create-paste-btn_text" type="submit">Update Paste</button>
                         </div>
 
                         <div class="col-auto">
@@ -126,8 +126,22 @@
     </form>
 </div>
 
-@section Scripts{
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
     <script>
+        function validateForm() {
+            var isValid = true;
+            var bodyValue = $('.summernote').val();
+            if (!bodyValue) {
+                isValid = false;
+                $('span[data-valmsg-for="PasteVM.Body"]').text('The field is required.');
+            } else {
+                $('span[data-valmsg-for="PasteVM.Body"]').text('');
+            }
+            return isValid;
+        }
         $(document).ready(function () {
             $('.summernote').summernote({
                 height: 600,
@@ -138,11 +152,45 @@
                     ['font', ['strikethrough', 'superscript', 'subscript']],
                     ['fontsize', ['fontsize']],
                     ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']]
+                    ['para', ['ul', 'ol', 'paragraph']]
                 ]
             });
         });
-    </script>
 
+        function updatePasswordField() {
+            var publicPrivateSelect = document.getElementById('publicPrivateSelect');
+            var passwordInput = document.getElementById('passwordInput');
+            var togglePassword = document.getElementById('togglePassword');
+
+            if (publicPrivateSelect.value === 'false') {
+                passwordInput.disabled = false;
+                togglePassword.style.display = 'inline';
+            } else {
+                passwordInput.disabled = true;
+                passwordInput.value = ''; // Clear the password field
+                togglePassword.style.display = 'none';
+            }
+        }
+
+        document.getElementById('publicPrivateSelect').addEventListener('change', updatePasswordField);
+
+        document.addEventListener('DOMContentLoaded', updatePasswordField);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let togglePassword = document.getElementById("togglePassword");
+            let passwordInput = document.getElementById("passwordInput");
+
+            togglePassword.onclick = function () {
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    togglePassword.classList.remove("fa-eye-slash");
+                    togglePassword.classList.add("fa-eye");
+                } else {
+                    passwordInput.type = "password";
+                    togglePassword.classList.remove("fa-eye");
+                    togglePassword.classList.add("fa-eye-slash");
+                }
+            }
+        });
+    </script>
 }
