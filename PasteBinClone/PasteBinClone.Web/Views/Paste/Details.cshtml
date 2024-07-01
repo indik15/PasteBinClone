@@ -1,4 +1,5 @@
-﻿@model GetPasteVM
+﻿@using System.Security.Claims
+@model GetPasteVM
 
 <div class="h-100 w-100">
     <div class="d-flex justify-content-center">
@@ -98,9 +99,20 @@
                     <button class="btn btn-outline-info share-btn roboto-regular" type="submit" onclick="copyCurrentURL()">Share</button>
                 </div>
 
-                <div class="col p-0 text-end me-3">
-                    <button class="btn report-btn btn-outline-danger roboto-regular" type="submit">Report</button>
-                </div>
+                @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.UserId.ToString())
+                {
+                    <form asp-controller="Paste" method="get">
+                        <div class="col p-0 text-end me-3">
+                            <button asp-route-id="@Model.Id" asp-action="Edit" class="btn report-btn btn-primary roboto-regular" type="submit">Edit</button>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <div class="col p-0 text-end me-3">
+                        <button class="btn report-btn btn-outline-danger roboto-regular" type="submit">Report</button>
+                    </div>
+                }
             </div>
 
             @* Comments *@
