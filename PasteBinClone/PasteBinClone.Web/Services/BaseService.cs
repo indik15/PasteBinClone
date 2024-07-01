@@ -29,13 +29,24 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task<ResponseAPI> GetById(object id, string route, string token, string password = null)
+        public async Task<ResponseAPI> GetById(object id, string route, string token, string userId = null, string password = null)
         {
             var url = $"{Settings.WebApiBase}{route}{id}";
 
+            var queryParameters = new List<string>();
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                queryParameters.Add($"userId={userId}");
+            }
             if (!string.IsNullOrEmpty(password))
             {
-                url += $"?password={password}";
+                queryParameters.Add($"password={password}");
+            }
+
+            if (queryParameters.Any())
+            {
+                url += "?" + string.Join("&", queryParameters);
             }
 
             return await _requestService.Send(new ApiRequest()

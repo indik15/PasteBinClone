@@ -129,7 +129,7 @@ namespace PasteBinClone.Application.Services
             return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
         }
 
-        public async Task<(GetPasteDto, string)> GetPasteById(Guid id, string password = null)
+        public async Task<(GetPasteDto, string)> GetPasteById(Guid id, string userId = null, string password = null)
         {
             Paste paste = await _pasteRepository.GetById(id);
 
@@ -147,22 +147,26 @@ namespace PasteBinClone.Application.Services
                 return (null, "");
             }
 
-            if (!paste.IsPublic)
+            if(paste.UserId != userId)
             {
-                if (string.IsNullOrEmpty(password))
+                if (!paste.IsPublic)
                 {
-                    return (new GetPasteDto { IsPublic = false }, "");
-                }
-                else
-                {
-                    bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
-
-                    if (!isCorrectPassword)
+                    if (string.IsNullOrEmpty(password))
                     {
-                        return (new GetPasteDto { IsPublic = false }, "Incorrect password");
+                        return (new GetPasteDto { IsPublic = false }, "");
+                    }
+                    else
+                    {
+                        bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
+
+                        if (!isCorrectPassword)
+                        {
+                            return (new GetPasteDto { IsPublic = false }, "Incorrect password");
+                        }
                     }
                 }
             }
+
             string pasteBody = await _amazonStorage.GetFile(paste.BodyUrl);
 
             var pasteDto = _mapper.Map<GetPasteDto>(paste);
