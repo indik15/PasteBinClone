@@ -102,7 +102,7 @@ namespace PasteBinClone.Persistence.Repository
                 //Separate the Paste entity from the Db context
                 _db.Pastes.Entry(paste).State = EntityState.Deleted;
 
-                _db.Pastes.Update(currentPaste);
+                _db.Pastes.Update(paste);
                 await _db.SaveChangesAsync();
 
                 //Return true if the object exists and was updated 

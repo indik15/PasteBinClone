@@ -280,7 +280,7 @@ namespace PasteBinClone.Web.Controllers
                 //var getCreatedPaste = await _baseService.GetById();
                 //return View();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Home");
             }
             else
             {
