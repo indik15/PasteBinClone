@@ -20,9 +20,21 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(Guid id, string password = null)
         {
+            string userId = string.Empty;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, password);
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                var handler = new JwtSecurityTokenHandler();
+
+                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
+
+                var user = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
+
+                userId = user;
+            }
+
+            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId, password);
 
             if (response != null && response.IsSuccess)
             {
@@ -167,21 +179,63 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            string userId = string.Empty;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken);
-
-            if(response != null && response.IsSuccess)
+            if (!string.IsNullOrEmpty(accessToken))
             {
-                //Deserialization of the received object into a Paste
-                PasteVM paste = JsonConvert.DeserializeObject<PasteVM>(response.Data.ToString());
+                var handler = new JwtSecurityTokenHandler();
 
-                return View(paste);
+                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
+
+                var user = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
+
+                userId = user;
             }
-            else
+
+            var response = await _baseService.GetAll(RouteConst.FilterRoute);
+            var response2 = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId);
+
+            if (response != null &&  response2 != null && response.IsSuccess)
             {
-                return NotFound();
+                FilterVM filterVM = JsonConvert.DeserializeObject<FilterVM>(response.Data.ToString());
+                GetPasteVM paste = JsonConvert.DeserializeObject<GetPasteVM>(response2.Data.ToString());
+
+                CreatePasteVM createPasteVM = new()
+                {
+                    Categories = filterVM.Categories.Select(u => new SelectListItem
+                    {
+                        Text = u.CategoryName,
+                        Value = u.id.ToString()
+                    }),
+                    ContentTypes = filterVM.ContentTypes.Select(u => new SelectListItem
+                    {
+                        Text = u.TypeName,
+                        Value = u.Id.ToString()
+                    }),
+                    Languages = filterVM.Languages.Select(u => new SelectListItem
+                    {
+                        Text = u.LanguageName,
+                        Value = u.Id.ToString()
+                    }),
+                    PasteVM = new PasteVM
+                    {
+                        Id = paste.Id,
+                        Title = paste.Title,
+                        Body = paste.Body,
+                        CategoryId = paste.Category.id,
+                        LanguageId = paste.Language.Id,
+                        TypeId = paste.Type.Id,
+                        IsPublic = paste.IsPublic,
+                        ExpireAt = paste.ExpireAt,
+                        UserId = paste.UserId.ToString(),
+                        CreateAt = paste.CreateAt
+                    }
+                };
+
+                return View(createPasteVM);
             }
+            return NotFound();
         }
 
         //Post-Edit
@@ -190,6 +244,34 @@ namespace PasteBinClone.Web.Controllers
         public async Task<IActionResult> Edit(PasteVM pasteVM)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            switch (pasteVM.ExpireType)
+            {
+                case "1":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(1);
+                    break;
+                case "2":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
+                    break;
+                case "3":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(30);
+                    break;
+                case "4":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddHours(1);
+                    break;
+                case "5":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(1);
+                    break;
+                case "6":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(3);
+                    break;
+                case "7":
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(30);
+                    break;
+                default:
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
+                    break;
+            }
 
             var response = await _baseService.Put(pasteVM, RouteConst.PasteRoute, accessToken);
 
