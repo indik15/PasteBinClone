@@ -293,14 +293,26 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
+            string userId = string.Empty;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken);
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                var handler = new JwtSecurityTokenHandler();
+
+                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
+
+                var user = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
+
+                userId = user;
+            }
+
+            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId);
 
             if (response != null && response.IsSuccess)
             {
                 //Deserialization of the received object into a Paste
-                PasteVM paste = JsonConvert.DeserializeObject<PasteVM>(response.Data.ToString());
+                GetPasteVM paste = JsonConvert.DeserializeObject<GetPasteVM>(response.Data.ToString());
 
                 return View(paste);
             }
@@ -322,7 +334,7 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Home");
             }
             else
             {
