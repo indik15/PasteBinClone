@@ -108,8 +108,13 @@
                 @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.UserId.ToString())
                 {
                     <form asp-controller="Paste" method="get" class="col p-0 text-end me-3">
-                        <button asp-route-id="@Model.Id" asp-action="Edit" class="btn report-btn btn-primary roboto-regular" type="submit">Edit</button>
+                        <button asp-route-id="@Model.Id" asp-action="Edit" class="btn btn-primary roboto-regular edit-btn" type="submit">Edit</button>
+                        <button asp-route-id="@Model.Id" asp-action="Delete" class="btn btn-danger roboto-regular delete-btn" type="submit">Delete</button>
                     </form>
+                }
+                else if (User.IsInRole("Admin"))
+                {
+                    <button asp-route-id="@Model.Id" asp-action="Delete" class="btn btn-danger roboto-regular delete-btn" type="submit">Delete</button>
                 }
                 else
                 {

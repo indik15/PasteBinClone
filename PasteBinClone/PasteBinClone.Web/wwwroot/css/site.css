@@ -8,6 +8,11 @@ html {
   }
 }
 
+textarea[readonly] {
+    background-color: #e9ecef; 
+    cursor: not-allowed;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -551,4 +556,27 @@ body {
 
 .method-btn_delete {
     background-color: #ff5e5e;
+}
+
+.edit-btn {
+    height: 37px;
+    width: 80px;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    font-size: 18px;
+    text-align: center;
+    background-color: #2ea2f0;
+}
+
+.delete-btn {
+    height: 37px;
+    width: 80px;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    border-color: #D8D8D8;
+    font-size: 18px;
+    text-align: center;
 }
