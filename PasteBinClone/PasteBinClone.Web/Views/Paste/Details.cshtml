@@ -114,7 +114,9 @@
                 }
                 else if (User.IsInRole("Admin"))
                 {
-                    <button asp-route-id="@Model.Id" asp-action="Delete" class="btn btn-danger roboto-regular delete-btn" type="submit">Delete</button>
+                    <form asp-controller="Paste" method="get" class="col p-0 text-end me-3">
+                        <button asp-route-id="@Model.Id" asp-action="Delete" class="btn btn-danger roboto-regular delete-btn" type="submit">Delete</button>
+                    </form>
                 }
                 else
                 {

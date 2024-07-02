@@ -307,6 +307,17 @@ body {
     border-style: solid;
     border-color: #D8D8D8;
 }
+
+.delete-paste-btn {
+    height: 37px;
+    width: 132px;
+    background-color: #53EC74;
+    border-radius: 7px;
+    border: 1px;
+    border-style: solid;
+    background-color: #ff5e5e;
+}
+
 .create-paste-btn_text {
     font-size: 16px;
     font-family: 'K2D', sans-serif;
