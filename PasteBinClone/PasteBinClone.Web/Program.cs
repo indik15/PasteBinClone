@@ -20,6 +20,7 @@ Settings.WebApiBase = builder.Configuration["WebApi:Url"];
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
+builder.Services.AddScoped<IUserInfo, UserInfo>();
 
 builder.Services.AddAuthentication(options =>
 {

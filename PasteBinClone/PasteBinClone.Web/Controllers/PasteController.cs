@@ -12,27 +12,17 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace PasteBinClone.Web.Controllers
 {
-    public class PasteController(IBaseService baseService) : Controller
+    public class PasteController(IBaseService baseService, IUserInfo userInfo) : Controller
     {
         private readonly IBaseService _baseService = baseService;
+        private readonly IUserInfo _userInfo = userInfo;
 
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> Details(Guid id, string password = null)
         {
-            string userId = string.Empty;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                var handler = new JwtSecurityTokenHandler();
-
-                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
-
-                var user = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
-
-                userId = user;
-            }
+            string userId = _userInfo.GetUserId(accessToken);
 
             var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId, password);
 
@@ -119,17 +109,8 @@ namespace PasteBinClone.Web.Controllers
         public async Task<IActionResult> Create(PasteVM pasteVM)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                var handler = new JwtSecurityTokenHandler();
-
-                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
-
-                var userId = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
-
-                pasteVM.UserId = userId;
-            }
+            string userId = _userInfo.GetUserId(accessToken);
+            pasteVM.UserId = userId;
 
             switch (pasteVM.ExpireType)
             {
@@ -179,19 +160,8 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            string userId = string.Empty;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                var handler = new JwtSecurityTokenHandler();
-
-                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
-
-                var user = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
-
-                userId = user;
-            }
+            string userId = _userInfo.GetUserId(accessToken);
 
             var response = await _baseService.GetAll(RouteConst.FilterRoute);
             var response2 = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId);
@@ -293,19 +263,8 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            string userId = string.Empty;
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                var handler = new JwtSecurityTokenHandler();
-
-                var jwtToken = handler.ReadToken(accessToken) as JwtSecurityToken;
-
-                var user = jwtToken.Claims.FirstOrDefault(u => u.Type == "sub").Value;
-
-                userId = user;
-            }
+            string userId = _userInfo.GetUserId(accessToken);
 
             var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId);
 
