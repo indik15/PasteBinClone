@@ -1,0 +1,147 @@
+﻿@model GetPasteVM
+
+<div class="h-100 w-100">
+    <form asp-controller="Paste" method="post">
+
+        <input value="@Model.Id" asp-route-id="Id" hidden/>
+
+        <div class="row mt-4">
+            @* Body *@
+            <div class="col text-menu order-md-2">
+
+                <div class="mb-1 ms-2 d-flex">
+                    <span class="filter-text">Title</span>
+                </div>
+
+
+                <div class="mb-3">
+                    <div class="input-group input-group-sm mb-3 title_input">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="@Model.Title" disabled>
+                    </div>
+                </div>
+
+                <div class="mb-3 bg-white">
+                    <div class="mb-3 bg-white details-body text-menu p-1" style="word-wrap: break-word;">
+                        @Html.Raw(Model.Body)
+                    </div>
+                </div>
+
+            </div>
+            @* Filter *@
+            <div class="col-3 type-menu order-md-1 mt-md-5 mt-4 d-flex">
+
+                <div class="col flex-fill create-filter">
+
+                    <div class="mb-1">
+                        <span class="filter-text">Type</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-control" value="@Model.Type.TypeName" aria-label="Default select example" disabled />
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Category</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-control" value="@Model.Category.CategoryName" aria-label="Default select example" disabled />
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Access</span>
+                    </div>
+
+                    <div class="mb-3">
+                        @if (Model.IsPublic)
+                        {
+                            <input class="form-control" value="Public" aria-label="Default select example" disabled />
+                        }
+                        else
+                        {
+                            <input class="form-control" value="Private" aria-label="Default select example" disabled />
+                        }
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Life`s time</span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        @if (Model.TimeRemaining.Days != 0)
+                        {
+                            <input class="form-control" value="@Model.TimeRemaining.Days d." aria-label="Default select example" disabled />
+                        }
+                        else if (Model.TimeRemaining.Hours != 0)
+                        {
+                            <input class="form-control" value="@Model.TimeRemaining.Hours h." aria-label="Default select example" disabled />
+                        }
+
+                        else if (Model.TimeRemaining.Minutes != 0)
+                        {
+                            <input class="form-control" value="@Model.TimeRemaining.Minutes m." aria-label="Default select example" disabled />
+                        }
+                        else if (Model.TimeRemaining.Seconds != 0)
+                        {
+                            <input class="form-control" value="@Model.TimeRemaining.Seconds s." aria-label="Default select example" disabled />
+                        }
+                    </div>
+
+                    <div class="mb-1">
+                        <span class="filter-text">Language</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-control" value="@Model.Language.LanguageName" aria-label="Default select example" disabled />
+                    </div>                 
+
+                    <div class="row">
+
+                        <div class="col-auto">
+                            <button class="btn ms-1 mb-2 create-paste-btn create-paste-btn_text" type="submit">Delete Paste</button>
+                        </div>
+
+                        <div class="col-auto">
+                            <button class="btn back-btn back-btn_text" type="submit">Back</button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function validateForm() {
+            var isValid = true;
+            var bodyValue = $('.summernote').val();
+            if (!bodyValue) {
+                isValid = false;
+                $('span[data-valmsg-for="PasteVM.Body"]').text('The field is required.');
+            } else {
+                $('span[data-valmsg-for="PasteVM.Body"]').text('');
+            }
+            return isValid;
+        }
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 600,
+                minWidth: 1244,
+                toolbar: [
+                    //[groupName, [list of button]]
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']]
+                ]
+            });
+        });
+    </script>
+}
