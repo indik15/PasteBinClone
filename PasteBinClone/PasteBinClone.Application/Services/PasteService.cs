@@ -14,12 +14,14 @@ namespace PasteBinClone.Application.Services
     public class PasteService(IPasteRepository pasteRepository, 
         IMapper mapper,
         IAmazonStorageService amazonStorage,
-        IPasswordHasher passwordHasher) : IPasteService
+        IPasswordHasher passwordHasher,
+        IApiUserRepository apiUser) : IPasteService
     {
         private readonly IPasteRepository _pasteRepository = pasteRepository;
         private readonly IMapper _mapper = mapper;
         private readonly IAmazonStorageService _amazonStorage = amazonStorage;
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
+        private readonly IApiUserRepository _apiUser = apiUser;
 
         public async Task<bool> CreatePaste(PasteDto pasteDto)
         {
@@ -147,21 +149,26 @@ namespace PasteBinClone.Application.Services
                 return (null, "");
             }
 
-            if(paste.UserId != userId)
-            {
-                if (!paste.IsPublic)
-                {
-                    if (string.IsNullOrEmpty(password))
-                    {
-                        return (new GetPasteDto { IsPublic = false }, "");
-                    }
-                    else
-                    {
-                        bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
+            var user = await _apiUser.GetById(userId);
 
-                        if (!isCorrectPassword)
+            if(user.Role != "Admin")
+            {
+                if (paste.UserId != userId)
+                {
+                    if (!paste.IsPublic)
+                    {
+                        if (string.IsNullOrEmpty(password))
                         {
-                            return (new GetPasteDto { IsPublic = false }, "Incorrect password");
+                            return (new GetPasteDto { IsPublic = false }, "");
+                        }
+                        else
+                        {
+                            bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
+
+                            if (!isCorrectPassword)
+                            {
+                                return (new GetPasteDto { IsPublic = false }, "Incorrect password");
+                            }
                         }
                     }
                 }
