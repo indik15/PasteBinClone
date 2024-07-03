@@ -131,7 +131,7 @@ namespace PasteBinClone.Application.Services
             return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
         }
 
-        public async Task<(GetPasteDto, string)> GetPasteById(Guid id, string userId = null, string password = null)
+        public async Task<(GetPasteDto getPasteDto, string errorMessage)> GetPasteById(Guid id, string userId = null, string password = null)
         {
             Paste paste = await _pasteRepository.GetById(id);
 
