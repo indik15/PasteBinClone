@@ -56,6 +56,7 @@ namespace PasteBinClone.Identity.DbInitializer
                 UserId = admin.Id,
                 Name = admin.UserName,
                 Email = admin.Email,
+                Role = UserRoles.Admin
             });
         }
     }
