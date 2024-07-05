@@ -34,6 +34,7 @@ builder.Services.AddScoped<IBaseRepository<ContentType>, ContentTypeRepository>(
 builder.Services.AddScoped<IBaseRepository<Language>, LanguageRepository>();
 builder.Services.AddScoped<IApiUserRepository, ApiUserRepository>();
 builder.Services.AddScoped<IPasteRepository, PasteRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IAmazonStorageService, AmazonStorageService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
