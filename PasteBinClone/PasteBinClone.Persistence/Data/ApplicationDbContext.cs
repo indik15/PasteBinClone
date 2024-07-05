@@ -18,6 +18,7 @@ namespace PasteBinClone.Persistence.Data
         public DbSet<Language> Languages { get; set; }
         public DbSet<ApiUser> ApiUsers { get; set; }
         public DbSet<Paste> Pastes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +27,7 @@ namespace PasteBinClone.Persistence.Data
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
             modelBuilder.ApplyConfiguration(new ApiUserConfiguration());
             modelBuilder.ApplyConfiguration(new PasteConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

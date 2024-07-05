@@ -15,6 +15,7 @@ namespace PasteBinClone.Application.Interfaces
         DbSet<Language> Languages { get; }
         DbSet<ApiUser> ApiUsers { get; }
         DbSet<Paste> Pastes { get; }
+        DbSet<Comment> Comments { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellation = default);
     }
