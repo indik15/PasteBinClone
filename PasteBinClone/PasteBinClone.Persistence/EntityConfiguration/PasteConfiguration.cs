@@ -31,6 +31,8 @@ namespace PasteBinClone.Persistence.EntityConfiguration
                 .HasOne(u => u.Type);
             builder
                 .HasOne(u => u.User);
+            builder
+                .HasMany(u => u.Comments);
         }
     }
 }
