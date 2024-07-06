@@ -10,7 +10,7 @@ namespace PasteBinClone.Domain.Models
     {
         public Guid Id { get; set; }
         public string Body { get; set; }
-        public DateTime CreateAt { get; set; } = DateTime.Now;
+        public DateTime CreateAt { get; set; }
         public string? UserId { get; set; }
         public ApiUser User { get; set; }
         public Guid PasteId { get; set; }
