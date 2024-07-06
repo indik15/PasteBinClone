@@ -84,6 +84,7 @@ namespace PasteBinClone.Persistence.Repository
             .Include(p => p.Language)
             .Include(p => p.Type)
             .Include(p => p.User)
+            .Include(u => u.Comments)
             .FirstOrDefaultAsync(p => p.Id == id);
         }
 
