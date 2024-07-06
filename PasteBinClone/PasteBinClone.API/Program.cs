@@ -49,6 +49,7 @@ builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 builder.Services.AddScoped<IValidator<ContentTypeDto>, ContentTypeDtoValidator>();
 builder.Services.AddScoped<IValidator<LanguageDto>, LanguageDtoValidator>();
 builder.Services.AddScoped<IValidator<PasteDto>, PasteDtoValidator>();
+builder.Services.AddScoped<IValidator<CommentDto>, CommentDtoValidator>();
 
 builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
