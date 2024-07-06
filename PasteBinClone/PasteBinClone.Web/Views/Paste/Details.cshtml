@@ -127,21 +127,35 @@
             </div>
 
             @* Comments *@
-            <div>
-                <div class="mb-2">
-                    <label for="exampleFormControlTextarea1" class="form-label filter-text ms-2">Add Comments</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div class="text-end">
-                    <button class="btn comment-btn btn-outline-secondary roboto-regular" type="submit">Add Comment</button>
-                </div>
-            </div>
+            <form asp-controller="Comment" asp-action="Create" method="post">
+                <input type="hidden" name="PasteId" value="@Model.Id" />
 
-            <div class="mt-5">
-                <label for="exampleFormControlTextarea1" class="form-label filter-text ms-2">Comments</label>
-                <div class="bg-white coments p-2">
+                <div>
+                    <div class="mb-2">
+                        <label class="form-label filter-text ms-2">Add Comments</label>
+                        <textarea class="form-control" rows="3" name="Body"></textarea>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn comment-btn btn-outline-secondary roboto-regular" type="submit">Add Comment</button>
+                    </div>
                 </div>
-            </div>
+
+                <div class="mt-5">
+                    <label class="form-label filter-text ms-2">Comments</label>
+                    <div class="bg-white coments p-2">                        
+                        
+                        @foreach (var item in Model.Comments)
+                        {
+                            <div class="row">
+                                <label class="filter-text ms-2">@item.UserName</label>
+                                <div class="coments-item" style="height:70px; width:70%;">
+                                    @item.Body
+                                </div>
+                            </div>
+                        }                      
+                    </div>
+                </div>
+            </form>
 
         </div>
     </div>

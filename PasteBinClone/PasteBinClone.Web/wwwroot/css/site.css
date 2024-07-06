@@ -436,9 +436,23 @@ body {
 .coments {
     height: auto;
     min-width: 60vw;
+    max-width:500px;
     border: 1px;
     border-style: solid;
     border-color: #989898;
+    overflow: auto;
+}
+
+.coments-item {
+    max-width: 96%;
+    max-height: 200px;
+    margin-bottom: 14px;
+    margin-left: 14px;
+    background-color: #fff;
+    border: 1px;
+    border-style: solid;
+    border-color: #989696;
+    border-radius: 15px;
     overflow: auto;
 }
 
