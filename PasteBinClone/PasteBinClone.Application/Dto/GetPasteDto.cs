@@ -21,5 +21,6 @@ namespace PasteBinClone.Application.Dto
         public LanguageVM Language { get; set; }
         public Guid UserId { get; set; }    
         public string UserName { get; set; }
+        public ICollection<CommentDto> Comments { get; set; }
     }
 }

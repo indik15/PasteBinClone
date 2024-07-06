@@ -1,4 +1,5 @@
-﻿using PasteBinClone.Domain.Models;
+﻿using PasteBinClone.Application.Dto;
+using PasteBinClone.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace PasteBinClone.Application.ViewModels
         public LanguageVM Language { get; set; }
         public Guid UserId { get; set; }
         public string UserName { get; set; }
+        public ICollection<CommentDto> Comments { get; set; }
     }
 }
