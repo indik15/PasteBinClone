@@ -63,7 +63,7 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ResponseAPI>> GetAll()
+        public async Task<ActionResult<ResponseAPI>> Get()
         {
             IEnumerable<CommentDto> commentDtos = await _commentService.GetAllComments();
 

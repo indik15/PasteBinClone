@@ -105,7 +105,7 @@ namespace PasteBinClone.API.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<ActionResult<ResponseAPI>> Update([FromBody] PasteDto pasteDto)
+        public async Task<ActionResult<ResponseAPI>> Put([FromBody] PasteDto pasteDto)
         {
             Log.Information("Request to edit a Paste with id: {@id}", pasteDto.Id);
 
@@ -120,13 +120,13 @@ namespace PasteBinClone.API.Controllers
 
             bool result = await _pasteService.UpdatePaste(pasteDto);
 
-            if (!result)
+            if (result)
             {
-                return NotFound();
+                return Ok(_responseAPI);
             }
             else
             {
-                return Ok(_responseAPI);
+                return NotFound();
             }
         }
 
@@ -138,13 +138,13 @@ namespace PasteBinClone.API.Controllers
 
             bool result = await _pasteService.DeletePaste(id);
 
-            if (!result)
+            if (result)
             {
-                return NotFound();
+                return Ok(_responseAPI);
             }
             else
             {
-                return Ok(_responseAPI);
+                return NotFound();
             }
         }
     }

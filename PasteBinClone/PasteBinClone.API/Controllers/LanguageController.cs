@@ -32,7 +32,7 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ResponseAPI>> GetAll()
+        public async Task<ActionResult<ResponseAPI>> Get()
         {
             Log.Information("Request to receive all objects");
 
@@ -98,7 +98,7 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ResponseAPI>> Update([FromBody] LanguageDto languageDto)
+        public async Task<ActionResult<ResponseAPI>> Put([FromBody] LanguageDto languageDto)
         {
             Log.Information("Request to edit an object with id: {@id}", languageDto.Id);
 

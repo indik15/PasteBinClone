@@ -33,7 +33,7 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ResponseAPI>> GetAll()
+        public async Task<ActionResult<ResponseAPI>> Get()
         {
             Log.Information("Request to receive all objects");
 
@@ -115,13 +115,13 @@ namespace PasteBinClone.API.Controllers
 
             bool result = await _categoryService.UpdateCategory(categoryDto);
 
-            if (!result)
+            if (result)
             {
-                return NotFound();
+                return Ok(_response);
             }
             else
             {
-                return Ok(_response);
+                return NotFound();
             }
         }
 
@@ -132,13 +132,13 @@ namespace PasteBinClone.API.Controllers
 
             bool result = await _categoryService.DeleteCategory(id);
 
-            if (!result)
+            if (result)
             {
-                return NotFound();
+                return Ok(_response);
             }
             else
             {
-                return Ok(_response);
+                return NotFound();
             }
         }
 
