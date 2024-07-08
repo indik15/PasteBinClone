@@ -440,7 +440,7 @@ body {
     border: 1px;
     border-style: solid;
     border-color: #989898;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .comments-item {
