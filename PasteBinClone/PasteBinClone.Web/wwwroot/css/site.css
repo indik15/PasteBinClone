@@ -433,7 +433,7 @@ body {
     font-size: 18px;
 }
 
-.coments {
+.comments {
     height: auto;
     min-width: 60vw;
     max-width:500px;
@@ -443,17 +443,20 @@ body {
     overflow: auto;
 }
 
-.coments-item {
-    max-width: 96%;
-    max-height: 200px;
+.comments-item {
+    min-height: 70px;
+    width: 70%;
+    max-height: 300px;
     margin-bottom: 14px;
     margin-left: 14px;
     background-color: #fff;
     border: 1px;
     border-style: solid;
-    border-color: #989696;
+    border-color: #d1d1d1;
     border-radius: 15px;
     overflow: auto;
+    overflow-y: auto;
+    word-break: break-word;
 }
 
 /*=========================== Profile ===========================*/

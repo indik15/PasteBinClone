@@ -142,13 +142,13 @@
 
                 <div class="mt-5">
                     <label class="form-label filter-text ms-2">Comments</label>
-                    <div class="bg-white coments p-2">                        
+                    <div class="bg-white comments p-2">                        
                         
                         @foreach (var item in Model.Comments)
                         {
                             <div class="row">
                                 <label class="filter-text ms-2">@item.UserName</label>
-                                <div class="coments-item" style="height:70px; width:70%;">
+                                <div class="comments-item">
                                     @item.Body
                                 </div>
                             </div>
