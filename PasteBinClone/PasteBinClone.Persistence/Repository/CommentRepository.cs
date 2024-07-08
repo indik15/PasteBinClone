@@ -47,10 +47,11 @@ namespace PasteBinClone.Persistence.Repository
             return false;
         }
 
-        public async Task<IEnumerable<Comment>> Get()
+        public async Task<IEnumerable<Comment>> Get(Guid pasteId)
         {
             return await _db.Comments
-                .Include(u => u.UserId)
+                .Where(u => u.PasteId == pasteId)
+                .Include(u => u.User)
                 .AsNoTracking()
                 .ToListAsync();
         }

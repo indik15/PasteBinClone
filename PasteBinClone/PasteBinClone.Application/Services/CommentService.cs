@@ -50,9 +50,9 @@ namespace PasteBinClone.Application.Services
             return false;
         }
 
-        public async Task<IEnumerable<CommentDto>> GetAllComments()
+        public async Task<IEnumerable<CommentDto>> GetAllComments(Guid pasteId)
         {
-            IEnumerable<Comment> commentDtos = await _commentRepository.Get();
+            IEnumerable<Comment> commentDtos = await _commentRepository.Get(pasteId);
 
             if(commentDtos == null)
             {

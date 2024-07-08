@@ -9,7 +9,7 @@ namespace PasteBinClone.Application.Interfaces
 {
     public interface ICommentRepository
     {
-        Task<IEnumerable<Comment>> Get();
+        Task<IEnumerable<Comment>> Get(Guid pasteId);
         Task<Comment> GetById(Guid id);
         Task<bool> Create(Comment comment);
         Task<bool> Update(Comment comment);
