@@ -13,8 +13,7 @@ namespace PasteBinClone.Application.ViewModels
         public string Body { get; set; }
         public DateTime CreateAt { get; set; }
         public string? UserId { get; set; }
-        public ApiUser User { get; set; }
+        public string UserName { get; set; }
         public Guid PasteId { get; set; }
-        public Paste Paste { get; set; }
     }
 }

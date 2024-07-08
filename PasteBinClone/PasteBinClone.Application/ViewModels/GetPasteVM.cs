@@ -21,6 +21,6 @@ namespace PasteBinClone.Application.ViewModels
         public LanguageVM Language { get; set; }
         public Guid UserId { get; set; }
         public string UserName { get; set; }
-        public ICollection<CommentDto> Comments { get; set; }
+        public ICollection<CommentVM> Comments { get; set; }
     }
 }
