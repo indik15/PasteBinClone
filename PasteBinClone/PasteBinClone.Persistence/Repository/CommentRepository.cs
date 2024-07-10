@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PasteBinClone.Application;
+using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,13 +50,18 @@ namespace PasteBinClone.Persistence.Repository
             return false;
         }
 
-        public async Task<IEnumerable<Comment>> Get(Guid pasteId)
+        public async Task<(IEnumerable<Comment> comments, int totalComments)> Get(Guid pasteId, int page)
         {
-            return await _db.Comments
+            IEnumerable<Comment> comments = await _db.Comments
                 .Where(u => u.PasteId == pasteId)
                 .Include(u => u.User)
-                .AsNoTracking()
+                .Skip((page - 1) * Constants.CommentCount)
+                .Take(Constants.CommentCount)
                 .ToListAsync();
+
+            int totalComments = _db.Comments.Count(u => u.PasteId == pasteId);
+
+            return (comments, totalComments);
         }
 
         public async Task<Comment> GetById(Guid id)

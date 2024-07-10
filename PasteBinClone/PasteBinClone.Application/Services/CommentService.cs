@@ -50,20 +50,24 @@ namespace PasteBinClone.Application.Services
             return false;
         }
 
-        public async Task<IEnumerable<CommentDto>> GetAllComments(Guid pasteId)
+        public async Task<(IEnumerable<CommentDto> comments, int totalPages)> GetAllComments(Guid pasteId, int page)
         {
-            IEnumerable<Comment> commentDtos = await _commentRepository.Get(pasteId);
+            (IEnumerable<Comment> comments, int totalComments) = await _commentRepository.Get(pasteId, page);
 
-            if(commentDtos == null)
+            int totalPages = (int)Math.Ceiling((double)totalComments / Constants.CommentCount);
+
+            if (comments == null)
             {
                 Log.Information("Comment not found.");
 
-                return null;
+                return (null, 0);
             }
 
-            Log.Information("Received comments: {@Count}", commentDtos.Count());
+            Log.Information("Received comments: {@Count}", comments.Count());
 
-            return _mapper.Map<IEnumerable<CommentDto>>(commentDtos);
+            IEnumerable<CommentDto> commentDtos = _mapper.Map<IEnumerable<CommentDto>>(comments);
+
+            return (commentDtos, totalPages);
         }
 
         public async Task<CommentDto> GetCommentByID(Guid id)

@@ -10,7 +10,7 @@ namespace PasteBinClone.Application.Interfaces
     public interface ICommentService
     {
         Task<CommentDto> GetCommentByID(Guid id);
-        Task<IEnumerable<CommentDto>> GetAllComments(Guid pasteId);
+        Task<(IEnumerable<CommentDto> comments, int totalPages)> GetAllComments(Guid pasteId, int page);
         Task<bool> CreateComment(CommentDto commentDto);
         Task<bool> DeleteComment(Guid id);
         Task<bool> UpdateComment(CommentDto commentDto);

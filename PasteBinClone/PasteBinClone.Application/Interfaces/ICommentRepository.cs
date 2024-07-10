@@ -1,4 +1,5 @@
-﻿using PasteBinClone.Domain.Models;
+﻿using PasteBinClone.Application.Dto;
+using PasteBinClone.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PasteBinClone.Application.Interfaces
 {
     public interface ICommentRepository
     {
-        Task<IEnumerable<Comment>> Get(Guid pasteId);
+        Task<(IEnumerable<Comment> comments, int totalComments)> Get(Guid pasteId, int page);
         Task<Comment> GetById(Guid id);
         Task<bool> Create(Comment comment);
         Task<bool> Update(Comment comment);
