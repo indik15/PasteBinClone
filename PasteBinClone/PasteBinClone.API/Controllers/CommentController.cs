@@ -49,7 +49,7 @@ namespace PasteBinClone.API.Controllers
         {
             CommentDto result = await _commentService.GetCommentByID(id);
 
-            if(result == null)
+            if (result == null)
             {
                 return NotFound();
             }
@@ -62,10 +62,10 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<ActionResult<ResponseAPI>> Get()
-        {
-            IEnumerable<CommentDto> commentDtos = await _commentService.GetAllComments();
+        [HttpGet("{pasteId}")]
+        public async Task<ActionResult<ResponseAPI>> GetAll([FromBody] int pageNumber, Guid pasteId)
+         {
+            (IEnumerable<CommentDto> commentDtos, int totalPages) = await _commentService.GetAllComments(pasteId, pageNumber);
 
             if(commentDtos == null)
             {
@@ -75,7 +75,12 @@ namespace PasteBinClone.API.Controllers
             {
                 var commentVMs = _mapper.Map<IEnumerable<CommentVM>>(commentDtos);
 
-                _responseAPI.Data = commentVMs;
+                _responseAPI.Data = new CommentsResponse
+                {
+                    CommentVMs = commentVMs,
+                    TotalPages = totalPages
+                };
+
                 return Ok(_responseAPI);
             }
         }
