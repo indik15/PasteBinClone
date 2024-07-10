@@ -28,21 +28,28 @@ namespace PasteBinClone.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Comments(string pasteId)
+        public async Task<IActionResult> Comments(string pasteId, int pageNumber = 1)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
 
-            var response = await _baseService.GetById(pasteId, RouteConst.CommentRoute, accessToken);
+            var response = await _baseService.GetById(pasteId, RouteConst.CommentRoute, accessToken, obj: pageNumber);
 
             if (response != null && response.IsSuccess)
             {
-                IEnumerable<CommentVM> comments = JsonConvert.DeserializeObject<IEnumerable<CommentVM>>(response.Data.ToString());
+                
+                CommentsResponse commentsResponse = JsonConvert.DeserializeObject<CommentsResponse>(response.Data.ToString());
 
-                return View(new GetCommentsVM
+                GetCommentsVM comments = new GetCommentsVM
                 {
-                    Comments = comments,
-                    ReturnUrl = "https://localhost:44306/Paste/Details/" + pasteId
-                });
+                    Comments = commentsResponse.CommentVMs,
+                    ReturnUrl = "https://localhost:44306/Paste/Details/" + pasteId,
+                    PageNumber = pageNumber,
+                    PasteId = pasteId,
+                    IsActiveRightArrow = commentsResponse.TotalPages > pageNumber ? true : false,
+                    IsActiveLeftArrow = pageNumber > 1 ? true : false      
+                };
+
+                return View(comments);
             }
 
             return NotFound();
