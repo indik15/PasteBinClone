@@ -144,22 +144,32 @@
                     <label class="form-label filter-text ms-2">Comments</label>
                     <div class="bg-white comments p-2">                        
                         
-                        @foreach (var item in Model.Comments)
+                        @if (Model.Comments.Any())
                         {
-                            <div class="row">
-                                <div>
-                                    <label class="filter-text ms-2">@item.UserName</label>
-                                    <label class="ms-2">@item.CreateAt.Date.ToString("d")</label>
+                            @foreach (var item in Model.Comments)
+                            {
+                                <div class="row">
+                                    <div>
+                                        <label class="filter-text ms-2">@item.UserName</label>
+                                        <label class="ms-2">@item.CreateAt.Date.ToString("d")</label>
+                                    </div>
+                                    <div class="comments-item">
+                                        @item.Body
+                                    </div>
                                 </div>
-                                <div class="comments-item">
-                                    @item.Body
-                                </div>
-                            </div>
-                        }                      
+                            }
+                        }
+                        else
+                        {
+                            <span>Comment list is empty</span>
+                        }
                     </div>
-                    <div class="text-center mt-2">
-                        <a asp-controller="Comment" asp-action="Comments" asp-route-pasteId="@Model.Id" class="text-decoration-underline text-dark">Show more...</a>
-                    </div>
+                    @if(Model.Comments.Count() > 10)
+                    {
+                        <div class="text-center mt-2">
+                            <a asp-controller="Comment" asp-action="Comments" asp-route-pasteId="@Model.Id" class="text-decoration-underline text-dark">Show more...</a>
+                        </div>
+                    }
                 </div>
             </form>
 
