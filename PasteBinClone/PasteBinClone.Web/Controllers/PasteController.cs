@@ -24,7 +24,7 @@ namespace PasteBinClone.Web.Controllers
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             string userId = _userInfo.GetUserId(accessToken);
 
-            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId, password);
+            var response = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId:userId, password: password);
 
             if (response != null && response.IsSuccess)
             {

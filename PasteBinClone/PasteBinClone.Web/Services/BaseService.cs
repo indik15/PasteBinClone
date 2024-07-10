@@ -29,7 +29,7 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task<ResponseAPI> GetById(object id, string route, string token, string userId = null, string password = null)
+        public async Task<ResponseAPI> GetById(object id, string route, string token, object obj = null, string userId = null, string password = null)
         {
             var url = $"{Settings.WebApiBase}{route}{id}";
 
@@ -54,6 +54,7 @@ namespace PasteBinClone.Web.Services
                 ApiMethod = Settings.ApiMethod.GET,
                 Url = url,
                 AccessToken = token,
+                Data = obj,
             });
         }
 
