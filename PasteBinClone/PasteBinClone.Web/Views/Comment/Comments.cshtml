@@ -15,16 +15,43 @@
             </div>
 
             <div class="bg-white comments p-2">
-
+                
                 @foreach (var item in Model.Comments)
                 {
                     <div class="row">
-                        <label class="filter-text ms-2">@item.UserName</label>
+                        <div>
+                            <label class="filter-text ms-2">@item.UserName</label>
+                            <label class="ms-2">@item.CreateAt.Date.ToString("d")</label>
+                        </div>
                         <div class="comments-item">
                             @item.Body
                         </div>
                     </div>
                 }
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <div>
+
+                    <input name="pasteId" value="@Model.PasteId" hidden />
+
+                    @if (Model.IsActiveLeftArrow)
+                    {
+                        <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)"></button>
+                    }
+                    else
+                    {
+                        <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)" disabled></button>
+                    }
+                    <span>@Model.PageNumber</span>
+                    @if (Model.IsActiveRightArrow)
+                    {
+                        <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)"></button>
+                    }
+                    else
+                    {
+                        <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)" disabled></button>
+                    }
+                </div>
             </div>
         </div>
     </div>
