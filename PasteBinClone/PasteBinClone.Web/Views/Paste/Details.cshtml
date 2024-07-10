@@ -147,7 +147,10 @@
                         @foreach (var item in Model.Comments)
                         {
                             <div class="row">
-                                <label class="filter-text ms-2">@item.UserName</label>
+                                <div>
+                                    <label class="filter-text ms-2">@item.UserName</label>
+                                    <label class="ms-2">@item.CreateAt.Date.ToString("d")</label>
+                                </div>
                                 <div class="comments-item">
                                     @item.Body
                                 </div>
