@@ -11,7 +11,7 @@ namespace PasteBinClone.Application.Dto.Validations
     {
         public CommentDtoValidator()
         {
-            RuleFor(u => u.Body).NotEmpty();
+            RuleFor(u => u.Body).MaximumLength(1000).NotEmpty();
         }
     }
 }
