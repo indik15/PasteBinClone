@@ -1,0 +1,21 @@
+﻿@model CommentVM
+
+<form asp-controller="Comment" asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" name="PasteId" value="@Model.PasteId" />
+
+    <div>
+        <div class="mb-2">
+            <div>
+                <label class="form-label filter-text ms-2">Add Comments</label>
+            </div>
+            <div>
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+            <textarea class="form-control" rows="3" asp-for="Body"></textarea>
+        </div>
+        <div class="text-end">
+            <button class="btn comment-btn btn-outline-secondary roboto-regular" type="submit">Add Comment</button>
+        </div>
+    </div>
+</form>
