@@ -19,6 +19,7 @@ namespace PasteBinClone.Persistence.Data
         public DbSet<ApiUser> ApiUsers { get; set; }
         public DbSet<Paste> Pastes { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,7 @@ namespace PasteBinClone.Persistence.Data
             modelBuilder.ApplyConfiguration(new ApiUserConfiguration());
             modelBuilder.ApplyConfiguration(new PasteConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new RatinConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
