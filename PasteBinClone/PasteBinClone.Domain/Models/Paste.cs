@@ -26,5 +26,6 @@ namespace PasteBinClone.Domain.Models
         public string UserId {  get; set; }
         public ApiUser? User { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
     }
 }
