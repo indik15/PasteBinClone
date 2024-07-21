@@ -15,6 +15,8 @@ namespace PasteBinClone.Domain.Models
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
         public string Password { get; set; }
+        public long Likes { get; set; }
+        public long Dislikes { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public int LanguageId { get; set; }
