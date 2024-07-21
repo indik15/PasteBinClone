@@ -15,6 +15,14 @@ namespace PasteBinClone.Persistence.EntityConfiguration
         {
             builder.HasKey(u => u.Id);
             builder.HasIndex(u => u.Id);
+
+            builder.HasOne(u => u.ApiUser)
+                .WithMany(u => u.Ratings)
+                .HasForeignKey(u => u.UserId);
+
+            builder.HasOne(u => u.Paste)
+                .WithMany(u => u.Ratings)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
