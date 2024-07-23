@@ -8,6 +8,8 @@
         public bool IsPublic { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
+        public long Likes { get; set; }
+        public long Dislikes { get; set; }
         public CategoryVM Category { get; set; }
         public ContentTypeVM Type { get; set; }
         public LanguageVM Language { get; set; }
