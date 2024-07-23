@@ -1,0 +1,16 @@
+﻿@model RatingVM
+
+<form method="post" asp-controller="Rating" asp-action="Create">
+
+    <input type="hidden" name="UserId" value="@Model.UserId" />
+    <input type="hidden" name="PasteId" value="@Model.PasteId" />
+
+
+    <button class="col like-btn btn-outline-secondary mt-1" type="submit" name="IsLiked" value="true">
+        <i class="fa-regular fa-thumbs-up"></i>
+    </button>
+
+    <button class="col dislike-btn btn-outline-secondary mt-1" type="submit" name="IsDisliked" value="true">
+        <i class="fa-regular fa-thumbs-down"></i>
+    </button>
+</form>
