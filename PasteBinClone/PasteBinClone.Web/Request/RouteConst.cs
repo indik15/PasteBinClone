@@ -8,5 +8,6 @@
         public const string PasteRoute = "api/pastes/";
         public const string FilterRoute = "api/filters/";
         public const string CommentRoute = "api/comments/";
+        public const string RatingRoute = "api/rating/";
     }
 }
