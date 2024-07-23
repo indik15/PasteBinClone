@@ -37,6 +37,7 @@ builder.Services.AddScoped<IPasteRepository, PasteRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IAmazonStorageService, AmazonStorageService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IContentTypeService, ContentTypeService>();
@@ -45,6 +46,7 @@ builder.Services.AddScoped<IApiUserService, ApiUserService>();
 builder.Services.AddScoped<IPasteService, PasteService>();
 builder.Services.AddScoped<IFilterService, FilterService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 builder.Services.AddScoped<IValidator<CategoryDto>, CategoryDtoValidator>();
 builder.Services.AddScoped<IValidator<ContentTypeDto>, ContentTypeDtoValidator>();
