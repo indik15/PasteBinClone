@@ -13,32 +13,6 @@ namespace PasteBinClone.Persistence.Repository
     {
         private readonly IApplicationDbContext _db = db;
 
-        public async Task<bool> Create(Rating rating)
-        {
-            if(rating == null)
-            {
-                return false;
-            }
-
-            _db.Ratings.Add(rating);
-
-            Paste paste = _db.Pastes.FirstOrDefault(u => u.Id == rating.PasteId);
-
-            if(paste == null)
-            {
-                return false;
-            }
-
-            if (rating.IsLiked)
-                paste.Likes++;
-
-            else if (rating.IsDisliked)
-                paste.Dislikes++;
-
-            await _db.SaveChangesAsync();
-            return true;
-        }
-
         public async Task<bool> Update(Rating rating)
         {
             if(rating == null)
@@ -50,28 +24,44 @@ namespace PasteBinClone.Persistence.Repository
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.UserId == rating.UserId && u.PasteId == u.PasteId);
 
-            Paste paste = await _db.Pastes.FirstOrDefaultAsync(u => u.Id == rating.PasteId);
+            Paste paste = _db.Pastes.FirstOrDefault(u => u.Id == rating.PasteId);
 
-            if(rating.IsLiked && currentRating.IsDisliked)
+            if (paste == null)
+                return false;
+
+            if (currentRating == null)
             {
-                paste.Likes++;
-                paste.Dislikes--;
+                _db.Ratings.Add(rating);
+
+                if (rating.IsLiked)
+                    paste.Likes++;
+
+                else if (rating.IsDisliked)
+                    paste.Dislikes++;
             }
-            else if (rating.IsDisliked && currentRating.IsLiked)
+            else
             {
-                paste.Likes--;
-                paste.Dislikes++;
-            }
-            else if (rating.IsDisliked && currentRating.IsDisliked)
-            {
-                paste.Dislikes--;
-            }
-            else if (rating.IsLiked && currentRating.IsLiked)
-            {
-                paste.Likes--;
+                if (rating.IsLiked && currentRating.IsDisliked)
+                {
+                    paste.Likes++;
+                    paste.Dislikes--;
+                }
+                else if (rating.IsDisliked && currentRating.IsLiked)
+                {
+                    paste.Likes--;
+                    paste.Dislikes++;
+                }
+                else if (rating.IsDisliked && currentRating.IsDisliked)
+                {
+                    paste.Dislikes--;
+                }
+                else if (rating.IsLiked && currentRating.IsLiked)
+                {
+                    paste.Likes--;
+                }
+                _db.Ratings.Update(rating);
             }
 
-            _db.Ratings.Update(rating);
             await _db.SaveChangesAsync();
 
             return true;

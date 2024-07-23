@@ -9,7 +9,6 @@ namespace PasteBinClone.Application.Interfaces
 {
     public interface IRatingRepository
     {
-        Task<bool> Create(Rating rating);
         Task<bool> Update(Rating rating);
     }
 }
