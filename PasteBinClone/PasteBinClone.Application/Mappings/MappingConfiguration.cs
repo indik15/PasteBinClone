@@ -38,6 +38,8 @@ namespace PasteBinClone.Application.Mappings
 
             CreateMap<Comment, CommentVM>().ReverseMap();
             CreateMap<CommentDto, CommentVM>();
+
+            CreateMap<Rating, RatingDto>().ReverseMap();
         }
     }
 }
