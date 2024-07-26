@@ -32,7 +32,7 @@
                             <div>
                                 @if (User.IsInRole("Admin") || User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == item.UserId)
                                 {
-                                    <a class="text-secondary" asp-action="Delete" asp-controller="Comment">
+                                    <a class="text-secondary" asp-controller="Comment" asp-action="Delete" asp-route-commentId="@item.Id">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 }
