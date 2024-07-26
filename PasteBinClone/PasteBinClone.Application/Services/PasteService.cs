@@ -15,13 +15,15 @@ namespace PasteBinClone.Application.Services
         IMapper mapper,
         IAmazonStorageService amazonStorage,
         IPasswordHasher passwordHasher,
-        IApiUserRepository apiUser) : IPasteService
+        IApiUserRepository apiUser,
+        IRatingRepository ratingRepository) : IPasteService
     {
         private readonly IPasteRepository _pasteRepository = pasteRepository;
         private readonly IMapper _mapper = mapper;
         private readonly IAmazonStorageService _amazonStorage = amazonStorage;
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
         private readonly IApiUserRepository _apiUser = apiUser;
+        private readonly IRatingRepository _ratingRepository = ratingRepository;
 
         public async Task<bool> CreatePaste(PasteDto pasteDto)
         {
@@ -151,24 +153,21 @@ namespace PasteBinClone.Application.Services
 
             var user = await _apiUser.GetById(userId);
 
-            if(user.Role != "Admin")
+            if(user.Role != "Admin" || paste.UserId != userId)
             {
-                if (paste.UserId != userId)
+                if (!paste.IsPublic)
                 {
-                    if (!paste.IsPublic)
+                    if (string.IsNullOrEmpty(password))
                     {
-                        if (string.IsNullOrEmpty(password))
-                        {
-                            return (new GetPasteDto { IsPublic = false }, "");
-                        }
-                        else
-                        {
-                            bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
+                        return (new GetPasteDto { IsPublic = false }, "");
+                    }
+                    else
+                    {
+                        bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
 
-                            if (!isCorrectPassword)
-                            {
-                                return (new GetPasteDto { IsPublic = false }, "Incorrect password");
-                            }
+                        if (!isCorrectPassword)
+                        {
+                            return (new GetPasteDto { IsPublic = false }, "Incorrect password");
                         }
                     }
                 }
@@ -176,8 +175,16 @@ namespace PasteBinClone.Application.Services
 
             string pasteBody = await _amazonStorage.GetFile(paste.BodyUrl);
 
+            Rating rating = await _ratingRepository.Get(userId, paste.Id);
+                
             var pasteDto = _mapper.Map<GetPasteDto>(paste);
             pasteDto.Body = pasteBody;
+            
+            if(rating != null)
+            {
+                pasteDto.IsLiked = rating.IsLiked;
+                pasteDto.IsDisliked = rating.IsDisliked;
+            }
 
             return (pasteDto, "");
 
