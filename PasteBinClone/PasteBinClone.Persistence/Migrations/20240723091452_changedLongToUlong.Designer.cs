@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PasteBinClone.Persistence.Data;
 
@@ -11,9 +12,11 @@ using PasteBinClone.Persistence.Data;
 namespace PasteBinClone.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240723091452_changedLongToUlong")]
+    partial class changedLongToUlong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,10 +160,8 @@ namespace PasteBinClone.Persistence.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("Dislikes")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValue(0L);
+                    b.Property<decimal>("Dislikes")
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<DateTime>("ExpireAt")
                         .HasColumnType("datetime2");
@@ -171,10 +172,8 @@ namespace PasteBinClone.Persistence.Migrations
                     b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<long>("Likes")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValue(0L);
+                    b.Property<decimal>("Likes")
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -204,12 +203,7 @@ namespace PasteBinClone.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Pastes", t =>
-                        {
-                            t.HasCheckConstraint("MinDislikesLength", "Dislikes >= 0");
-
-                            t.HasCheckConstraint("MinLikesLength", "Likes >= 0");
-                        });
+                    b.ToTable("Pastes");
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.Rating", b =>

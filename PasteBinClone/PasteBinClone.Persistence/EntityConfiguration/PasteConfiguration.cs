@@ -33,6 +33,17 @@ namespace PasteBinClone.Persistence.EntityConfiguration
                 .HasOne(u => u.User);
             builder
                 .HasMany(u => u.Comments);
+
+            builder.Property(u => u.Likes)
+                .HasColumnType("bigint")
+                .HasDefaultValue(0);
+
+            builder.Property(u => u.Dislikes)
+                .HasColumnType("bigint")
+                .HasDefaultValue(0);
+
+            builder.HasCheckConstraint("MinLikesLength", "Likes >= 0");
+            builder.HasCheckConstraint("MinDislikesLength", "Dislikes >= 0");
         }
     }
 }
