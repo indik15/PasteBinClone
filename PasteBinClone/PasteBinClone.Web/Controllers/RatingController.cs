@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models.ViewModel;
@@ -6,6 +7,7 @@ using PasteBinClone.Web.Request;
 
 namespace PasteBinClone.Web.Controllers
 {
+    [Authorize]
     public class RatingController(IBaseService baseService, IUserInfo userInfo) : Controller
     {
         private readonly IBaseService _baseService = baseService;

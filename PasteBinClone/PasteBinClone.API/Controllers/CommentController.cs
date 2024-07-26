@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PasteBinClone.API.Response;
 using PasteBinClone.Application.Dto;
@@ -10,6 +11,7 @@ using Serilog;
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/comments")]
     public class CommentController(IValidator<CommentDto> validator, 
         ICommentService commentService,

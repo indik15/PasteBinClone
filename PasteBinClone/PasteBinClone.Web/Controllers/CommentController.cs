@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace PasteBinClone.Web.Controllers
 {
+    [Authorize]
     public class CommentController(IBaseService baseService, IUserInfo userInfo) : Controller
     {
         private readonly IBaseService _baseService = baseService;

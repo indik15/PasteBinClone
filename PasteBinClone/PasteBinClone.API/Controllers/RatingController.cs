@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PasteBinClone.API.Response;
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
@@ -6,6 +7,7 @@ using PasteBinClone.Application.Interfaces;
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/rating")]
     public class RatingController(IRatingService ratingService) : ControllerBase
     {
