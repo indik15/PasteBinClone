@@ -400,12 +400,10 @@ body {
     max-width: 33px;
     margin-left: 15px;
     border:0px;
-    border-radius: 5px;
     font-size: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:transparent;
 }
 
 .dislike-btn i {
