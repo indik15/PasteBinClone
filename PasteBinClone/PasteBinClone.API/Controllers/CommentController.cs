@@ -44,24 +44,6 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseAPI>> Get(Guid id)
-        {
-            CommentDto result = await _commentService.GetCommentByID(id);
-
-            if (result == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                CommentVM commentVM = _mapper.Map<CommentVM>(result);
-                _responseAPI.Data = commentVM;
-
-                return Ok(_responseAPI);
-            }
-        }
-
         [HttpGet("{pasteId}")]
         public async Task<ActionResult<ResponseAPI>> GetAll([FromBody] int pageNumber, Guid pasteId)
          {
@@ -85,34 +67,10 @@ namespace PasteBinClone.API.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<ActionResult<ResponseAPI>> Put([FromBody] CommentDto commentDto)
+        [HttpDelete("{commentId}")]
+        public async Task<ActionResult<ResponseAPI>> Delete(Guid commentId)
         {
-            var valid = _validator.Validate(commentDto);
-
-            if (!valid.IsValid)
-            {
-                Log.Error("Validation Error: {i}", valid.Errors);
-
-                return ValidationProblem();
-            }
-
-            bool result = await _commentService.UpdateComment(commentDto);
-
-            if (result)
-            {
-                return Ok(_responseAPI);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-
-        [HttpDelete]
-        public async Task<ActionResult<ResponseAPI>> Delete(Guid id)
-        {
-            bool result = await _commentService.DeleteComment(id);
+            bool result = await _commentService.DeleteComment(commentId);
 
             if (result)
             {

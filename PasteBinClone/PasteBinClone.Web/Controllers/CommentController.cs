@@ -54,5 +54,17 @@ namespace PasteBinClone.Web.Controllers
 
             return NotFound();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string commentId)
+        {
+            string returnUrl = Request.Headers["Referer"].ToString();
+
+            var accessToken = await HttpContext.GetTokenAsync("access_token");           
+
+            await _baseService.Delete(commentId, RouteConst.CommentRoute, accessToken);
+
+            return Redirect(returnUrl);
+        }
     }
 }

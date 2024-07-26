@@ -69,36 +69,5 @@ namespace PasteBinClone.Application.Services
 
             return (commentDtos, totalPages);
         }
-
-        public async Task<CommentDto> GetCommentByID(Guid id)
-        {
-            Comment comment = await _commentRepository.GetById(id);
-
-            if(comment == null)
-            {
-                Log.Information("Comment {@i} not found.", id);
-                return null;
-            }
-
-            return _mapper.Map<CommentDto>(comment);
-        }
-
-        public async Task<bool> UpdateComment(CommentDto commentDto)
-        {
-            Comment comment = _mapper.Map<Comment>(commentDto);
-
-            bool result = await _commentRepository.Update(comment);
-
-            if (result)
-            {
-                Log.Information("Comment {@i} updated.", comment.Id);
-                return true;
-            }
-            else
-            {
-                Log.Error("Comment update error.");
-                return false;
-            }
-        }
     }
 }

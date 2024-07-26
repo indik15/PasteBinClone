@@ -63,36 +63,5 @@ namespace PasteBinClone.Persistence.Repository
 
             return (comments, totalComments);
         }
-
-        public async Task<Comment> GetById(Guid id)
-        {
-            return await _db.Comments.FirstOrDefaultAsync(u => u.Id == id);
-        }
-
-        public async Task<bool> Update(Comment obj)
-        {
-            //Checks that the input object is not null
-            if (obj == null)
-            {
-                return false;
-            }
-
-            var comment = await _db.Comments.FirstOrDefaultAsync(u => u.Id == obj.Id);
-
-            //Checks if the object with this id is exists
-            if (comment != null)
-            {
-                //Separate the Comment entity from the Db context
-                _db.Comments.Entry(comment).State = EntityState.Detached;
-
-                _db.Comments.Update(obj);
-                await _db.SaveChangesAsync();
-
-                //Return true if the object exists and was updated 
-                return true;
-            }
-
-            return false;
-        }
     }
 }
