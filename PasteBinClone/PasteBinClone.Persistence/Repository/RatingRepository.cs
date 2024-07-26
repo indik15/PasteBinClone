@@ -27,7 +27,7 @@ namespace PasteBinClone.Persistence.Repository
 
             Rating? currentRating = await _db.Ratings
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.UserId == rating.UserId && u.PasteId == u.PasteId);
+                .FirstOrDefaultAsync(u => u.UserId == rating.UserId && u.PasteId == rating.PasteId);
 
             Paste paste = _db.Pastes.FirstOrDefault(u => u.Id == rating.PasteId);
 
