@@ -1,4 +1,5 @@
-﻿@model GetCommentsVM
+﻿@using System.Security.Claims
+@model GetCommentsVM
 
 <form asp-controller="Comment" asp-action="Comments" method="get">
 
@@ -23,8 +24,19 @@
                             <label class="filter-text ms-2">@item.UserName</label>
                             <label class="ms-2">@item.CreateAt.Date.ToString("d")</label>
                         </div>
-                        <div class="comments-item">
-                            @item.Body
+                        <div class="comments-item d-flex justify-content-between pt-2">
+                            <div>
+                                @item.Body
+                            </div>
+
+                            <div>
+                                @if (User.IsInRole("Admin") || User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == item.UserId)
+                                {
+                                    <a class="text-secondary" asp-action="Delete" asp-controller="Comment">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                }
+                            </div>
                         </div>
                     </div>
                 }
