@@ -153,21 +153,24 @@ namespace PasteBinClone.Application.Services
 
             var user = await _apiUser.GetById(userId);
 
-            if(user.Role != "Admin" || paste.UserId != userId)
+            if(user.Role != "Admin")
             {
-                if (!paste.IsPublic)
+                if (paste.UserId != userId)
                 {
-                    if (string.IsNullOrEmpty(password))
+                    if (!paste.IsPublic)
                     {
-                        return (new GetPasteDto { IsPublic = false }, "");
-                    }
-                    else
-                    {
-                        bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
-
-                        if (!isCorrectPassword)
+                        if (string.IsNullOrEmpty(password))
                         {
-                            return (new GetPasteDto { IsPublic = false }, "Incorrect password");
+                            return (new GetPasteDto { IsPublic = false }, "");
+                        }
+                        else
+                        {
+                            bool isCorrectPassword = _passwordHasher.VerifyPassword(password, paste.Password);
+
+                            if (!isCorrectPassword)
+                            {
+                                return (new GetPasteDto { IsPublic = false }, "Incorrect password");
+                            }
                         }
                     }
                 }

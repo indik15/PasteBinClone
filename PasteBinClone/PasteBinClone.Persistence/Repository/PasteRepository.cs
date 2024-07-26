@@ -99,13 +99,15 @@ namespace PasteBinClone.Persistence.Repository
             }
 
             var currentPaste = await _db.Pastes
-                .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == paste.Id);
 
             if(currentPaste != null)
             {
                 //Separate the Paste entity from the Db context
                 _db.Pastes.Entry(currentPaste).State = EntityState.Detached;
+
+                paste.Likes = currentPaste.Likes;
+                paste.Dislikes = currentPaste.Dislikes;
 
                 _db.Pastes.Update(paste);
                 await _db.SaveChangesAsync();
