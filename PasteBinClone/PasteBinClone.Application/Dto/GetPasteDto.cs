@@ -14,6 +14,8 @@ namespace PasteBinClone.Application.Dto
         public string Title { get; set; }
         public string Body { get; set; }
         public bool IsPublic { get; set; }
+        public ulong Likes { get; set; }
+        public ulong Dislikes { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime ExpireAt { get; set; }
         public CategoryVM Category { get; set; }
@@ -22,5 +24,9 @@ namespace PasteBinClone.Application.Dto
         public Guid UserId { get; set; }    
         public string UserName { get; set; }
         public ICollection<CommentDto> Comments { get; set; }
+
+        //Properties to display if a user likes or dislikes a Paste.
+        public bool IsLiked { get; set; }
+        public bool IsDisliked { get; set; }
     }
 }
