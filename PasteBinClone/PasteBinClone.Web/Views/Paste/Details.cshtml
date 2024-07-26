@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="col p-0 text-center title-item_border">
-                    <span class="roboto-regular">8</span>
+                    <span class="roboto-regular">@Model.Likes</span>
                     <i class="fa-regular fa-thumbs-up ms-1"></i>
                 </div>
 
@@ -93,13 +93,12 @@
             @* Like/Dislike Share Report *@
             <div class="row mb-5">
 
-                <button class="col like-btn btn-outline-secondary mt-1">
-                    <i class="fa-regular fa-thumbs-up"></i>
-                </button>
+                <div class="col-auto">                    
 
-                <button class="col dislike-btn btn-outline-secondary mt-1">
-                    <i class="fa-regular fa-thumbs-down"></i>
-                </button>
+                    @Html.Partial("_RatingForm", new RatingVM { PasteId = Model.Id, Likes = Model.Likes, Dislikes = Model.Dislikes, CurrentIsLiked = Model.IsLiked, CurrentIsDisliked = Model.IsDisliked })
+
+                </div>
+
 
                 <div class="col p-0">
                     <button class="btn btn-outline-info share-btn roboto-regular" type="submit" onclick="copyCurrentURL()">Share</button>
