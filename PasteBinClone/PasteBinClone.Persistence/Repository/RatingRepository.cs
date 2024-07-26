@@ -13,6 +13,11 @@ namespace PasteBinClone.Persistence.Repository
     {
         private readonly IApplicationDbContext _db = db;
 
+        public async Task<Rating> Get(string userId, Guid pasteId)
+        {
+            return await _db.Ratings.FirstOrDefaultAsync(u => u.PasteId == pasteId && u.UserId == userId);
+        }
+
         public async Task<bool> Update(Rating rating)
         {
             if(rating == null)
@@ -45,21 +50,39 @@ namespace PasteBinClone.Persistence.Repository
                 {
                     paste.Likes++;
                     paste.Dislikes--;
+                    currentRating.IsLiked = true;
+                    currentRating.IsDisliked = false;
+
                 }
                 else if (rating.IsDisliked && currentRating.IsLiked)
                 {
                     paste.Likes--;
                     paste.Dislikes++;
+                    currentRating.IsDisliked = true;
+                    currentRating.IsLiked = false;
                 }
                 else if (rating.IsDisliked && currentRating.IsDisliked)
                 {
                     paste.Dislikes--;
+                    currentRating.IsDisliked = false;
                 }
                 else if (rating.IsLiked && currentRating.IsLiked)
                 {
                     paste.Likes--;
+                    currentRating.IsLiked = false;
                 }
-                _db.Ratings.Update(rating);
+                else if ((!currentRating.IsLiked && !currentRating.IsDisliked) && rating.IsLiked)
+                {
+                    paste.Likes++;
+                    currentRating.IsLiked = true;
+                }
+                else if ((!currentRating.IsDisliked && !currentRating.IsLiked) && rating.IsDisliked)
+                {
+                    paste.Dislikes++;
+                    currentRating.IsDisliked = true;
+                }
+
+                _db.Ratings.Update(currentRating);
             }
 
             await _db.SaveChangesAsync();

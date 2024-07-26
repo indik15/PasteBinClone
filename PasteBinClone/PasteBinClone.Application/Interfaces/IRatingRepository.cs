@@ -10,5 +10,6 @@ namespace PasteBinClone.Application.Interfaces
     public interface IRatingRepository
     {
         Task<bool> Update(Rating rating);
+        Task<Rating> Get(string userId, Guid pasteId);
     }
 }
