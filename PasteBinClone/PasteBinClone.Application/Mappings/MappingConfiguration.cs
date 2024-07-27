@@ -14,31 +14,38 @@ namespace PasteBinClone.Application.Mappings
     {
         public MappingConfiguration()
         {
+            // Category mappings
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Category, CategoryVM>().ReverseMap();
             CreateMap<CategoryDto, CategoryVM>().ReverseMap();
 
+            // ContentType mappings
             CreateMap<ContentType, ContentTypeDto>().ReverseMap();
             CreateMap<ContentType, ContentTypeVM>().ReverseMap();
             CreateMap<ContentTypeDto, ContentTypeVM>().ReverseMap();
 
+            // Language mappings
             CreateMap<Language, LanguageDto>().ReverseMap();
             CreateMap<Language, LanguageVM>().ReverseMap();
             CreateMap<LanguageDto, LanguageVM>().ReverseMap();
 
-            CreateMap<Paste, HomePasteDto>().ReverseMap();
+            // Paste mappings
+            CreateMap<Paste, HomePasteDto>()
+                .ForMember(dest => dest.ContentType, opt => opt.MapFrom(src => src.Type))
+                .ReverseMap();
             CreateMap<Paste, PasteDto>().ReverseMap();
             CreateMap<Paste, GetPasteDto>().ReverseMap();
             CreateMap<HomePasteVM, HomePasteDto>().ReverseMap();
             CreateMap<GetPasteVM, GetPasteDto>().ReverseMap();
 
+            // Comment mappings
             CreateMap<Comment, CommentDto>()
                 .ReverseMap()
                 .ForMember(comment => comment.User, opt => opt.Ignore());
-
             CreateMap<Comment, CommentVM>().ReverseMap();
             CreateMap<CommentDto, CommentVM>();
 
+            // Rating mappings
             CreateMap<Rating, RatingDto>().ReverseMap();
         }
     }
