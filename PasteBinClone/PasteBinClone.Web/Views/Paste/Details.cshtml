@@ -25,11 +25,11 @@
 
             <div class="row m-0 pb-1 d-flex justify-content-center">
                 <div class="col p-0 text-center">
-                    <span class="roboto-regular">@Model.Category.CategoryName</span>
+                    <span class="roboto-regular">@(Model.Category?.CategoryName ?? "Error")</span>
                 </div>
 
                 <div class="col p-0 text-center title-item_border">
-                    <span class="roboto-regular">@Model.Type.TypeName</span>
+                    <span class="roboto-regular">@(Model.Type?.TypeName ?? "Error")</span>
                 </div>
 
                 @if (Model.IsPublic)
