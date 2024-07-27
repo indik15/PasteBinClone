@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PasteBinClone.Persistence.Data;
 
@@ -11,9 +12,11 @@ using PasteBinClone.Persistence.Data;
 namespace PasteBinClone.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240726153416_addSetNullToCategory")]
+    partial class addSetNullToCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +171,7 @@ namespace PasteBinClone.Persistence.Migrations
                     b.Property<bool>("IsPublic")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
+                    b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
                     b.Property<long>("Likes")
@@ -184,7 +187,7 @@ namespace PasteBinClone.Persistence.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -268,12 +271,14 @@ namespace PasteBinClone.Persistence.Migrations
                     b.HasOne("PasteBinClone.Domain.Models.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PasteBinClone.Domain.Models.ContentType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PasteBinClone.Domain.Models.ApiUser", "User")
                         .WithMany()

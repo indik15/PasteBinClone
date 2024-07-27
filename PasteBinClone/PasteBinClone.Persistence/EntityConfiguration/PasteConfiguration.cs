@@ -24,11 +24,17 @@ namespace PasteBinClone.Persistence.EntityConfiguration
             builder.Property(u => u.Password).IsRequired(false);
 
             builder
-                .HasOne(u => u.Category);
+                .HasOne(u => u.Category)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
             builder
-                .HasOne(u => u.Language);
+                .HasOne(u => u.Language)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
             builder
-                .HasOne(u => u.Type);
+                .HasOne(u => u.Type)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
             builder
                 .HasOne(u => u.User);
             builder
