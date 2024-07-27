@@ -17,11 +17,11 @@ namespace PasteBinClone.Domain.Models
         public string Password { get; set; }
         public ulong Likes { get; set; }
         public ulong Dislikes { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public Category? Category { get; set; }
-        public int LanguageId { get; set; }
+        public int? LanguageId { get; set; }
         public Language? Language { get; set; }
-        public int TypeId { get; set; }
+        public int? TypeId { get; set; }
         public ContentType? Type { get; set; }
         public string UserId {  get; set; }
         public ApiUser? User { get; set; }
