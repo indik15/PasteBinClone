@@ -9,5 +9,6 @@ namespace PasteBinClone.Application
     public static class Constants
     {
         public const int CommentCount = 10;
+        public const int PasteCount = 15;
     }
 }
