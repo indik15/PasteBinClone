@@ -11,7 +11,7 @@ namespace PasteBinClone.Application.Interfaces
     {
         Task<bool> Create(Paste paste);
         Task<Paste> GetById(Guid id);
-        Task<List<Paste>> Get();
+        Task<(IEnumerable<Paste> pastes, int totalPaste)> Get(int pageNumber);
         Task<bool> Update(Paste paste);
         Task<bool> Delete(Guid id);
         Task<bool> DeleteRange(IEnumerable<Paste> pastes);

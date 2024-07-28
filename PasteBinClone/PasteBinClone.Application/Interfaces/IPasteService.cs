@@ -11,7 +11,7 @@ namespace PasteBinClone.Application.Interfaces
     {
         Task<bool> CreatePaste(PasteDto pasteDto);
         Task<(GetPasteDto getPasteDto, string errorMessage)> GetPasteById(Guid id, string password = null, string userId = null);
-        Task<IEnumerable<HomePasteDto>> GetAllPaste();
+        Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllPaste(int pageNumber);
         Task<bool> DeletePaste(Guid id);
         Task<bool> UpdatePaste(PasteDto pasteDto);
     }

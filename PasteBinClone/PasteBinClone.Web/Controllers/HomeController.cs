@@ -16,9 +16,9 @@ namespace PasteBinClone.Web.Controllers
         private readonly IBaseService _baseService = baseService;
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1)
         {
-            var response = await _baseService.GetAll(RouteConst.PasteRoute);
+            var response = await _baseService.GetAll(RouteConst.PasteRoute, data: pageNumber);
 
             if (response != null && response.IsSuccess)
             {
@@ -41,7 +41,10 @@ namespace PasteBinClone.Web.Controllers
                     {
                         Text = u.LanguageName,
                         Value = u.Id.ToString()
-                    })
+                    }),
+                    PageNumber = pageNumber,
+                    IsActiveRightArrow = responseObject.TotalPages > pageNumber ? true : false,
+                    IsActiveLeftArrow = pageNumber > 1 ? true : false
                 };
 
                 return View(homeVM);

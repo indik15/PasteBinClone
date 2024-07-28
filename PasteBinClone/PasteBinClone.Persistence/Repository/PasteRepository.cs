@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Azure;
 using Microsoft.EntityFrameworkCore;
+using PasteBinClone.Application;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
 
@@ -67,14 +69,20 @@ namespace PasteBinClone.Persistence.Repository
             return false;
         }
 
-        public async Task<List<Paste>> Get()
+        public async Task<(IEnumerable<Paste> pastes, int totalPaste)> Get(int pageNumber)
         {
-            return await _db.Pastes
+            IEnumerable<Paste> pastes = await _db.Pastes
                 .AsNoTracking()
                 .Include(u => u.Category)
                 .Include(u => u.Language)
                 .Include(u => u.Type)
+                .Skip((pageNumber - 1) * Constants.PasteCount)
+                .Take(Constants.PasteCount)
                 .ToListAsync();
+
+            int totalPastes = _db.Pastes.Count();
+
+            return (pastes, totalPastes);
         }
 
         public async Task<Paste> GetById(Guid id)

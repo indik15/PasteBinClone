@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
+using PasteBinClone.Application.ViewModels;
 using PasteBinClone.Domain.Models;
 using Serilog;
 using System;
@@ -32,7 +33,13 @@ namespace PasteBinClone.Application.Services
 
             if (isCreate && pasteId != null)
             {
-                string passwordHash = _passwordHasher.PasswordHash(pasteDto.Password);
+
+                string passwordHash = null;
+
+                if (!pasteDto.IsPublic)
+                {
+                    passwordHash = _passwordHasher.PasswordHash(pasteDto.Password);
+                }
 
                 Paste paste = new()
                 {
@@ -88,18 +95,19 @@ namespace PasteBinClone.Application.Services
             return false;
         }
 
-        public async Task<IEnumerable<HomePasteDto>> GetAllPaste()
+        public async Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllPaste(int pageNumber)
         {
-            List<Paste> pastes = await _pasteRepository.Get();
+            (IEnumerable<Paste> pastes, int totalPaste) = await _pasteRepository.Get(pageNumber);
 
             List<Paste> removePasteFromDb = [];
             List<string> removePasteFromS3 = [];
 
+            int totalPages = (int)Math.Ceiling((double)totalPaste / Constants.PasteCount);
 
             if (pastes == null)
             {
                 Log.Information("Object not found.");
-                return null;
+                return (null, 0);
             }
 
             foreach(var obj in pastes)
@@ -111,7 +119,7 @@ namespace PasteBinClone.Application.Services
                 }
             }
 
-            pastes.RemoveAll(p => removePasteFromDb.Contains(p));
+            pastes.ToList().RemoveAll(p => removePasteFromDb.Contains(p));
 
             if (removePasteFromDb.Count > 0 && removePasteFromS3.Count > 0)
             {
@@ -130,7 +138,10 @@ namespace PasteBinClone.Application.Services
             }
 
             Log.Information("Received objects: {@Count}", pastes.Count());
-            return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
+
+            IEnumerable<HomePasteDto> pasteVMs = _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
+
+            return (pasteVMs, totalPages); 
         }
 
         public async Task<(GetPasteDto getPasteDto, string errorMessage)> GetPasteById(Guid id, string userId = null, string password = null)

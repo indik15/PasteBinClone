@@ -51,11 +51,12 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet]       
-        public async Task<ActionResult<ResponseAPI>> Get()
+        public async Task<ActionResult<ResponseAPI>> Get([FromBody] int pageNumber)
         {
             Log.Information("Request to receive all Pastes");
 
-            IEnumerable<HomePasteDto> pastes = await _pasteService.GetAllPaste();
+            (IEnumerable<HomePasteDto> pastes, int totalPages) = await _pasteService.GetAllPaste(pageNumber);
+
             FilterVM filter = await _filterService.GetAllFilters();
 
             if(pastes == null)
@@ -70,7 +71,8 @@ namespace PasteBinClone.API.Controllers
                     Pastes = pastes,
                     filter.Categories,
                     filter.ContentTypes,
-                    filter.Languages
+                    filter.Languages,
+                    TotalPages = totalPages
                 };
 
                 return Ok(_responseAPI);
