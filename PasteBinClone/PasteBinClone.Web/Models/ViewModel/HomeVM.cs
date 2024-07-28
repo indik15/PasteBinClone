@@ -5,6 +5,9 @@ namespace PasteBinClone.Web.Models.ViewModel
 {
     public class HomeVM
     {
+        public int PageNumber { get; set; }
+        public bool IsActiveRightArrow { get; set; }
+        public bool IsActiveLeftArrow { get; set; }
         public IEnumerable<HomePasteVM> PasteVMs { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
         public IEnumerable<SelectListItem> ContentTypes { get; set; }
