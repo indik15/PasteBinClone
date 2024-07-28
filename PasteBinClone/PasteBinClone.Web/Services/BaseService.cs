@@ -19,13 +19,14 @@ namespace PasteBinClone.Web.Services
             });
         }
 
-        public async Task<ResponseAPI> GetAll(string route, string token)
+        public async Task<ResponseAPI> GetAll(string route, string token, object data = null)
         {
             return await _requestService.Send(new ApiRequest()
             {
                 ApiMethod = Settings.ApiMethod.GET,
                 Url = Settings.WebApiBase + route,
-                AccessToken = token
+                AccessToken = token,
+                Data = data
             });
         }
 
