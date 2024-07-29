@@ -69,20 +69,57 @@ namespace PasteBinClone.Persistence.Repository
             return false;
         }
 
-        public async Task<(IEnumerable<Paste> pastes, int totalPaste)> Get(int pageNumber)
+        public async Task<(IEnumerable<Paste> pastes, int totalPaste)> Get(
+            int pageNumber,
+            int? typeFilter,
+            int? categoryFilter,
+            int? languageFilter,
+            int? sortedByFilter)
         {
-            IEnumerable<Paste> pastes = await _db.Pastes
+            var query = _db.Pastes
                 .AsNoTracking()
                 .Include(u => u.Category)
                 .Include(u => u.Language)
                 .Include(u => u.Type)
+                .AsQueryable();
+                
+            if(typeFilter != 0 && typeFilter != null)
+            {
+                query = query.Where(u => u.TypeId == typeFilter);
+            }
+            if (categoryFilter != 0 && categoryFilter != null)
+            {
+                query = query.Where(u => u.CategoryId == categoryFilter);
+            }
+            if (languageFilter != 0 && languageFilter != null)
+            {
+                query = query.Where(u => u.LanguageId == languageFilter);
+            }
+
+            if (sortedByFilter != 0 && sortedByFilter != null)
+            {
+                if (sortedByFilter == 1)
+                {
+                    query = query.OrderByDescending(u => u.CreateAt);
+                }
+                else if (sortedByFilter == 2)
+                {
+                    query = query.OrderBy(u => u.CreateAt);
+                }
+                else if (sortedByFilter == 3)
+                {
+                    query = query.OrderByDescending(u => u.Likes);
+                }
+            }
+
+            int totalPastes = query.Count();
+
+            IEnumerable<Paste> paste = await query
                 .Skip((pageNumber - 1) * Constants.PasteCount)
                 .Take(Constants.PasteCount)
                 .ToListAsync();
 
-            int totalPastes = _db.Pastes.Count();
-
-            return (pastes, totalPastes);
+            return (paste, totalPastes);
         }
 
         public async Task<Paste> GetById(Guid id)
