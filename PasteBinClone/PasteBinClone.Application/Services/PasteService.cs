@@ -95,9 +95,14 @@ namespace PasteBinClone.Application.Services
             return false;
         }
 
-        public async Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllPaste(int pageNumber)
+        public async Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllPaste(
+            int pageNumber, 
+            int? typeFilter, 
+            int? categoryFilter, 
+            int? languageFilter,
+            int? sortedByFilter)
         {
-            (IEnumerable<Paste> pastes, int totalPaste) = await _pasteRepository.Get(pageNumber);
+            (IEnumerable<Paste> pastes, int totalPaste) = await _pasteRepository.Get(pageNumber, typeFilter, categoryFilter, languageFilter, sortedByFilter);
 
             List<Paste> removePasteFromDb = [];
             List<string> removePasteFromS3 = [];

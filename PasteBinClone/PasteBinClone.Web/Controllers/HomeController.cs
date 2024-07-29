@@ -18,7 +18,19 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int pageNumber = 1)
         {
-            var response = await _baseService.GetAll(RouteConst.PasteRoute, data: pageNumber);
+            string typeFilter = HttpContext.Request.Query["type"];
+            string categoryFilter = HttpContext.Request.Query["category"];
+            string languageFilter = HttpContext.Request.Query["language"];
+            string sortedByFilter = HttpContext.Request.Query["sortedBy"];
+
+            var response = await _baseService.GetAll(RouteConst.PasteRoute, data: new
+            {
+                TypeFilter = typeFilter,
+                CategoryFilter = categoryFilter,
+                LanguageFilter = languageFilter,
+                SortedByFilter = sortedByFilter,
+                PageNumber = pageNumber
+            });
 
             if (response != null && response.IsSuccess)
             {
