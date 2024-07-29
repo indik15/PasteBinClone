@@ -29,11 +29,21 @@ namespace PasteBinClone.Web.Services
                 message.RequestUri = new Uri(apiRequest.Url);
                 client.DefaultRequestHeaders.Clear();
 
-                if (apiRequest.Data != null)
+                if ((apiRequest.ApiMethod == Settings.ApiMethod.POST || apiRequest.ApiMethod == Settings.ApiMethod.PUT) && apiRequest.Data != null)
                 {
                     message.Content = new StringContent(JsonConvert
                         .SerializeObject(apiRequest.Data),
                         Encoding.UTF8, "application/json");
+                }
+                else if(apiRequest.ApiMethod == Settings.ApiMethod.GET && apiRequest.Data != null)
+                {
+                    var queryString = QueryString.Create(apiRequest.Data
+                        .GetType()
+                        .GetProperties()
+                        .ToDictionary(p => p.Name, p => p.GetValue(apiRequest.Data)?.ToString()));
+                    
+                    message.RequestUri = new Uri($"{apiRequest.Url}{queryString}");
+                    client.DefaultRequestHeaders.Clear();
                 }
 
                 if (!string.IsNullOrEmpty(apiRequest.AccessToken))
