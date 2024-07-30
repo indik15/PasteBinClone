@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using PasteBinClone.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -19,5 +21,6 @@ namespace PasteBinClone.Application.Interfaces
         DbSet<Rating> Ratings { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellation = default);
+        DatabaseFacade Database { get; }
     }
 }

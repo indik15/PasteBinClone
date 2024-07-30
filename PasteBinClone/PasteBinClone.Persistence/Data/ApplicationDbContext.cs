@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
 using PasteBinClone.Persistence.EntityConfiguration;
@@ -33,5 +35,7 @@ namespace PasteBinClone.Persistence.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public DatabaseFacade Database { get; }
     }
 }
