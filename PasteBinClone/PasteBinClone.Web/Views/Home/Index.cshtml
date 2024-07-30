@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="mb-1 filter-select">
                                     <select id="filter-sorted-by" class="form-select" name="sortedBy" aria-label="Default select example">
-                                        <option selected value="">Open</option>
+                                        <option selected value="">All</option>
                                         <option value="1">Newest first</option>
                                         <option value="2">Oldest first</option>
                                         <option value="3">Highest Rated</option>
@@ -196,8 +196,8 @@
                             {
                                 if (item.IsPublic)
                                 {
-                                    <button asp-controller="Paste" asp-action="Details" asp-route-id="@item.Id" class="btn p-0 past-item past-item_size_big">
-                                        <div class="row past-item__content">
+                                    <a asp-controller="Paste" asp-action="Details" asp-route-id="@item.Id" class="btn p-0 past-item past-item_size_big">
+                                        <div class="row past-item__content mt-3">
                                             <div class="col-6 d-flex justify-content-start p-0">
                                                 <span class="past-item__content__title">@item.Title</span>
                                             </div>
@@ -226,7 +226,7 @@
                                                 <span class="pe-3 past-item__content__type-rate">@item.Likes <i class="fa-regular fa-thumbs-up ms-1"></i></span>
                                             </div>
                                         </div>
-                                    </button>
+                                    </a>
                                 }
                             }
                         }
@@ -282,11 +282,11 @@
                             </div>
 
                             <div class="col-3 p-0 text-center my-pasts__title">
-                                <button class="btn my-pasts__title__btn-all" type="submit">All</button>
+                                <a class="btn my-pasts__title__btn-all" type="submit">All</a>
                             </div>
 
                             <div class="col p-0 text-center my-pasts__title my-pasts__title_margin-r">
-                                <button asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste" type="submit">Create Past</button>
+                                <a asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste" type="submit">Create Past</a>
                             </div>
                         </div>
 
@@ -384,14 +384,10 @@
             if (urlParams.has('category')) filterCategory.value = urlParams.get('category');
             if (urlParams.has('language')) filterLanguage.value = urlParams.get('language');
 
-            filterType.addEventListener('change', submitForm);
-            filterSortedBy.addEventListener('change', submitForm);
-            filterCategory.addEventListener('change', submitForm);
-            filterLanguage.addEventListener('change', submitForm);
-
-            function submitForm() {
-                filterForm.submit();
-            }
+            filterType.addEventListener('change', () => filterForm.submit());
+            filterSortedBy.addEventListener('change', () => filterForm.submit());
+            filterCategory.addEventListener('change', () => filterForm.submit());
+            filterLanguage.addEventListener('change', () => filterForm.submit());
         });
     </script>
 
