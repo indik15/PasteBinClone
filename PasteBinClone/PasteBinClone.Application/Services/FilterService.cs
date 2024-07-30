@@ -22,13 +22,20 @@ namespace PasteBinClone.Application.Services
 
         public async Task<FilterVM> GetAllFilters()
         {
-            var category = await _categoryRepository.Get();
-            var language = await _languageRepository.Get();
-            var contentType = await _typeRepository.Get();
+            var categoryTask = _categoryRepository.Get();
+            var languageTask = _languageRepository.Get();
+            var contentTypeTask = _typeRepository.Get();
 
-            IEnumerable<CategoryVM> categoriesVM = _mapper.Map<IEnumerable<CategoryVM>>(category);
-            IEnumerable<LanguageVM> languagesVM = _mapper.Map<IEnumerable<LanguageVM>>(language);
-            IEnumerable<ContentTypeVM> contentTypesVM = _mapper.Map<IEnumerable<ContentTypeVM>>(contentType);
+            await Task.WhenAll(categoryTask, languageTask, contentTypeTask);
+
+            var categories = await categoryTask;
+            var languages = await languageTask;
+            var contentTypes = await contentTypeTask;
+
+
+            IEnumerable<CategoryVM> categoriesVM = _mapper.Map<IEnumerable<CategoryVM>>(categories);
+            IEnumerable<LanguageVM> languagesVM = _mapper.Map<IEnumerable<LanguageVM>>(languages);
+            IEnumerable<ContentTypeVM> contentTypesVM = _mapper.Map<IEnumerable<ContentTypeVM>>(contentTypes);
 
             FilterVM filterVM = new()
             {
