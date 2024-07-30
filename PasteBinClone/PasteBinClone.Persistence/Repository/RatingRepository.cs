@@ -25,67 +25,78 @@ namespace PasteBinClone.Persistence.Repository
                 return false;
             }
 
-            Rating? currentRating = await _db.Ratings
-                .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.UserId == rating.UserId && u.PasteId == rating.PasteId);
+            await using var transaction = await _db.Database.BeginTransactionAsync();
 
-            Paste paste = _db.Pastes.FirstOrDefault(u => u.Id == rating.PasteId);
-
-            if (paste == null)
-                return false;
-
-            if (currentRating == null)
+            try
             {
-                _db.Ratings.Add(rating);
+                Rating? currentRating = await _db.Ratings
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.UserId == rating.UserId && u.PasteId == rating.PasteId);
 
-                if (rating.IsLiked)
-                    paste.Likes++;
+                Paste paste = _db.Pastes.FirstOrDefault(u => u.Id == rating.PasteId);
 
-                else if (rating.IsDisliked)
-                    paste.Dislikes++;
+                if (paste == null)
+                    return false;
+
+                if (currentRating == null)
+                {
+                    _db.Ratings.Add(rating);
+
+                    if (rating.IsLiked)
+                        paste.Likes++;
+
+                    else if (rating.IsDisliked)
+                        paste.Dislikes++;
+                }
+                else
+                {
+                    if (rating.IsLiked && currentRating.IsDisliked)
+                    {
+                        paste.Likes++;
+                        paste.Dislikes--;
+                        currentRating.IsLiked = true;
+                        currentRating.IsDisliked = false;
+
+                    }
+                    else if (rating.IsDisliked && currentRating.IsLiked)
+                    {
+                        paste.Likes--;
+                        paste.Dislikes++;
+                        currentRating.IsDisliked = true;
+                        currentRating.IsLiked = false;
+                    }
+                    else if (rating.IsDisliked && currentRating.IsDisliked)
+                    {
+                        paste.Dislikes--;
+                        currentRating.IsDisliked = false;
+                    }
+                    else if (rating.IsLiked && currentRating.IsLiked)
+                    {
+                        paste.Likes--;
+                        currentRating.IsLiked = false;
+                    }
+                    else if ((!currentRating.IsLiked && !currentRating.IsDisliked) && rating.IsLiked)
+                    {
+                        paste.Likes++;
+                        currentRating.IsLiked = true;
+                    }
+                    else if ((!currentRating.IsDisliked && !currentRating.IsLiked) && rating.IsDisliked)
+                    {
+                        paste.Dislikes++;
+                        currentRating.IsDisliked = true;
+                    }
+
+                    _db.Ratings.Update(currentRating);
+
+                    await _db.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+                }
             }
-            else
+            catch (Exception)
             {
-                if (rating.IsLiked && currentRating.IsDisliked)
-                {
-                    paste.Likes++;
-                    paste.Dislikes--;
-                    currentRating.IsLiked = true;
-                    currentRating.IsDisliked = false;
-
-                }
-                else if (rating.IsDisliked && currentRating.IsLiked)
-                {
-                    paste.Likes--;
-                    paste.Dislikes++;
-                    currentRating.IsDisliked = true;
-                    currentRating.IsLiked = false;
-                }
-                else if (rating.IsDisliked && currentRating.IsDisliked)
-                {
-                    paste.Dislikes--;
-                    currentRating.IsDisliked = false;
-                }
-                else if (rating.IsLiked && currentRating.IsLiked)
-                {
-                    paste.Likes--;
-                    currentRating.IsLiked = false;
-                }
-                else if ((!currentRating.IsLiked && !currentRating.IsDisliked) && rating.IsLiked)
-                {
-                    paste.Likes++;
-                    currentRating.IsLiked = true;
-                }
-                else if ((!currentRating.IsDisliked && !currentRating.IsLiked) && rating.IsDisliked)
-                {
-                    paste.Dislikes++;
-                    currentRating.IsDisliked = true;
-                }
-
-                _db.Ratings.Update(currentRating);
+                await transaction.RollbackAsync();
             }
-
-            await _db.SaveChangesAsync();
 
             return true;
         }
