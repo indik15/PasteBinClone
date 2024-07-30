@@ -122,6 +122,14 @@ namespace PasteBinClone.Persistence.Repository
             return (paste, totalPastes);
         }
 
+        public async Task<IEnumerable<Paste>> GetAllUserPaste(string userId)
+        {
+            return await _db.Pastes
+                .Where(u => u.UserId == userId)
+                .Take(5)
+                .ToListAsync();
+        }
+
         public async Task<Paste> GetById(Guid id)
         {
             return await _db.Pastes
@@ -134,6 +142,13 @@ namespace PasteBinClone.Persistence.Repository
             .FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<IEnumerable<Paste>> GetTopRatedPaste()
+        {
+            return await _db.Pastes
+                .OrderByDescending(u => u.Likes)
+                .Take(5)
+                .ToListAsync();
+        }
 
         public async Task<bool> Update(Paste paste)
         {
