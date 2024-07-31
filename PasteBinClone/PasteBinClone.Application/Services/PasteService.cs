@@ -149,11 +149,27 @@ namespace PasteBinClone.Application.Services
             return (pasteVMs, totalPages); 
         }
 
-        public async Task<IEnumerable<HomePasteDto>> GetAllUserPastes(string userId)
+        public async Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllUserPastes(string userId, int pageNumber)
         {
-            IEnumerable<Paste> pastes = await _pasteRepository.GetAllUserPastes(userId);
+            (IEnumerable<Paste> pastes, int totalPaste) = await _pasteRepository.GetAllUserPastes(userId, pageNumber);
 
-            if(pastes == null)
+            int totalPages = (int)Math.Ceiling((double)totalPaste / Constants.PasteCount);
+
+            if (pastes == null)
+            {
+                return (null, 0);
+            }
+
+            IEnumerable<HomePasteDto> pastesDto = _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
+
+            return (pastesDto, totalPages);
+        }
+
+        public async Task<IEnumerable<HomePasteDto>> GetFiveUserPastes(string userId)
+        {
+            IEnumerable<Paste> pastes = await _pasteRepository.GetFiveUserPastes(userId);
+
+            if (pastes == null)
             {
                 return null;
             }

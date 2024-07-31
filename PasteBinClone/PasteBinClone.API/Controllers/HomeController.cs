@@ -35,7 +35,7 @@ namespace PasteBinClone.API.Controllers
         [HttpGet("{userId}")]
         public async Task<ActionResult<ResponseAPI>> Get(string userId)
         {
-            IEnumerable<HomePasteDto> pasteDtos = await _pasteService.GetAllUserPastes(userId);
+            IEnumerable<HomePasteDto> pasteDtos = await _pasteService.GetFiveUserPastes(userId);
 
             if (pasteDtos == null)
             {

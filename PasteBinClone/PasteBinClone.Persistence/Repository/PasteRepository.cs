@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Application;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PasteBinClone.Persistence.Repository
 {
@@ -122,13 +123,21 @@ namespace PasteBinClone.Persistence.Repository
             return (paste, totalPastes);
         }
 
-        public async Task<IEnumerable<Paste>> GetAllUserPastes(string userId)
+        public async Task<(IEnumerable<Paste> pastes, int totalPaste)> GetAllUserPastes(string userId, int pageNumber)
         {
-            return await _db.Pastes
+            var query = _db.Pastes
                 .Include(u => u.Type)
                 .Where(u => u.UserId == userId)
-                .Take(5)
+                .AsQueryable();
+
+            int totalPastes = query.Count();
+
+            IEnumerable<Paste> paste = await query
+                .Skip((pageNumber - 1) * Constants.PasteCount)
+                .Take(Constants.PasteCount)
                 .ToListAsync();
+
+            return (paste, totalPastes);
         }
 
         public async Task<Paste> GetById(Guid id)
@@ -141,6 +150,15 @@ namespace PasteBinClone.Persistence.Repository
             .Include(p => p.Comments)
                 .ThenInclude(c => c.User)
             .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<IEnumerable<Paste>> GetFiveUserPastes(string userId)
+        {
+            return await _db.Pastes
+                .Include(u => u.Type)
+                .Where(u => u.UserId == userId)
+                .Take(5)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Paste>> GetTopRatedPastes()

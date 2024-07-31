@@ -16,7 +16,9 @@ namespace PasteBinClone.Application.Interfaces
         Task<bool> Delete(Guid id);
         Task<bool> DeleteRange(IEnumerable<Paste> pastes);
         Task<IEnumerable<Paste>> GetTopRatedPastes();
-        Task<IEnumerable<Paste>> GetAllUserPastes(string userId);
+        Task<(IEnumerable<Paste> pastes, int totalPaste)> GetAllUserPastes(string userId, int pageNumber);
+        Task<IEnumerable<Paste>> GetFiveUserPastes(string userId);
+
 
     }
 }
