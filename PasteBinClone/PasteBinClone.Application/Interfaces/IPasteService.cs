@@ -1,4 +1,5 @@
 ﻿using PasteBinClone.Application.Dto;
+using PasteBinClone.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace PasteBinClone.Application.Interfaces
         Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllPaste(int pageNumber, int? typeFilter, int? categoryFilter, int? languageFilter, int? sortedByFilter);
         Task<bool> DeletePaste(Guid id);
         Task<bool> UpdatePaste(PasteDto pasteDto);
+        Task<IEnumerable<HomePasteDto>> GetTopRatedPastes();
+        Task<IEnumerable<HomePasteDto>> GetAllUserPastes(string userId);
     }
 }
