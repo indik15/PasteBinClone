@@ -10,5 +10,7 @@
         public const string CommentRoute = "api/comments/";
         public const string RatingRoute = "api/rating/";
         public const string HomeRoute = "api/home/";
+        public const string ProfileRoute = "api/profile/";
+
     }
 }
