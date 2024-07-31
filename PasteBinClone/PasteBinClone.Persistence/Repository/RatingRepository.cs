@@ -87,11 +87,11 @@ namespace PasteBinClone.Persistence.Repository
                     }
 
                     _db.Ratings.Update(currentRating);
-
-                    await _db.SaveChangesAsync();
-
-                    await transaction.CommitAsync();
+                   
                 }
+                await _db.SaveChangesAsync();
+
+                await transaction.CommitAsync();
             }
             catch (Exception)
             {

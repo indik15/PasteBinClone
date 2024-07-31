@@ -12,7 +12,7 @@ namespace PasteBinClone.Persistence.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            
+            Database = base.Database;
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -36,6 +36,6 @@ namespace PasteBinClone.Persistence.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DatabaseFacade Database { get; }
+        public new DatabaseFacade Database { get; }
     }
 }
