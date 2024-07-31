@@ -9,5 +9,6 @@
         public const string FilterRoute = "api/filters/";
         public const string CommentRoute = "api/comments/";
         public const string RatingRoute = "api/rating/";
+        public const string HomeRoute = "api/home/";
     }
 }
