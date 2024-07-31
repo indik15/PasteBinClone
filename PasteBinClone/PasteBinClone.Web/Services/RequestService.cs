@@ -35,7 +35,15 @@ namespace PasteBinClone.Web.Services
                         .SerializeObject(apiRequest.Data),
                         Encoding.UTF8, "application/json");
                 }
-                else if(apiRequest.ApiMethod == Settings.ApiMethod.GET && apiRequest.Data != null)
+                //This ‘else if’ is needed to send the current page number of comments or posts
+                else if (apiRequest.Data != null && int.TryParse(apiRequest.Data.ToString(), out int result))
+                {
+                    message.Content = new StringContent(JsonConvert
+                        .SerializeObject(apiRequest.Data),
+                        Encoding.UTF8, "application/json");
+                }
+                //This ‘else if’ is needed to send the current filters
+                else if (apiRequest.ApiMethod == Settings.ApiMethod.GET && apiRequest.Data != null)
                 {
                     var queryString = QueryString.Create(apiRequest.Data
                         .GetType()
