@@ -1,0 +1,108 @@
+﻿@model UserPastesVM
+
+@{
+    ViewData["Title"] = "MyPaste";
+}
+
+
+@* My Pasts *@
+<div class="col-7 mx-auto">
+    <div class="d-flex justify-content-center">
+
+        <div class="my-pasts my-pasts_size">
+
+            <div class="m-0 mb-2">
+                <div class="p-0 pt-2 my-pasts__title d-flex justify-content-between">
+                    <span class="my-pasts__title__text">My Pasts</span>
+                    <a asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste me-3" type="submit">Create Past</a>
+                </div>
+            </div>
+
+            <div class="row m-0 d-flex justify-content-center pt-3 person-info-my-pasts">
+
+                @if (Model.PasteVMs.Any())
+                {
+                    @foreach (var item in Model.PasteVMs)
+                    {
+                        <a asp-controller="Paste" asp-action="Details" asp-route-id="@item.Id" class="btn p-0 past-item past-item_size_big">
+
+                            <div class="row past-item__content mt-3">
+
+                                <div class="col-5 d-flex justify-content-start p-0">
+                                    <span class="past-item__content__title">@item.Title</span>
+                                </div>
+
+                                <div class="col p-0">
+                                    @if (item.Time.Days != 0)
+                                    {
+                                        <span class="past-item__content__type-rate">@item.Time.Days d. ago</span>
+                                    }
+                                    else if (item.Time.Hours != 0)
+                                    {
+                                        <span class="past-item__content__type-rate">@item.Time.Hours h. ago</span>
+                                    }
+                                    else if (item.Time.Minutes != 0)
+                                    {
+                                        <span class="past-item__content__type-rate">@item.Time.Minutes m. ago</span>
+                                    }
+                                    else if (item.Time.Seconds != 0)
+                                    {
+                                        <span class="past-item__content__type-rate">@item.Time.Seconds s. ago</span>
+                                    }
+                                </div>
+
+                                @if (item.IsPublic)
+                                {
+                                    <div class="col p-0">
+                                        <span class="past-item__content__type-rate public">Public</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col p-0">
+                                        <span class="past-item__content__type-rate private">Private</span>
+                                    </div>
+                                }
+
+                                <div class="col p-0">
+                                    <span class="pe-2 past-item__content__type-rate title-item_border ps-lg-5 pe-lg-5 ps-2 pe-2">@item.ContentType.TypeName</span>
+                                </div>
+
+                                <div class="col p-0">
+                                    <span class="pe-3 past-item__content__type-rate">@item.Likes<i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                }
+
+            </div>
+
+            <form method="get" asp-controller="Profile" asp-action="UserPastes">
+                <div class="d-flex justify-content-center mt-2">
+                    <div>
+                        @if (Model.IsActiveLeftArrow)
+                        {
+                            <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)"></button>
+                        }
+                        else
+                        {
+                            <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)" disabled></button>
+                        }
+                        <span>@Model.PageNumber</span>
+                        @if (Model.IsActiveRightArrow)
+                        {
+                            <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)"></button>
+                        }
+                        else
+                        {
+                            <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)" disabled></button>
+                        }
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
