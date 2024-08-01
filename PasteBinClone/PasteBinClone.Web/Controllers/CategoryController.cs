@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
@@ -14,10 +15,12 @@ namespace PasteBinClone.Web.Controllers
     public class CategoryController : Controller
     {
         private readonly IBaseService _categoryService;
+        private readonly IDistributedCache _cache;
 
-        public CategoryController(IBaseService baseService)
+        public CategoryController(IBaseService categoryService, IDistributedCache cache)
         {
-            _categoryService = baseService;
+            _categoryService = categoryService;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Index()
@@ -141,6 +144,7 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
+                _cache.Remove("filters");
                 return RedirectToAction(nameof(Index));
             }
             else

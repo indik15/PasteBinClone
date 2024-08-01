@@ -37,7 +37,7 @@ namespace PasteBinClone.Web.Controllers
                 TypeFilter = typeFilter,
                 CategoryFilter = categoryFilter,
                 LanguageFilter = languageFilter,
-                SortedByFilter = sortedByFilter,
+                SortedByFilter = sortedByFilter ?? "1",
                 PageNumber = pageNumber
             });
            

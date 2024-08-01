@@ -52,6 +52,7 @@ namespace PasteBinClone.Web.Controllers
             }
             else
             {
+                await _cache.RemoveAsync(userId);
                 return NotFound();
             }
         }

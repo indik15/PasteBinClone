@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
@@ -14,10 +15,11 @@ namespace PasteBinClone.Web.Controllers
     public class LanguageController : Controller
     {
         private readonly IBaseService _baseService;
-
-        public LanguageController(IBaseService baseService)
+        private readonly IDistributedCache _cache;
+        public LanguageController(IBaseService baseService, IDistributedCache cache)
         {
             _baseService = baseService;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -140,6 +142,7 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
+                _cache.Remove("filters");
                 return RedirectToAction(nameof(Index));
             }
             else
