@@ -21,6 +21,13 @@ Settings.WebApiBase = builder.Configuration["WebApi:Url"];
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IUserInfo, UserInfo>();
+builder.Services.AddScoped<IHomeService, HomeService>();
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost";
+    options.InstanceName = "local";
+});
 
 builder.Services.AddAuthentication(options =>
 {
