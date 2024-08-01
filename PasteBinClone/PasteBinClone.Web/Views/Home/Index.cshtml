@@ -68,23 +68,26 @@
 
                                     @foreach (var item in Model.TopRatedPasteVMs)
                                     {
-                                        <a asp-controller="Paste" asp-action="Details" asp-route-id="@item.Id" class="btn p-0 past-item past-item_size_small">
+                                        if (item.IsPublic)
+                                        {
+                                            <a asp-controller="Paste" asp-action="Details" asp-route-id="@item.Id" class="btn p-0 past-item past-item_size_small">
 
-                                            <div class="row past-item__content mt-3">
+                                                <div class="row past-item__content mt-3">
 
-                                                <div class="col-6 d-flex justify-content-start p-0">
-                                                    <span class="past-item__content__title">@item.Title</span>
+                                                    <div class="col-6 d-flex justify-content-start p-0">
+                                                        <span class="past-item__content__title">@item.Title</span>
+                                                    </div>
+
+                                                    <div class="col p-0">
+                                                        <span class="pe-2 past-item__content__type-rate">@item.ContentType.TypeName</span>
+                                                    </div>
+
+                                                    <div class="col p-0">
+                                                        <span class="pe-3 past-item__content__type-rate">@item.Likes<i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                                    </div>
                                                 </div>
-
-                                                <div class="col p-0">
-                                                    <span class="pe-2 past-item__content__type-rate">@item.ContentType.TypeName</span>
-                                                </div>
-
-                                                <div class="col p-0">
-                                                    <span class="pe-3 past-item__content__type-rate">@item.Likes<i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                                </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        }
                                     }
 
 
@@ -188,27 +191,30 @@
 
                 </div>
 
-                <div class="d-flex justify-content-center mt-2">
-                    <div>
-                        @if (Model.IsActiveLeftArrow)
-                        {
-                            <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)"></button>
-                        }
-                        else
-                        {
-                            <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)" disabled></button>
-                        }
-                        <span>@Model.PageNumber</span>
-                        @if (Model.IsActiveRightArrow)
-                        {
-                            <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)"></button>
-                        }
-                        else
-                        {
-                            <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)" disabled></button>
-                        }
+                @if (Model.PasteVMs.Any())
+                {
+                    <div class="d-flex justify-content-center mt-2">
+                        <div>
+                            @if (Model.IsActiveLeftArrow)
+                            {
+                                <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)"></button>
+                            }
+                            else
+                            {
+                                <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)" disabled></button>
+                            }
+                            <span>@Model.PageNumber</span>
+                            @if (Model.IsActiveRightArrow)
+                            {
+                                <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)"></button>
+                            }
+                            else
+                            {
+                                <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)" disabled></button>
+                            }
+                        </div>
                     </div>
-                </div>
+                }
             </div>
 
             @* My pasts *@
