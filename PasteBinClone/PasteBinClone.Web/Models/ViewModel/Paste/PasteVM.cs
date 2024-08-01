@@ -6,7 +6,7 @@ namespace PasteBinClone.Web.Models.ViewModel.Paste
     {
         public Guid Id { get; set; }
         [Required]
-        [MaxLength(30)]
+        [MaxLength(75)]
         public string Title { get; set; }
         public string Body { get; set; }
         public bool IsPublic { get; set; }

@@ -17,7 +17,7 @@ namespace PasteBinClone.Persistence.EntityConfiguration
         {
             builder.HasKey(u => u.Id);
             builder.HasIndex(x => x.Id).IsUnique();
-            builder.Property(u => u.Title).IsRequired().HasMaxLength(60);
+            builder.Property(u => u.Title).IsRequired().HasMaxLength(75);
             builder.Property(u => u.BodyUrl).IsRequired();
             builder.Property(u => u.CreateAt).IsRequired();
             builder.Property(u => u.ExpireAt).IsRequired();
