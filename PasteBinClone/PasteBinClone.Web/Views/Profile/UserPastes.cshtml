@@ -75,32 +75,51 @@
                         </a>
                     }
                 }
+                else
+                {
+                    <div class="p-0 past-item past-item_size_big">
+                        <div class="past-item__content">
+
+                            <div class="d-flex justify-content-center">
+                                <span class="past-item__list__empty">Your list of pastes is empty.</span>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <a asp-controller="Paste" asp-action="Create" class="text-decoration-none">Create Paste!</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                }
 
             </div>
 
-            <form method="get" asp-controller="Profile" asp-action="UserPastes">
-                <div class="d-flex justify-content-center mt-2">
-                    <div>
-                        @if (Model.IsActiveLeftArrow)
-                        {
-                            <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)"></button>
-                        }
-                        else
-                        {
-                            <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)" disabled></button>
-                        }
-                        <span>@Model.PageNumber</span>
-                        @if (Model.IsActiveRightArrow)
-                        {
-                            <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)"></button>
-                        }
-                        else
-                        {
-                            <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)" disabled></button>
-                        }
+            @if (Model.PasteVMs.Any())
+            {
+                <form method="get" asp-controller="Profile" asp-action="UserPastes">
+                    <div class="d-flex justify-content-center mt-2">
+                        <div>
+                            @if (Model.IsActiveLeftArrow)
+                            {
+                                <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)"></button>
+                            }
+                            else
+                            {
+                                <button class="fa-solid fa-arrow-left btn" type="submit" name="pageNumber" value="@(Model.PageNumber - 1)" disabled></button>
+                            }
+                            <span>@Model.PageNumber</span>
+                            @if (Model.IsActiveRightArrow)
+                            {
+                                <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)"></button>
+                            }
+                            else
+                            {
+                                <button class="fa-solid fa-arrow-right btn" type="submit" name="pageNumber" value="@(Model.PageNumber + 1)" disabled></button>
+                            }
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            }
 
         </div>
 
