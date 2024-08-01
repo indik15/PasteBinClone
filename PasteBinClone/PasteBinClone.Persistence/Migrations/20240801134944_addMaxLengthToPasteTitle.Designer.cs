@@ -12,7 +12,7 @@ using PasteBinClone.Persistence.Data;
 namespace PasteBinClone.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240801131722_addMaxLengthToPasteTitle")]
+    [Migration("20240801134944_addMaxLengthToPasteTitle")]
     partial class addMaxLengthToPasteTitle
     {
         /// <inheritdoc />
@@ -184,8 +184,8 @@ namespace PasteBinClone.Persistence.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<int?>("TypeId")
                         .HasColumnType("int");

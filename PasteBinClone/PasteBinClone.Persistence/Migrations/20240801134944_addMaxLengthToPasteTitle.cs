@@ -13,12 +13,12 @@ namespace PasteBinClone.Persistence.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
                 table: "Pastes",
-                type: "nvarchar(150)",
-                maxLength: 150,
+                type: "nvarchar(75)",
+                maxLength: 75,
                 nullable: false,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(60)",
-                oldMaxLength: 60);
+                oldType: "nvarchar(150)",
+                oldMaxLength: 150);
         }
 
         /// <inheritdoc />
@@ -27,12 +27,12 @@ namespace PasteBinClone.Persistence.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
                 table: "Pastes",
-                type: "nvarchar(60)",
-                maxLength: 60,
+                type: "nvarchar(150)",
+                maxLength: 150,
                 nullable: false,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(150)",
-                oldMaxLength: 150);
+                oldType: "nvarchar(75)",
+                oldMaxLength: 75);
         }
     }
 }
