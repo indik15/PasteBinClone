@@ -222,13 +222,22 @@
                                 <span class="my-pasts__title__text">My Pasts</span>
                             </div>
 
-                            <div class="col-3 p-0 text-center my-pasts__title">
-                                <a asp-controller="Profile" asp-action="UserPastes" class="btn my-pasts__title__btn-all" type="submit">All</a>
-                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="col-3 p-0 text-center my-pasts__title">
+                                    <a asp-controller="Profile" asp-action="UserPastes" class="btn my-pasts__title__btn-all" type="submit">All</a>
+                                </div>
 
-                            <div class="col-3 p-0 text-center my-pasts__title my-pasts__title_margin-r">
-                                <a asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste" type="submit">Create</a>
-                            </div>
+                                <div class="col-3 p-0 text-center my-pasts__title my-pasts__title_margin-r">
+                                    <a asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste" type="submit">Create</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-2 p-0 ms-5 my-pasts__title my-pasts__title_margin-r">
+                                    <a asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste" type="submit">Create</a>
+                                </div>
+                            }
                         </div>
 
                         <div class="row m-0 d-flex justify-content-center pt-3 my-pasts__body">
