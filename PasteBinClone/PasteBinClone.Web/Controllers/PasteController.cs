@@ -120,7 +120,7 @@ namespace PasteBinClone.Web.Controllers
             switch (pasteVM.ExpireType)
             {
                 case "1":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(1);
+                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(5);
                     break;
                 case "2":
                     pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
@@ -220,35 +220,7 @@ namespace PasteBinClone.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(PasteVM pasteVM)
         {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            switch (pasteVM.ExpireType)
-            {
-                case "1":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(1);
-                    break;
-                case "2":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
-                    break;
-                case "3":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(30);
-                    break;
-                case "4":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddHours(1);
-                    break;
-                case "5":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(1);
-                    break;
-                case "6":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(3);
-                    break;
-                case "7":
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddDays(30);
-                    break;
-                default:
-                    pasteVM.ExpireAt = pasteVM.ExpireAt.AddMinutes(10);
-                    break;
-            }
+            var accessToken = await HttpContext.GetTokenAsync("access_token");           
 
             var response = await _baseService.Put(pasteVM, RouteConst.PasteRoute, accessToken);
 

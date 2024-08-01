@@ -254,7 +254,9 @@ namespace PasteBinClone.Application.Services
 
             var pasteFromDb = await _pasteRepository.GetById(pasteDto.Id);
             Paste paste = _mapper.Map<Paste>(pasteDto);
+
             paste.BodyUrl = pasteFromDb.BodyUrl;
+            paste.ExpireAt = pasteFromDb.ExpireAt;
 
             bool updateResult = await _amazonStorage
                 .UpdateFile(pasteFromDb.BodyUrl, pasteDto.Body);
