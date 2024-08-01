@@ -26,7 +26,7 @@ namespace PasteBinClone.Application.Services
         private readonly IApiUserRepository _apiUser = apiUser;
         private readonly IRatingRepository _ratingRepository = ratingRepository;
 
-        public async Task<bool> CreatePaste(PasteDto pasteDto)
+        public async Task<Guid> CreatePaste(PasteDto pasteDto)
         {
             (bool isCreate, string pasteId ) = 
                 await _amazonStorage.UploadFile(pasteDto.Body);
@@ -61,16 +61,16 @@ namespace PasteBinClone.Application.Services
                 if (result)
                 {
                     Log.Information("Object {@i} created successfully.", paste.Id);
-                    return true;
+                    return paste.Id;
                 }
                 else
                 {
                     Log.Error("Error creating object.");
-                    return false;
+                    return Guid.Empty;
                 }
             }
 
-            return false;
+            return Guid.Empty;
         }
 
         public async Task<bool> DeletePaste(Guid id)

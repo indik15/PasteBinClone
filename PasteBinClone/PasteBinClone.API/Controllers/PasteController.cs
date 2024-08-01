@@ -38,10 +38,11 @@ namespace PasteBinClone.API.Controllers
                 return ValidationProblem();
             }
 
-            bool result = await _pasteService.CreatePaste(pasteDto);
+            Guid result = await _pasteService.CreatePaste(pasteDto);
 
-            if (result)
+            if (result != Guid.Empty)
             {
+                _responseAPI.Data = result;
                 return Ok(_responseAPI);
             }
             else
