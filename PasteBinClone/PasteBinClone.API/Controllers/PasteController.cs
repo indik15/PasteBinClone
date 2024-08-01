@@ -62,8 +62,6 @@ namespace PasteBinClone.API.Controllers
 
             (IEnumerable<HomePasteDto> pastes, int totalPages) = await _pasteService.GetAllPaste(pageNumber, typeFilter, categoryFilter, languageFilter, sortedByFilter);
 
-            FilterVM filter = await _filterService.GetAllFilters();
-
             if(pastes == null)
             {
                 return NotFound();
@@ -74,9 +72,6 @@ namespace PasteBinClone.API.Controllers
                 _responseAPI.Data = new
                 {
                     Pastes = pastes,
-                    filter.Categories,
-                    filter.ContentTypes,
-                    filter.Languages,
                     TotalPages = totalPages
                 };
 
