@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
@@ -12,10 +13,15 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace PasteBinClone.Web.Controllers
 {
-    public class PasteController(IBaseService baseService, IUserInfo userInfo) : Controller
+    public class PasteController(IBaseService baseService, 
+        IUserInfo userInfo,
+        IHomeService homeService,
+        IDistributedCache cache) : Controller
     {
         private readonly IBaseService _baseService = baseService;
         private readonly IUserInfo _userInfo = userInfo;
+        private readonly IHomeService _homeService = homeService;
+        private readonly IDistributedCache _cache = cache;
 
         [Authorize]
         [HttpGet]
@@ -73,12 +79,10 @@ namespace PasteBinClone.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var response = await _baseService.GetAll(RouteConst.FilterRoute);
+            var filterVM = await _homeService.GetAllFilters();
 
-            if(response != null && response.IsSuccess)
+            if(filterVM != null)
             {
-                FilterVM filterVM = JsonConvert.DeserializeObject<FilterVM>(response.Data.ToString());
-
                 CreatePasteVM createPasteVM = new()
                 {
                     Categories = filterVM.Categories.Select(u => new SelectListItem
@@ -144,6 +148,9 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
+
+                await _cache.RemoveAsync(userId);
+
                 //var getCreatedPaste = await _baseService.GetById();
                 //return View();
 
@@ -163,27 +170,26 @@ namespace PasteBinClone.Web.Controllers
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             string userId = _userInfo.GetUserId(accessToken);
 
-            var response = await _baseService.GetAll(RouteConst.FilterRoute);
-            var response2 = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId: userId);
+            var responseFilter = await _homeService.GetAllFilters();
+            var responsePaste = await _baseService.GetById(id, RouteConst.PasteRoute, accessToken, userId: userId);
 
-            if (response != null &&  response2 != null && response.IsSuccess)
+            if (responseFilter != null && responsePaste != null && responsePaste.IsSuccess)
             {
-                FilterVM filterVM = JsonConvert.DeserializeObject<FilterVM>(response.Data.ToString());
-                GetPasteVM paste = JsonConvert.DeserializeObject<GetPasteVM>(response2.Data.ToString());
+                GetPasteVM paste = JsonConvert.DeserializeObject<GetPasteVM>(responsePaste.Data.ToString());
 
                 CreatePasteVM createPasteVM = new()
                 {
-                    Categories = filterVM.Categories.Select(u => new SelectListItem
+                    Categories = responseFilter.Categories.Select(u => new SelectListItem
                     {
                         Text = u.CategoryName,
                         Value = u.id.ToString()
                     }),
-                    ContentTypes = filterVM.ContentTypes.Select(u => new SelectListItem
+                    ContentTypes = responseFilter.ContentTypes.Select(u => new SelectListItem
                     {
                         Text = u.TypeName,
                         Value = u.Id.ToString()
                     }),
-                    Languages = filterVM.Languages.Select(u => new SelectListItem
+                    Languages = responseFilter.Languages.Select(u => new SelectListItem
                     {
                         Text = u.LanguageName,
                         Value = u.Id.ToString()
@@ -247,6 +253,8 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
+                var userId = _userInfo.GetUserId(accessToken);
+                await _cache.RemoveAsync(userId);
                 //var getCreatedPaste = await _baseService.GetById();
                 //return View();
 
@@ -293,6 +301,9 @@ namespace PasteBinClone.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
+                var userId = _userInfo.GetUserId(accessToken);
+                await _cache.RemoveAsync(userId);
+
                 return RedirectToAction(nameof(Index), "Home");
             }
             else
