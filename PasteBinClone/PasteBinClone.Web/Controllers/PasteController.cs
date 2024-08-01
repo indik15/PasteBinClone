@@ -151,11 +151,9 @@ namespace PasteBinClone.Web.Controllers
             {
 
                 await _cache.RemoveAsync(userId);
+                string pasteId = response.Data.ToString();                
 
-                //var getCreatedPaste = await _baseService.GetById();
-                //return View();
-
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction(nameof(Details), "Paste", new { Id = pasteId });
             }
             else
             {
@@ -229,9 +227,8 @@ namespace PasteBinClone.Web.Controllers
                 var userId = _userInfo.GetUserId(accessToken);
                 await _cache.RemoveAsync(userId);
                 //var getCreatedPaste = await _baseService.GetById();
-                //return View();
 
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction(nameof(Details), "Paste", new { Id = pasteVM.Id });
             }
             else
             {
