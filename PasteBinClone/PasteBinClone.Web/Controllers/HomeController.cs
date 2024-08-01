@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
@@ -12,10 +13,13 @@ using System.Diagnostics;
 
 namespace PasteBinClone.Web.Controllers
 {
-    public class HomeController(IBaseService baseService, IUserInfo userInfo) : Controller
+    public class HomeController(IBaseService baseService, 
+        IUserInfo userInfo,
+        IHomeService homeService) : Controller
     {
         private readonly IBaseService _baseService = baseService;
         private readonly IUserInfo _userInfo = userInfo;
+        private readonly IHomeService _homeService = homeService;
 
         [HttpGet]
         public async Task<IActionResult> Index(int pageNumber = 1)
@@ -26,30 +30,8 @@ namespace PasteBinClone.Web.Controllers
             string sortedByFilter = HttpContext.Request.Query["sortedBy"];
 
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            IEnumerable<HomePasteVM> userPaste = null;
-            IEnumerable<HomePasteVM> topRatedPastes = null;
-
-
-            if (accessToken != null)
-            {
-                string userId = _userInfo.GetUserId(accessToken);
-
-                var userPasteResponse = await _baseService.GetById(userId, RouteConst.HomeRoute, accessToken);
-
-                if (userPasteResponse != null && userPasteResponse.IsSuccess)
-                {
-                    userPaste = JsonConvert.DeserializeObject<IEnumerable<HomePasteVM>>(userPasteResponse.Data.ToString());
-                }
-            }
-
-            var topRatedPastesResponse = await _baseService.GetAll(RouteConst.HomeRoute);
-
-            if (topRatedPastesResponse != null && topRatedPastesResponse.IsSuccess)
-            {
-                topRatedPastes = JsonConvert.DeserializeObject<IEnumerable<HomePasteVM>>(topRatedPastesResponse.Data.ToString());
-            }
-
+        
+            //Getting pastes
             var response = await _baseService.GetAll(RouteConst.PasteRoute, data: new
             {
                 TypeFilter = typeFilter,
@@ -58,34 +40,45 @@ namespace PasteBinClone.Web.Controllers
                 SortedByFilter = sortedByFilter,
                 PageNumber = pageNumber
             });
-
+           
             if (response != null && response.IsSuccess)
             {
-                ResponseFilterAndPastes responseObject = JsonConvert.DeserializeObject<ResponseFilterAndPastes>(response.Data.ToString());
+                ResponsePaste pastes = JsonConvert.DeserializeObject<ResponsePaste>(response.Data.ToString());
+
+
+                //If user is authorised we can get his pastes
+                IEnumerable<HomePasteVM> userPaste = await _homeService.GetAllUserPastes(accessToken);
+
+                //Get top 5 popular pastes
+                IEnumerable<HomePasteVM> topRatedPastes = await _homeService.GetTopRatedPastes();
+
+                //Getting filters
+                FilterVM filter = await _homeService.GetAllFilters();
+
 
                 HomeVM homeVM = new()
                 {
-                    PasteVMs = responseObject.Pastes,
+                    PasteVMs = pastes.Pastes,
                     UserPasteVMs = userPaste,
                     TopRatedPasteVMs = topRatedPastes,
                     
-                    Categories = responseObject.Categories.Select(u => new SelectListItem
+                    Categories = filter.Categories.Select(u => new SelectListItem
                     {
                         Text = u.CategoryName,
                         Value = u.id.ToString()
                     }),
-                    ContentTypes = responseObject.ContentTypes.Select(u => new SelectListItem
+                    ContentTypes = filter.ContentTypes.Select(u => new SelectListItem
                     {
                         Text = u.TypeName,
                         Value = u.Id.ToString()
                     }),
-                    Languages = responseObject.Languages.Select(u => new SelectListItem
+                    Languages = filter.Languages.Select(u => new SelectListItem
                     {
                         Text = u.LanguageName,
                         Value = u.Id.ToString()
                     }),
                     PageNumber = pageNumber,
-                    IsActiveRightArrow = responseObject.TotalPages > pageNumber ? true : false,
+                    IsActiveRightArrow = pastes.TotalPages > pageNumber ? true : false,
                     IsActiveLeftArrow = pageNumber > 1 ? true : false
                 };
 
@@ -123,26 +116,6 @@ namespace PasteBinClone.Web.Controllers
         public IActionResult Signup()
         {
             return Redirect("https://localhost:44364/Account/Register");
-        }
-
-        public async Task<IActionResult> HomeUsersPastes()
-        {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-
-            string userId = _userInfo.GetUserId(accessToken);
-
-            var response = await _baseService.GetById(userId, RouteConst.HomeRoute, accessToken);
-
-            if(response != null && response.IsSuccess)
-            {
-                IEnumerable<HomePasteVM> homePastes = JsonConvert.DeserializeObject<IEnumerable<HomePasteVM>>(response.Data.ToString());
-
-                return View(homePastes);
-            }
-            else
-            {
-                return NotFound();
-            }
         }
     }
 }
