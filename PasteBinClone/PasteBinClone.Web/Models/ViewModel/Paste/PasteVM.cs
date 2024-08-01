@@ -12,6 +12,7 @@ namespace PasteBinClone.Web.Models.ViewModel.Paste
         public bool IsPublic { get; set; }
         public string ExpireType { get; set; }
         [Required]
+        [MaxLength(10)]
         public string Password { get; set; } = "";
         public DateTime CreateAt { get; set; } = DateTime.Now;
         public DateTime ExpireAt { get; set; } = DateTime.Now;
