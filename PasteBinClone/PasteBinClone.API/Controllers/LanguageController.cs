@@ -12,7 +12,7 @@ using Serilog;
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
-    [Route("api/filter/language")]
+    [Route("api/languages")]
     [Authorize(Roles = "Admin")]
     public class LanguageController : ControllerBase
     {

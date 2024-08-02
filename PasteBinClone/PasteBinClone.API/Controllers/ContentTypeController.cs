@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
-    [Route("api/filter/type")]
+    [Route("api/types")]
     [Authorize(Roles = "Admin")]
     public class ContentTypeController : ControllerBase
     {

@@ -12,7 +12,7 @@ using System.Reflection;
 namespace PasteBinClone.API.Controllers
 {
     [ApiController]
-    [Route("api/filter/category")]
+    [Route("api/categories")]
     [Authorize(Roles = "Admin")]
     public class CategoryController : ControllerBase
     {
