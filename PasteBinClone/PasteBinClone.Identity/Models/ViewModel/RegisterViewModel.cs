@@ -23,6 +23,7 @@ namespace PasteBinClone.Identity.Models.ViewModel
         [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
         public bool RememberMe { get; set; }
+        public string? CaptchaKey { get; set; }
         public string? ReturnUrl { get; set; }
     }
 }

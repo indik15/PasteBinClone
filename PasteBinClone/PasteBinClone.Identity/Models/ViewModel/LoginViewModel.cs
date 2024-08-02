@@ -12,6 +12,7 @@ namespace PasteBinClone.Identity.Models.ViewModel
         [DataType(DataType.Password)]
         public string? Password { get; set; }
         public bool RememberMe { get; set; }
+        public string? CaptchaKey { get; set; }
         public string? ReturnUrl { get; set; }
     }
 }
