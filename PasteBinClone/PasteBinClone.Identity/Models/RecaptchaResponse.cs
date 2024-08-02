@@ -6,7 +6,5 @@ namespace PasteBinClone.Identity.Models
     {
         [JsonProperty("success")]
         public bool IsSuccess { get; set; }
-        [JsonProperty("error-codes")]
-        public IEnumerable<string> Errors { get; set; }
     }
 }
