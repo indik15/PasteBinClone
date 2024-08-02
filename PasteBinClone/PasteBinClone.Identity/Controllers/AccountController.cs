@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Options;
 using PasteBinClone.Identity.Interfaces;
 using PasteBinClone.Identity.Models;
 using PasteBinClone.Identity.Models.ViewModel;
+using PasteBinClone.Identity.Services;
 using System.Security.Claims;
 
 namespace PasteBinClone.Identity.Controllers
@@ -17,20 +19,25 @@ namespace PasteBinClone.Identity.Controllers
         UserManager<AppUser> userManager,
         RoleManager<IdentityRole> roleManager,
         IIdentityServerInteractionService interactionService,
-        IRequestService requestService) : Controller
+        IRequestService requestService,
+        IOptions<RecaptchaOptions> options,
+        IRecaptchaService recaptcha) : Controller
     {
         private readonly SignInManager<AppUser> _signInManager = signInManager;
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly RoleManager<IdentityRole> _roleManager = roleManager;
         private readonly IIdentityServerInteractionService _interactionService = interactionService;
         private readonly IRequestService _requestService = requestService;
+        private readonly RecaptchaOptions _options = options.Value;
+        private readonly IRecaptchaService _recaptcha = recaptcha;
 
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
             var viewModel = new LoginViewModel
             {
-                ReturnUrl = returnUrl
+                ReturnUrl = returnUrl,
+                CaptchaKey = _options.Key
             };
 
             return View(viewModel);
@@ -41,6 +48,18 @@ namespace PasteBinClone.Identity.Controllers
         {
             if (!ModelState.IsValid)
             {
+                return View(viewModel);
+            }
+
+            string recapthcaResponse = Request.Form["g-recaptcha-response"].ToString();
+
+            var recapttchaValidate = _recaptcha.ValidateCaptcha(recapthcaResponse);
+
+            if (!recapttchaValidate.IsSuccess)
+            {
+                ModelState.AddModelError("cap", "Finish captcha!");
+                viewModel.CaptchaKey = _options.Key;
+
                 return View(viewModel);
             }
 
@@ -97,7 +116,8 @@ namespace PasteBinClone.Identity.Controllers
         {
             var viewModel = new RegisterViewModel
             {
-                ReturnUrl = returnUrl
+                ReturnUrl = returnUrl,
+                CaptchaKey = _options.Key
             };
 
             return View(viewModel);
@@ -108,6 +128,18 @@ namespace PasteBinClone.Identity.Controllers
         {
             if (!ModelState.IsValid)
             {
+                return View(viewModel);
+            }
+
+            string recapthcaResponse = Request.Form["g-recaptcha-response"].ToString();
+
+            var recapttchaValidate = _recaptcha.ValidateCaptcha(recapthcaResponse);
+
+            if (!recapttchaValidate.IsSuccess)
+            {
+                ModelState.AddModelError("cap", "Finish captcha!");
+                viewModel.CaptchaKey = _options.Key;
+
                 return View(viewModel);
             }
 

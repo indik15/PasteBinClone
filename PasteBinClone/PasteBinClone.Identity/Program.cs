@@ -10,6 +10,7 @@ using PasteBinClone.Identity.DbInitializer;
 using PasteBinClone.Identity.Interfaces;
 using PasteBinClone.Identity.Models;
 using PasteBinClone.Identity.Services;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddHttpClient<IRequestService, RequestService>();
+
+builder.Services.Configure<RecaptchaOptions>(builder.Configuration.GetSection(nameof(RecaptchaOptions)));
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
 {
@@ -36,6 +39,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(config =>
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
+builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
 
 builder.Services.AddIdentityServer(options =>
 {
