@@ -48,6 +48,18 @@
 
             </div>
 
+            @if (ViewData.ModelState["cap"] != null)
+            {
+                <div class="text-danger">@ViewData.ModelState["cap"].Errors[0].ErrorMessage</div>
+            }
+
+            <div class="form-auth__body-object">
+
+                <div class="g-recaptcha" data-sitekey="@Model.CaptchaKey">
+                </div>
+
+            </div>
+
             <div class="form-auth__body-object">
                 <button class="login-btn login-btn_text" type="submit">Login</button>
                 <a class="btn register-btn register-btn_text" asp-route-returnUrl="@Model.ReturnUrl" asp-action="Register">Register</a>
