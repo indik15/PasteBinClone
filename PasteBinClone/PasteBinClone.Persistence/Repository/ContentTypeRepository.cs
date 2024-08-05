@@ -69,10 +69,7 @@ namespace PasteBinClone.Persistence.Repository
                 //Checks if the object with this id is exists
                 if (contentType != null)
                 {
-                    //Separate the contentType entity from the Db context
-                    _db.ContentTypes.Entry(contentType).State = EntityState.Detached;
-
-                    _db.ContentTypes.Update(obj);
+                    contentType.TypeName = obj.TypeName;
                     await _db.SaveChangesAsync();
 
                     //Return true if the object exists and was updated 

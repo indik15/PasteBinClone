@@ -69,10 +69,7 @@ namespace PasteBinClone.Persistence.Repository
             //Checks if the object with this id is exists
             if (category != null)
             {
-                //Separate the Category entity from the Db context
-                _db.Categories.Entry(category).State = EntityState.Detached;
-
-                _db.Categories.Update(obj);
+                category.CategoryName = obj.CategoryName;
                 await _db.SaveChangesAsync();
 
                 //Return true if the object exists and was updated 

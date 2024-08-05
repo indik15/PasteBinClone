@@ -73,10 +73,7 @@ namespace PasteBinClone.Persistence.Repository
             //Checks if the object with this id is exists
             if (language != null)
             {
-                //Separate the Language entity from the Db context
-                _db.Languages.Entry(language).State = EntityState.Detached;
-
-                _db.Languages.Update(obj);
+                language.LanguageName = obj.LanguageName;
                 await _db.SaveChangesAsync();
 
                 //Return true if the object exists and was updated 
