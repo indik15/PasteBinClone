@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PasteBinClone.Persistence.Data;
 
@@ -11,9 +12,11 @@ using PasteBinClone.Persistence.Data;
 namespace PasteBinClone.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240805112630_addDeletingConfigurationsToComments")]
+    partial class addDeletingConfigurationsToComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace PasteBinClone.Persistence.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("ApiUsers", (string)null);
+                    b.ToTable("ApiUsers");
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.Category", b =>
@@ -65,7 +68,7 @@ namespace PasteBinClone.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.Comment", b =>
@@ -85,6 +88,7 @@ namespace PasteBinClone.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -96,7 +100,7 @@ namespace PasteBinClone.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.ContentType", b =>
@@ -117,7 +121,7 @@ namespace PasteBinClone.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("ContentTypes", (string)null);
+                    b.ToTable("ContentTypes");
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.Language", b =>
@@ -138,7 +142,7 @@ namespace PasteBinClone.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.Paste", b =>
@@ -204,7 +208,7 @@ namespace PasteBinClone.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Pastes", null, t =>
+                    b.ToTable("Pastes", t =>
                         {
                             t.HasCheckConstraint("MinDislikesLength", "Dislikes >= 0");
 
@@ -238,7 +242,7 @@ namespace PasteBinClone.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.Comment", b =>
@@ -252,7 +256,8 @@ namespace PasteBinClone.Persistence.Migrations
                     b.HasOne("PasteBinClone.Domain.Models.ApiUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Paste");
 
