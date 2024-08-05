@@ -54,7 +54,6 @@ namespace PasteBinClone.Persistence.Repository
         public async Task<IEnumerable<Language>> Get()
         {
             return await _db.Languages
-                .AsNoTracking()
                 .ToListAsync();
         }
 

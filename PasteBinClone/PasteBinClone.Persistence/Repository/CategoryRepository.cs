@@ -50,7 +50,6 @@ namespace PasteBinClone.Persistence.Repository
         public async Task<IEnumerable<Category>> Get()
         {
             return await _db.Categories
-                .AsNoTracking()
                 .ToListAsync();
         }
 

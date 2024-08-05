@@ -49,7 +49,6 @@ namespace PasteBinClone.Persistence.Repository
         public async Task<IEnumerable<ContentType>> Get()
         {
             return await _db.ContentTypes
-                .AsNoTracking()
                 .ToListAsync();         
         }
 
