@@ -5,14 +5,9 @@ using PasteBinClone.Persistence.Data;
 
 namespace PasteBinClone.Persistence.Repository
 {
-    public class CategoryRepository : IBaseRepository<Category>
+    public class CategoryRepository(ApplicationDbContext db) : IBaseRepository<Category>
     {
-        private readonly IApplicationDbContext _db;
-
-        public CategoryRepository(IApplicationDbContext db)
-        {
-            _db = db;     
-        }
+        private readonly ApplicationDbContext _db = db;
 
         public async Task<bool> Create(Category obj)
         {

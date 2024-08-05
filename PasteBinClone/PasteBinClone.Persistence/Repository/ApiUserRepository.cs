@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
+using PasteBinClone.Persistence.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Persistence.Repository
 {
-    public class ApiUserRepository(IApplicationDbContext db) : IApiUserRepository
+    public class ApiUserRepository(ApplicationDbContext db) : IApiUserRepository
     {
-        private readonly IApplicationDbContext _db = db;
+        private readonly ApplicationDbContext _db = db;
 
         public async Task<bool> Create(ApiUser user)
         {

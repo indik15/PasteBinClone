@@ -3,6 +3,7 @@ using PasteBinClone.Application;
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
+using PasteBinClone.Persistence.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Persistence.Repository
 {
-    public class CommentRepository(IApplicationDbContext db) : ICommentRepository
+    public class CommentRepository(ApplicationDbContext db) : ICommentRepository
     {
-        private readonly IApplicationDbContext _db = db;
+        private readonly ApplicationDbContext _db = db;
 
         public async Task<bool> Create(Comment obj)
         {

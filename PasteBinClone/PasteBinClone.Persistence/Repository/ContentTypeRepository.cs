@@ -1,17 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
+using PasteBinClone.Persistence.Data;
 
 namespace PasteBinClone.Persistence.Repository
 {
-    public class ContentTypeRepository : IBaseRepository<ContentType>
+    public class ContentTypeRepository(ApplicationDbContext db) : IBaseRepository<ContentType>
     {
-        private readonly IApplicationDbContext _db;
-
-        public ContentTypeRepository(IApplicationDbContext db)
-        {
-            _db = db;
-        }
+        private readonly ApplicationDbContext _db = db;
 
         public async Task<bool> Create(ContentType obj)
         {

@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Application;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
+using PasteBinClone.Persistence.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PasteBinClone.Persistence.Repository
 {
-    public class PasteRepository(IApplicationDbContext db) : IPasteRepository
+    public class PasteRepository(ApplicationDbContext db) : IPasteRepository
     {
-        private readonly IApplicationDbContext _db = db;
+        private readonly ApplicationDbContext _db = db;
 
         public async Task<bool> Create(Paste paste)
         {

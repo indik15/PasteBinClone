@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
+using PasteBinClone.Persistence.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,9 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Persistence.Repository
 {
-    public class LanguageRepository : IBaseRepository<Language>
+    public class LanguageRepository(ApplicationDbContext db) : IBaseRepository<Language>
     {
-        private readonly IApplicationDbContext _db;
-
-        public LanguageRepository(IApplicationDbContext db)
-        {
-            _db = db;
-        }
+        private readonly ApplicationDbContext _db = db;
 
         public async Task<bool> Create(Language obj)
         {
