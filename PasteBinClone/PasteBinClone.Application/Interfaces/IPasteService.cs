@@ -12,7 +12,7 @@ namespace PasteBinClone.Application.Interfaces
     {
         Task<Guid> CreatePaste(PasteDto pasteDto);
         Task<(GetPasteDto getPasteDto, string errorMessage)> GetPasteById(Guid id, string password = null, string userId = null);
-        Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllPaste(int pageNumber, int? typeFilter, int? categoryFilter, int? languageFilter, int? sortedByFilter);
+        Task<(IEnumerable<HomePasteDto> pastes, int totalPages)> GetAllPaste(HomePasteRequestDto pasteRequestDto);
         Task<bool> DeletePaste(Guid id);
         Task<bool> UpdatePaste(PasteDto pasteDto);
         Task<IEnumerable<HomePasteDto>> GetTopRatedPastes();

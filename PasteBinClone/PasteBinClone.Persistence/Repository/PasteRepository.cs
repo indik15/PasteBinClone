@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Azure;
 using Microsoft.EntityFrameworkCore;
 using PasteBinClone.Application;
+using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
 using PasteBinClone.Persistence.Data;
@@ -71,12 +72,7 @@ namespace PasteBinClone.Persistence.Repository
             return false;
         }
 
-        public async Task<(IEnumerable<Paste> pastes, int totalPaste)> Get(
-            int pageNumber,
-            int? typeFilter,
-            int? categoryFilter,
-            int? languageFilter,
-            int? sortedByFilter)
+        public async Task<(IEnumerable<Paste> pastes, int totalPaste)> Get(HomePasteRequestDto pasteRequestDto)
         {
             var query = _db.Pastes
                 .AsNoTracking()
@@ -85,30 +81,30 @@ namespace PasteBinClone.Persistence.Repository
                 .Include(u => u.Type)
                 .AsQueryable();
                 
-            if(typeFilter != 0 && typeFilter != null)
+            if(pasteRequestDto.TypeFilter != 0 && pasteRequestDto.TypeFilter != null)
             {
-                query = query.Where(u => u.TypeId == typeFilter);
+                query = query.Where(u => u.TypeId == pasteRequestDto.TypeFilter);
             }
-            if (categoryFilter != 0 && categoryFilter != null)
+            if (pasteRequestDto.CategoryFilter != 0 && pasteRequestDto.CategoryFilter != null)
             {
-                query = query.Where(u => u.CategoryId == categoryFilter);
+                query = query.Where(u => u.CategoryId == pasteRequestDto.CategoryFilter);
             }
-            if (languageFilter != 0 && languageFilter != null)
+            if (pasteRequestDto.LanguageFilter != 0 && pasteRequestDto.LanguageFilter != null)
             {
-                query = query.Where(u => u.LanguageId == languageFilter);
+                query = query.Where(u => u.LanguageId == pasteRequestDto.LanguageFilter);
             }
 
-            if (sortedByFilter != 0 && sortedByFilter != null)
+            if (pasteRequestDto.SortedByFilter != 0 && pasteRequestDto.SortedByFilter != null)
             {
-                if (sortedByFilter == 1)
+                if (pasteRequestDto.SortedByFilter == 1)
                 {
                     query = query.OrderByDescending(u => u.CreateAt);
                 }
-                else if (sortedByFilter == 2)
+                else if (pasteRequestDto.SortedByFilter == 2)
                 {
                     query = query.OrderBy(u => u.CreateAt);
                 }
-                else if (sortedByFilter == 3)
+                else if (pasteRequestDto.SortedByFilter == 3)
                 {
                     query = query.OrderByDescending(u => u.Likes);
                 }
@@ -117,7 +113,7 @@ namespace PasteBinClone.Persistence.Repository
             int totalPastes = query.Count();
 
             IEnumerable<Paste> paste = await query
-                .Skip((pageNumber - 1) * Constants.PasteCount)
+                .Skip((pasteRequestDto.PageNumber - 1) * Constants.PasteCount)
                 .Take(Constants.PasteCount)
                 .ToListAsync();
 

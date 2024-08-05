@@ -52,16 +52,11 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet]       
-        public async Task<ActionResult<ResponseAPI>> Get(
-            [FromQuery] int pageNumber = 1, 
-            [FromQuery] int? typeFilter = 0, 
-            [FromQuery] int? categoryFilter = 0, 
-            [FromQuery] int? languageFilter = 0,
-            [FromQuery] int? sortedByFilter = 0)
+        public async Task<ActionResult<ResponseAPI>> Get([FromQuery] HomePasteRequestDto homePasteRequestDto)
         {
             Log.Information("Request to receive all Pastes");
 
-            (IEnumerable<HomePasteDto> pastes, int totalPages) = await _pasteService.GetAllPaste(pageNumber, typeFilter, categoryFilter, languageFilter, sortedByFilter);
+            (IEnumerable<HomePasteDto> pastes, int totalPages) = await _pasteService.GetAllPaste(homePasteRequestDto);
 
             if(pastes == null)
             {
