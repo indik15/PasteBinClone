@@ -31,9 +31,6 @@ namespace PasteBinClone.Persistence.Repository
             //Checking if the object exists before deleting it
             if (obj != null)
             {
-                //Separate the contentType entity from the Db context
-                _db.ContentTypes.Entry(obj).State = EntityState.Deleted;
-
                 _db.ContentTypes.Remove(obj);
                 await _db.SaveChangesAsync();
 

@@ -40,9 +40,6 @@ namespace PasteBinClone.Persistence.Repository
             //Checking if the object exists before deleting it
             if (paste != null)
             {
-                //Separate the Paste entity from the Db context
-                _db.Pastes.Entry(paste).State = EntityState.Deleted;
-
                 _db.Pastes.Remove(paste);
                 await _db.SaveChangesAsync();
 

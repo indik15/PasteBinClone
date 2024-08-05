@@ -36,9 +36,6 @@ namespace PasteBinClone.Persistence.Repository
             //Checking if the object exists before deleting it
             if (obj != null)
             {
-                //Separate the language entity from the Db context
-                _db.Languages.Entry(obj).State = EntityState.Deleted;
-
                 _db.Languages.Remove(obj);
                 await _db.SaveChangesAsync();
 

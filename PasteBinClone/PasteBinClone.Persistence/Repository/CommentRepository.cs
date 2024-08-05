@@ -39,9 +39,6 @@ namespace PasteBinClone.Persistence.Repository
             //Checking if the object exists before deleting it
             if (comment != null)
             {
-                //Separate the Comment entity from the Db context
-                _db.Comments.Entry(comment).State = EntityState.Deleted;
-
                 _db.Comments.Remove(comment);
                 await _db.SaveChangesAsync();
 
