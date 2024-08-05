@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Application.ViewModels
 {
-    public record CategoryVM(
-    int id,
-    string CategoryName);
+    public class CategoryVM
+    {
+        public int id { get; set; }
+        public string CategoryName { get; set; }
+
+    }
 }
