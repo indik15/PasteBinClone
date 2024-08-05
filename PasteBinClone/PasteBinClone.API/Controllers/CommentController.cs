@@ -47,7 +47,7 @@ namespace PasteBinClone.API.Controllers
         }
 
         [HttpGet("{pasteId}")]
-        public async Task<ActionResult<ResponseAPI>> GetAll([FromBody] int pageNumber, Guid pasteId)
+        public async Task<ActionResult<ResponseAPI>> Get([FromBody] int pageNumber, Guid pasteId)
          {
             (IEnumerable<CommentDto> commentDtos, int totalPages) = await _commentService.GetAllComments(pasteId, pageNumber);
 
