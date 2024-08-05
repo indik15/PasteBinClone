@@ -31,7 +31,7 @@ namespace PasteBinClone.Persistence.Data
             modelBuilder.ApplyConfiguration(new ApiUserConfiguration());
             modelBuilder.ApplyConfiguration(new PasteConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
-            modelBuilder.ApplyConfiguration(new RatinConfiguration());
+            modelBuilder.ApplyConfiguration(new RatingConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
