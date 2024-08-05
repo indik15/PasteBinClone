@@ -7,13 +7,11 @@ using PasteBinClone.Persistence.EntityConfiguration;
 
 namespace PasteBinClone.Persistence.Data
 {
-    public class ApplicationDbContext : DbContext, IApplicationDbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {
-            Database = base.Database;
-        }
+        {   }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<ContentType> ContentTypes { get; set; }
@@ -35,7 +33,5 @@ namespace PasteBinClone.Persistence.Data
 
             base.OnModelCreating(modelBuilder);
         }
-
-        public new DatabaseFacade Database { get; }
     }
 }

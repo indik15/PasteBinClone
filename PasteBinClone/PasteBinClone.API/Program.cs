@@ -54,8 +54,6 @@ builder.Services.AddScoped<IValidator<LanguageDto>, LanguageDtoValidator>();
 builder.Services.AddScoped<IValidator<PasteDto>, PasteDtoValidator>();
 builder.Services.AddScoped<IValidator<CommentDto>, CommentDtoValidator>();
 
-builder.Services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
