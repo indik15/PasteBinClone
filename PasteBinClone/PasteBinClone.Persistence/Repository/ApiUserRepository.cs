@@ -36,12 +36,5 @@ namespace PasteBinClone.Persistence.Repository
 
             return await _db.ApiUsers.FirstOrDefaultAsync(u => u.UserId == id);
         }
-
-        public async Task<bool> Update(ApiUser user)
-        {
-            //...
-
-            return false;
-        }
     }
 }

@@ -18,10 +18,5 @@ namespace PasteBinClone.Application.Services
 
         public async Task<ApiUser> GetApiUserById(string id) =>
             await _userRepository.GetById(id);
-
-        public Task<bool> UpdateApiUser(ApiUser user)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
