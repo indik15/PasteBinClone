@@ -16,14 +16,6 @@ namespace PasteBinClone.Persistence.EntityConfiguration
             builder.HasKey(u => u.Id);
             builder.HasIndex(u => u.Id).IsUnique();
             builder.Property(u => u.Body).IsRequired();
-
-            builder.HasOne(u => u.User)
-                .WithMany(u => u.Comments)
-                .HasForeignKey(u => u.UserId);
-
-            builder.HasOne(u => u.Paste)
-                .WithMany(u => u.Comments)
-                .HasForeignKey(u => u.PasteId);
         }
     }
 }

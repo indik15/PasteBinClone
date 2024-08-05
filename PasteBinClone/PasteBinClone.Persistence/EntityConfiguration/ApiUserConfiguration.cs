@@ -18,6 +18,21 @@ namespace PasteBinClone.Persistence.EntityConfiguration
             builder.Property(u => u.UserId).IsRequired();
             builder.Property(u => u.Email).IsRequired();
             builder.Property(u => u.Name).IsRequired();
+
+            builder
+                .HasMany(u => u.Pastes)
+                .WithOne(u => u.User)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasMany(u => u.Comments)
+                .WithOne(u => u.User)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(u => u.Ratings)
+                .WithOne(u => u.ApiUser)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

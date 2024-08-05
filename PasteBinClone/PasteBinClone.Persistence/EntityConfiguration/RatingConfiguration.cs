@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Persistence.EntityConfiguration
 {
-    public class RatinConfiguration : IEntityTypeConfiguration<Rating>
+    public class RatingConfiguration : IEntityTypeConfiguration<Rating>
     {
         public void Configure(EntityTypeBuilder<Rating> builder)
         {
@@ -21,8 +21,7 @@ namespace PasteBinClone.Persistence.EntityConfiguration
                 .HasForeignKey(u => u.UserId);
 
             builder.HasOne(u => u.Paste)
-                .WithMany(u => u.Ratings)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithMany(u => u.Ratings);
         }
     }
 }

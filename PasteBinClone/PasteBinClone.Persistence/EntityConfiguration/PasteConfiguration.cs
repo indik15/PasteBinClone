@@ -35,10 +35,22 @@ namespace PasteBinClone.Persistence.EntityConfiguration
                 .HasOne(u => u.Type)
                 .WithMany()
                 .OnDelete(DeleteBehavior.SetNull);
+
+
             builder
-                .HasOne(u => u.User);
+                .HasOne(u => u.User)
+                .WithMany(u => u.Pastes);
+
             builder
-                .HasMany(u => u.Comments);
+                .HasMany(u => u.Comments)
+                .WithOne(u => u.Paste)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasMany(u => u.Ratings)
+                .WithOne(u => u.Paste)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             builder.Property(u => u.Likes)
                 .HasColumnType("bigint")
