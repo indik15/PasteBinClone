@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PasteBinClone.Tests.CategoryRepositoryTest
+namespace PasteBinClone.Tests.IntegrationTests.CategoryRepositoryTest
 {
     public class CategoryRepositoryIntegrationTest : IDisposable
     {

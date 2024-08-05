@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PasteBinClone.Tests.LanguageTest
+namespace PasteBinClone.Tests.UnitTests.LanguageTest
 {
     public class LanguageServiceTest
     {

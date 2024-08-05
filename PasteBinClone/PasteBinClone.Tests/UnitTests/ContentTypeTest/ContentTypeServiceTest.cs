@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PasteBinClone.Tests.ContentTypeTest
+namespace PasteBinClone.Tests.UnitTests.ContentTypeTest
 {
     public class ContentTypeServiceTest
     {
@@ -109,7 +109,7 @@ namespace PasteBinClone.Tests.ContentTypeTest
             //Arrange
 
             //Settings for a mock methods that will return an object
-            var expectedContentType = new ContentType { Id = 1, TypeName = "Test1"}; 
+            var expectedContentType = new ContentType { Id = 1, TypeName = "Test1" };
             var expectedContentTypeDto = new ContentTypeDto { Id = 1, TypeName = "Test1" };
             int testId = 1;
 

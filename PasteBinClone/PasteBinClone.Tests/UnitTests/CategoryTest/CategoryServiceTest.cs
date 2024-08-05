@@ -5,7 +5,7 @@ using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Application.Services;
 using PasteBinClone.Domain.Models;
 
-namespace PasteBinClone.Tests.CategoryTest
+namespace PasteBinClone.Tests.UnitTests.CategoryTest
 {
     public class CategoryServiceTest
     {

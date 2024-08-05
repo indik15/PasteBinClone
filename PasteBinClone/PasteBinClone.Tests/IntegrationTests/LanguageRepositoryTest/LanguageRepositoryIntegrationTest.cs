@@ -8,44 +8,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PasteBinClone.Tests.ContentTypeRepositoryTest
+namespace PasteBinClone.Tests.IntegrationTests.LanguageRepositoryTest
 {
-    public class ContentTypeRepositoryIntegrationTest : IDisposable
+    public class LanguageRepositoryIntegrationTest : IDisposable
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly ContentTypeRepository _contentTypeRepository;
-
-        public ContentTypeRepositoryIntegrationTest()
+        private readonly LanguageRepository _languageRepository;
+        public LanguageRepositoryIntegrationTest()
         {
             _dbContext = AppDbContextInMemory.GetContextInMemory();
-            _contentTypeRepository = new ContentTypeRepository(_dbContext);
+            _languageRepository = new LanguageRepository(_dbContext);
         }
 
         #region Get
         [Fact]
-        public async Task Get_ResultSuccess_ReturnsCollectionOfContentType()
+        public async Task Get_ResultSuccess_ReturnsCollectionOfLanguage()
         {
             //Arrange
 
             //Create a test objects and add them to the database
             _dbContext.AddRange(
-                new ContentType { Id = 1, TypeName = "Test1" },
-                new ContentType { Id = 2, TypeName = "Test2" },
-                new ContentType { Id = 3, TypeName = "Test3" });
+                new Language { Id = 1, LanguageName = "Test1" },
+                new Language { Id = 2, LanguageName = "Test2" },
+                new Language { Id = 3, LanguageName = "Test3" });
 
             _dbContext.SaveChanges();
 
 
             //Act
-            var result = await _contentTypeRepository.Get();
+            var result = await _languageRepository.Get();
 
             //Assert
 
             //Verify that the result is not null
             Assert.NotNull(result);
 
-            //Verify that the result is of type List<ContentType>
-            Assert.IsType<List<ContentType>>(result);
+            //Verify that the result is of type List<Language>
+            Assert.IsType<List<Language>>(result);
         }
 
         [Fact]
@@ -54,7 +53,7 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Act
-            var result = await _contentTypeRepository.Get();
+            var result = await _languageRepository.Get();
 
             //Assert
 
@@ -66,27 +65,27 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
         #region GetById
 
         [Fact]
-        public async Task GetById_ResultSuccess_ReturnsContentType()
+        public async Task GetById_ResultSuccess_ReturnsLanguage()
         {
             //Arrange
 
             //Create a test object
-            ContentType contentTypeTest = new ContentType { Id = 1, TypeName = "Test1" };
+            Language languageTest = new Language { Id = 1, LanguageName = "Test1" };
             int testId = 1;
 
-            _dbContext.Add(contentTypeTest);
+            _dbContext.Add(languageTest);
             _dbContext.SaveChanges();
 
             //Act
-            var result = await _contentTypeRepository.GetById(testId);
+            var result = await _languageRepository.GetById(testId);
 
             //Assert
 
             //Verify that the result is not null
             Assert.NotNull(result);
 
-            //Verify that the result Id equals contentTypeTest Id
-            Assert.Equal(contentTypeTest.Id, result.Id);
+            //Verify that the result Id equals languageTest Id
+            Assert.Equal(languageTest.Id, result.Id);
         }
 
         [Fact]
@@ -96,7 +95,7 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             int testId = 1;
 
             //Act
-            var result = await _contentTypeRepository.GetById(testId);
+            var result = await _languageRepository.GetById(testId);
 
             //Assert
 
@@ -110,14 +109,14 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Create a test object
-            ContentType contentTypeTest = new ContentType { Id = 1, TypeName = "Test1" };
+            Language languageTest = new Language { Id = 1, LanguageName = "Test1" };
             int testId = 0;
 
-            _dbContext.Add(contentTypeTest);
+            _dbContext.Add(languageTest);
             _dbContext.SaveChanges();
 
             //Act
-            var result = await _contentTypeRepository.GetById(testId);
+            var result = await _languageRepository.GetById(testId);
 
             //Assert
 
@@ -132,20 +131,20 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
         public async Task Create_ResultSuccess_ReturnsTrue()
         {
             //Arrange
-            ContentType contentTypeTest = new ContentType { Id = 1, TypeName = "Test1" };
+            Language languageTest = new Language { Id = 1, LanguageName = "Test1" };
 
             //Act
 
-            //Call the method with the test ContentType
-            var isSuccess = await _contentTypeRepository.Create(contentTypeTest);
+            //Call the method with the test Language
+            var isSuccess = await _languageRepository.Create(languageTest);
 
             //Verify that the Create method was called and the object was added to the database
-            var result = await _dbContext.ContentTypes.FirstOrDefaultAsync(u => u.Id == contentTypeTest.Id);
+            var result = await _dbContext.Languages.FirstOrDefaultAsync(u => u.Id == languageTest.Id);
 
             //Assert
 
             //Verify that only one object was added to the database
-            Assert.Single(_dbContext.ContentTypes);
+            Assert.Single(_dbContext.Languages);
 
             //Verify that the result is not null
             Assert.NotNull(result);
@@ -159,12 +158,12 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Create a test object
-            ContentType contentTypeTest = null;
+            Language languageTest = null;
 
             //Act
 
-            //Call the method with the empty test ContentType
-            var result = await _contentTypeRepository.Create(contentTypeTest);
+            //Call the method with the empty test Language
+            var result = await _languageRepository.Create(languageTest);
 
             //Assert
             Assert.False(result);
@@ -179,15 +178,15 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Create a test object
-            ContentType contentTypeTest = new ContentType { Id = 1, TypeName = "Test7" };
+            Language languageTest = new Language { Id = 1, LanguageName = "Test7" };
 
-            _dbContext.Add(contentTypeTest);
+            _dbContext.Add(languageTest);
             _dbContext.SaveChanges();
 
             //Act
 
-            var result = await _contentTypeRepository.Update(new ContentType { Id = 1, TypeName = "Test1"});
-            var updatedContentType = await _dbContext.ContentTypes.FirstOrDefaultAsync(u => u.Id == 1);
+            var result = await _languageRepository.Update(new Language { Id = 1, LanguageName = "Test1" });
+            var updatedLanguage = await _dbContext.Languages.FirstOrDefaultAsync(u => u.Id == 1);
 
             //Assert
 
@@ -195,7 +194,7 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             Assert.True(result);
 
             //Verify that the object is actually updated
-            Assert.Equal("Test1", updatedContentType.TypeName);
+            Assert.Equal("Test1", updatedLanguage.LanguageName);
         }
 
         [Fact]
@@ -204,10 +203,10 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Create a test object
-            ContentType contentTypeTest = null;
+            Language languageTest = null;
 
             //Act
-            var result = await _contentTypeRepository.Update(contentTypeTest);
+            var result = await _languageRepository.Update(languageTest);
 
             //Assert
 
@@ -221,7 +220,7 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Act
-            var result = await _contentTypeRepository.Update(new ContentType { Id = 1, TypeName = "Test1" });
+            var result = await _languageRepository.Update(new Language { Id = 1, LanguageName = "Test1" });
 
             //Assert
 
@@ -238,14 +237,14 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Create a test object
-            ContentType contentTypeTest = new ContentType { Id = 1, TypeName = "Test1" };
+            Language languageTest = new Language { Id = 1, LanguageName = "Test1" };
             int testId = 1;
 
-            _dbContext.Add(contentTypeTest);
+            _dbContext.Add(languageTest);
             _dbContext.SaveChanges();
 
             //Act
-            var result = await _contentTypeRepository.Delete(testId);
+            var result = await _languageRepository.Delete(testId);
 
             //Assert
 
@@ -259,7 +258,7 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
             //Arrange
 
             //Act
-            var result = await _contentTypeRepository.Delete(1);
+            var result = await _languageRepository.Delete(1);
 
             //Assert
 
@@ -268,18 +267,6 @@ namespace PasteBinClone.Tests.ContentTypeRepositoryTest
 
         }
         #endregion
-
-        //Added methods that returned a test object
-        private IEnumerable<ContentType> CreateTestContentType()
-        {
-            return new List<ContentType>
-            {
-                new ContentType {Id = 1, TypeName = "Test1"},
-                new ContentType {Id = 2, TypeName = "Test2"},
-                new ContentType {Id = 3, TypeName = "Test3"},
-
-            };
-        }
 
         public void Dispose()
         {
