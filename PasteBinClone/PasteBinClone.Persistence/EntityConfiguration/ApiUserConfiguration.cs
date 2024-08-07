@@ -33,6 +33,12 @@ namespace PasteBinClone.Persistence.EntityConfiguration
                 .HasMany(u => u.Ratings)
                 .WithOne(u => u.ApiUser)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasOne(u => u.UserPasteInfo)
+                .WithOne()
+                .HasForeignKey<UserPasteInfo>(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

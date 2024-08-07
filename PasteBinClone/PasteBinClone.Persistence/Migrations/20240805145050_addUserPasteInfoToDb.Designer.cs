@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PasteBinClone.Persistence.Data;
 
@@ -11,9 +12,11 @@ using PasteBinClone.Persistence.Data;
 namespace PasteBinClone.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240805145050_addUserPasteInfoToDb")]
+    partial class addUserPasteInfoToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,17 +30,8 @@ namespace PasteBinClone.Persistence.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -256,6 +250,9 @@ namespace PasteBinClone.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("TotalActivePastes")
+                        .HasColumnType("int");
+
                     b.Property<int>("TotalPastes")
                         .HasColumnType("int");
 
@@ -367,7 +364,8 @@ namespace PasteBinClone.Persistence.Migrations
 
                     b.Navigation("Ratings");
 
-                    b.Navigation("UserPasteInfo");
+                    b.Navigation("UserPasteInfo")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PasteBinClone.Domain.Models.Paste", b =>
