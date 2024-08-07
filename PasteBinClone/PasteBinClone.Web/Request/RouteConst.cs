@@ -11,6 +11,6 @@
         public const string RatingRoute = "api/rating/";
         public const string HomeRoute = "api/home/";
         public const string ProfileRoute = "api/profile/";
-
+        public const string UserPasteRoute = "api/userPaste/";
     }
 }
