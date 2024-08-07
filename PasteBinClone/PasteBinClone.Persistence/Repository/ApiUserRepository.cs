@@ -22,6 +22,7 @@ namespace PasteBinClone.Persistence.Repository
             }
 
             _db.ApiUsers.Add(user);
+            _db.UserPasteInfo.Add(new UserPasteInfo() {UserId = user.UserId});
             await _db.SaveChangesAsync();
 
             return true;
@@ -34,7 +35,15 @@ namespace PasteBinClone.Persistence.Repository
                 return null;
             }
 
-            return await _db.ApiUsers.FirstOrDefaultAsync(u => u.UserId == id);
+            ApiUser user =  await _db.ApiUsers
+                .Include(u => u.UserPasteInfo)
+                .FirstOrDefaultAsync(u => u.UserId == id);
+
+            user.UserPasteInfo.TotalActivePastes = _db.Pastes
+            .Where(u => u.UserId == user.UserId)
+            .Count();
+
+            return user;
         }
     }
 }
