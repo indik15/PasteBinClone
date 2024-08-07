@@ -231,8 +231,9 @@ namespace PasteBinClone.Application.Services
                 
             var pasteDto = _mapper.Map<GetPasteDto>(paste);
             pasteDto.Body = pasteBody;
-            
-            if(rating != null)
+
+            //Check if current user has liked or disliked the post
+            if (rating != null)
             {
                 pasteDto.IsLiked = rating.IsLiked;
                 pasteDto.IsDisliked = rating.IsDisliked;
