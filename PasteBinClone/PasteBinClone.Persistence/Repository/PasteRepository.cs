@@ -83,8 +83,15 @@ namespace PasteBinClone.Persistence.Repository
 
         public async Task<bool> DeleteRange(IEnumerable<Paste> pastes)
         {
-            if(pastes != null)
+            if (pastes != null)
             {
+
+                foreach (var paste in pastes)
+                {
+                    //Separate the Paste entity from the Db context
+                    _db.Pastes.Entry(paste).State = EntityState.Deleted;
+                }
+
                 _db.Pastes.RemoveRange(pastes);
                 await _db.SaveChangesAsync();
 
@@ -102,8 +109,8 @@ namespace PasteBinClone.Persistence.Repository
                 .Include(u => u.Language)
                 .Include(u => u.Type)
                 .AsQueryable();
-                
-            if(pasteRequestDto.TypeFilter != 0 && pasteRequestDto.TypeFilter != null)
+
+            if (pasteRequestDto.TypeFilter != 0 && pasteRequestDto.TypeFilter != null)
             {
                 query = query.Where(u => u.TypeId == pasteRequestDto.TypeFilter);
             }
