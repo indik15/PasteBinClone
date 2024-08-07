@@ -204,7 +204,7 @@ namespace PasteBinClone.Application.Services
 
             if(user.Role != "Admin")
             {
-                if (paste.UserId != userId)
+                if (paste.UserId != userId || string.IsNullOrEmpty(userId))
                 {
                     if (!paste.IsPublic)
                     {
