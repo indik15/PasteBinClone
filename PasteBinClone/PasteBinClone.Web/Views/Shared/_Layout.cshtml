@@ -40,7 +40,7 @@
                         } 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <span class="user-name">@User.Identity.Name</span>
+                            <a asp-controller="Profile" asp-action="Index" class="user-name text-decoration-none text-dark">@User.Identity.Name</a>
                             <a class="btn btn-outline-secondary navbar__button navbar__button-signup" asp-action="Logout" asp-controller="Home">LOG OUT</a>
                         }
                         else
