@@ -31,14 +31,21 @@ namespace PasteBinClone.Application.Services
             (bool isCreate, string pasteId ) = 
                 await _amazonStorage.UploadFile(pasteDto.Body);
 
-            if (isCreate && pasteId != null)
+            if (isCreate && !string.IsNullOrEmpty(pasteId))
             {
 
                 string passwordHash = null;
 
                 if (!pasteDto.IsPublic)
                 {
-                    passwordHash = _passwordHasher.PasswordHash(pasteDto.Password);
+                    if (string.IsNullOrEmpty(pasteDto.Password))
+                    {
+                        return Guid.Empty;
+                    }
+                    else
+                    {
+                        passwordHash = _passwordHasher.PasswordHash(pasteDto.Password);
+                    }
                 }
 
                 Paste paste = new()
@@ -130,11 +137,13 @@ namespace PasteBinClone.Application.Services
                 if(!resultFromDb)
                 {
                     Log.Information("Error deleting objects from the database");
+                    return (null, 0);
                 }
 
                 if (!resultFromS3)
                 {
                     Log.Information("Error deleting objects from the AWS S3");
+                    return (null, 0);
                 }
             }
 
