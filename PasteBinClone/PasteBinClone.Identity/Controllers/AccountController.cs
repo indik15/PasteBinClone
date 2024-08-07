@@ -196,7 +196,9 @@ namespace PasteBinClone.Identity.Controllers
                         UserId = user.Id,
                         Name = user.UserName,
                         Email = user.Email,
-                        Role = UserRoles.User
+                        Role = UserRoles.User,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName
                     });
 
                     if (!string.IsNullOrEmpty(viewModel.ReturnUrl))
