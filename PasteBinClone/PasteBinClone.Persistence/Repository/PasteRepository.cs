@@ -26,8 +26,40 @@ namespace PasteBinClone.Persistence.Repository
                 return false;
             }
 
-            _db.Pastes.Add(paste);
-            await _db.SaveChangesAsync();
+            await using var transaction = await _db.Database.BeginTransactionAsync();
+
+            try
+            {
+
+                _db.Pastes.Add(paste);
+
+                var pasteInfo = await _db.UserPasteInfo
+                    .FirstOrDefaultAsync(u => u.UserId == paste.UserId);
+
+                if (pasteInfo is null)
+                {
+                    pasteInfo = new UserPasteInfo();
+                }
+
+                pasteInfo.TotalPastes++;
+
+                if (paste.IsPublic)
+                    pasteInfo.TotalPublicPastes++;
+                else
+                    pasteInfo.TotalPrivatePastes++;
+
+                pasteInfo.UserId = paste.UserId;
+
+                _db.Update(pasteInfo);
+
+                await _db.SaveChangesAsync();
+                await transaction.CommitAsync();
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
 
             return true;
         }
@@ -53,13 +85,6 @@ namespace PasteBinClone.Persistence.Repository
         {
             if(pastes != null)
             {
-
-                foreach(var paste in pastes)
-                {
-                    //Separate the Paste entity from the Db context
-                    _db.Pastes.Entry(paste).State = EntityState.Deleted;
-                }
-
                 _db.Pastes.RemoveRange(pastes);
                 await _db.SaveChangesAsync();
 
