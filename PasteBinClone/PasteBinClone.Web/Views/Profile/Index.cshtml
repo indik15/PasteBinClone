@@ -1,237 +1,270 @@
-﻿<div class="w-100 h-100">
-    <div class="row">
+﻿@model ProfileVM
 
-        <div class="col ms-md-5">
 
-            <div class="ms-md-5">
+<form asp-controller="Profile" asp-action="Index" method="get">
+    <div class="w-100 h-100">
+        <div class="row">
 
-                <span class="profile-title">My Profile</span>
+            <div class="col ms-md-5">
 
-               <div class="row">
+                <div class="ms-md-5">
 
-                    @* Avatar *@
-                    <div class="col">
-                        <div class="avatar mt-5">
-                            
+                    <span class="profile-title">My Profile</span>
+
+                    <div class="row">
+
+                        @* Avatar *@
+                        <div class="col">
+                            <div class="avatar mt-5">
+                            </div>
                         </div>
+
+                        @* Info *@
+                        <div class="col-xl-7 col-md-12 p-0 mt-5 mb-5">
+
+                            <div class="row person-info flex-nowrap mb-3">
+
+                                <div class="col person-info__block">
+                                    <span>Name</span>
+                                </div>
+
+                                @if (@Model.ApiUser.Name is null)
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">No data</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">@Model.ApiUser.Name</span>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <div class="row person-info flex-nowrap mb-3">
+
+                                <div class="col person-info__block">
+                                    <span>Last name</span>
+                                </div>
+                                @if (@Model.ApiUser.LastName is null)
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">No data</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">@Model.ApiUser.LastName</span>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <div class="row person-info flex-nowrap mb-3">
+
+                                <div class="col person-info__block">
+                                    <span>Email</span>
+                                </div>
+
+                                @if (@Model.ApiUser.Email is null)
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">No data</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">@Model.ApiUser.Email</span>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <div class="row person-info flex-nowrap mb-3">
+
+                                <div class="col person-info__block">
+                                    <span>City</span>
+                                </div>
+
+                                @if (@Model.ApiUser.City is null)
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">No data</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-8 ms-2">
+                                        <span class="roboto-regular">@Model.ApiUser.City</span>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <button class="btn person-info__edit-btn mt-2" type="submit">Edit</button>
+
+                        </div>
+
                     </div>
 
-                    @* Info *@
-                    <div class="col-xl-7 col-md-12 p-0 mt-5 mb-5">
-
-                        <div class="row person-info flex-nowrap mb-3">
-
-                            <div class="col person-info__block">
-                                <span>Name</span>
-                            </div>
-
-                            <div class="col-8 ms-2">
-                                <span class="roboto-regular">Vlad</span>
-                            </div>
-
-                        </div>
-
-                        <div class="row person-info flex-nowrap mb-3">
-
-                            <div class="col person-info__block">
-                                <span>Last name</span>
-                            </div>
-
-                            <div class="col-8 ms-2">
-                                <span class="roboto-regular">Kolesnikov</span>
-                            </div>
-
-                        </div>
-
-                        <div class="row person-info flex-nowrap mb-3">
-
-                            <div class="col person-info__block">
-                                <span>Email</span>
-                            </div>
-
-                            <div class="col-8 ms-2">
-                                <span class="roboto-regular">morpexx08@gmail.com</span>
-                            </div>
-
-                        </div>
-
-                        <div class="row person-info flex-nowrap mb-3">
-
-                            <div class="col person-info__block">
-                                <span>City</span>
-                            </div>
-
-                            <div class="col-8 ms-2">
-                                <span class="roboto-regular">Cherkasy</span>
-                            </div>
-
-                        </div>
-
-                        <button class="btn person-info__edit-btn mt-2" type="submit">Edit</button>
-
-                    </div>
-                                   
-               </div>
-
+                </div>
             </div>
-        </div>
 
-        @* My Pasts *@
-        <div class="col-7 mx-auto">
-            <div class="d-flex justify-content-center">
+            @* My Pasts *@
+            <div class="col-7 mx-auto">
+                <div class="d-flex justify-content-center">
 
-                <div class="my-pasts my-pasts_size">
+                    <div class="my-pasts my-pasts_size">
 
-                    <div class="m-0 mb-2">
-                        <div class="p-0 pt-2 my-pasts__title d-flex justify-content-between">
-                            <span class="my-pasts__title__text">My Pasts</span>
-                            <button class="btn my-pasts__title__btn-create-paste me-3" type="submit">Create Past</button>
+                        <div class="m-0 mb-2">
+                            <div class="p-0 pt-2 my-pasts__title d-flex justify-content-between">
+                                <span class="my-pasts__title__text">My Pasts</span>
+                                <button asp-controller="Paste" asp-action="Create" class="btn my-pasts__title__btn-create-paste me-3" type="submit">Create Past</button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row m-0 d-flex justify-content-center pt-3 person-info-my-pasts">
-                        
-                        <button class="btn p-0 past-item past-item_size_big">
+                        <div class="row m-0 d-flex justify-content-center pt-3 person-info-my-pasts">
 
-                            <div class="row past-item__content">
+                            @if (Model.Pastes.Any())
+                            {
+                                @foreach (var item in Model.Pastes)
+                                {
+                                    <a asp-controller="Paste" asp-action="Details" asp-route-id="@item.Id" class="btn p-0 past-item past-item_size_big">
 
-                                <div class="col-5 d-flex justify-content-start p-0">
-                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
+                                        <div class="row past-item__content mt-3">
+
+                                            <div class="col-5 d-flex justify-content-start p-0">
+                                                <span class="past-item__content__title">@item.Title</span>
+                                            </div>
+
+                                            <div class="col p-0">
+                                                @if (item.Time.Days != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Days d. ago</span>
+                                                }
+                                                else if (item.Time.Hours != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Hours h. ago</span>
+                                                }
+                                                else if (item.Time.Minutes != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Minutes m. ago</span>
+                                                }
+                                                else if (item.Time.Seconds != 0)
+                                                {
+                                                    <span class="past-item__content__type-rate">@item.Time.Seconds s. ago</span>
+                                                }
+                                            </div>
+
+                                            @if(item.IsPublic)
+                                            {
+                                                <div class="col p-0">
+                                                    <span class="past-item__content__type-rate public">Public</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col p-0">
+                                                    <span class="past-item__content__type-rate private">Private</span>
+                                                </div>
+                                            }
+
+                                            <div class="col p-0">
+                                                <span class="pe-2 past-item__content__type-rate title-item_border ps-lg-5 pe-lg-5 ps-2 pe-2">@item.ContentType.TypeName</span>
+                                            </div>
+
+                                            <div class="col p-0">
+                                                <span class="pe-3 past-item__content__type-rate">@item.Likes<i class="fa-regular fa-thumbs-up ms-1"></i></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <div class="p-0 past-item past-item_size_big">
+                                    <div class="past-item__content">
+
+                                        <div class="d-flex justify-content-center">
+                                            <span class="past-item__list__empty">Your list of pastes is empty.</span>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <a asp-controller="Paste" asp-action="Create" class="text-decoration-none">Create Paste!</a>
+                                        </div>
+
+
+                                    </div>
                                 </div>
+                            }
 
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate title-item_border text-nowrap ps-lg-4 pe-lg-4 ps-2 pe-2">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate private">Private</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2 past-item__content__type-rate title-item_border ps-lg-5 pe-lg-5 ps-2 pe-2">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
-                        
-                        <button class="btn p-0 past-item past-item_size_big">
-
-                            <div class="row past-item__content">
-
-                                <div class="col-5 d-flex justify-content-start p-0">
-                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate title-item_border text-nowrap ps-lg-4 pe-lg-4 ps-2 pe-2">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate public">Public</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2 past-item__content__type-rate title-item_border ps-lg-5 pe-lg-5 ps-2 pe-2">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
-
-                        <button class="btn p-0 past-item past-item_size_big">
-
-                            <div class="row past-item__content">
-
-                                <div class="col-5 d-flex justify-content-start p-0">
-                                    <span class="past-item__content__title">Nulla facilisi cras fermentum odio eu feugiat...</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate title-item_border text-nowrap ps-lg-4 pe-lg-4 ps-2 pe-2">5 h. ago</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="past-item__content__type-rate private">Private</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-2 past-item__content__type-rate title-item_border ps-lg-5 pe-lg-5 ps-2 pe-2">C#</span>
-                                </div>
-
-                                <div class="col p-0">
-                                    <span class="pe-3 past-item__content__type-rate">5 <i class="fa-regular fa-thumbs-up ms-1"></i></span>
-                                </div>
-                            </div>
-                        </button>
+                        </div>
 
                     </div>
 
                 </div>
-
             </div>
-        </div>
 
-        @* Paste Info *@
-        <div class="w-50 ms-md-5">
-            <div class="col p-0 mt-sm-5 mt-2 ms-md-5">
+            @* Paste Info *@
+            <div class="w-50 ms-md-5">
+                <div class="col p-0 mt-sm-5 mt-2 ms-md-5">
 
-                <span class="profile-title">Paste Info</span>
+                    <span class="profile-title">Paste Info</span>
 
-                <div class="row person-info flex-nowrap mt-3 mb-3">
+                    <div class="row person-info flex-nowrap mt-3 mb-3">
 
-                    <div class="col person-info__block">
-                        <span class="text-nowrap">Total Pasts</span>
+                        <div class="col person-info__block">
+                            <span class="text-nowrap">Total Pasts</span>
+                        </div>
+
+                        <div class="col-9 ms-2">
+                            <span class="roboto-regular">@Model.ApiUser.UserPasteInfo.TotalPastes</span>
+                        </div>
+
                     </div>
 
-                    <div class="col-9 ms-2">
-                        <span class="roboto-regular">12</span>
+                    <div class="row person-info flex-nowrap mb-3">
+
+                        <div class="col person-info__block">
+                            <span class="text-nowrap">Public Pasts</span>
+                        </div>
+
+                        <div class="col-9 ms-2">
+                            <span class="roboto-regular">@Model.ApiUser.UserPasteInfo.TotalPublicPastes</span>
+                        </div>
+
+                    </div>
+
+                    <div class="row person-info flex-nowrap mb-3">
+
+                        <div class="col person-info__block">
+                            <span class="text-nowrap">Private Pasts</span>
+                        </div>
+
+                        <div class="col-9 ms-2">
+                            <span class="roboto-regular">@Model.ApiUser.UserPasteInfo.TotalPrivatePastes</span>
+                        </div>
+
+                    </div>
+
+                    <div class="row person-info flex-nowrap mb-3">
+
+                        <div class="col person-info__block">
+                            <span class="text-nowrap">Active Pasts</span>
+                        </div>
+
+                        <div class="col-9 ms-2">
+                            <span class="roboto-regular">@Model.ApiUser.UserPasteInfo.TotalActivePastes</span>
+                        </div>
+
                     </div>
 
                 </div>
-
-                <div class="row person-info flex-nowrap mb-3">
-
-                    <div class="col person-info__block">
-                        <span class ="text-nowrap">Public Pasts</span>
-                    </div>
-
-                    <div class="col-9 ms-2">
-                        <span class="roboto-regular">5</span>
-                    </div>
-
-                </div>
-
-                <div class="row person-info flex-nowrap mb-3">
-
-                    <div class="col person-info__block">
-                        <span class="text-nowrap">Private Pasts</span>
-                    </div>
-
-                    <div class="col-9 ms-2">
-                        <span class="roboto-regular">7</span>
-                    </div>
-
-                </div>
-
-                <div class="row person-info flex-nowrap mb-3">
-
-                    <div class="col person-info__block">
-                        <span class="text-nowrap">Active Pasts</span>
-                    </div>
-
-                    <div class="col-9 ms-2">
-                        <span class="roboto-regular">3</span>
-                    </div>
-
-                </div>
-
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
+</form>
