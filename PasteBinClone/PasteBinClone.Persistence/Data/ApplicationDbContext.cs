@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Domain.Models;
 using PasteBinClone.Persistence.EntityConfiguration;
+using System.Reflection;
 
 namespace PasteBinClone.Persistence.Data
 {
@@ -20,16 +21,11 @@ namespace PasteBinClone.Persistence.Data
         public DbSet<Paste> Pastes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<UserPasteInfo> UserPasteInfo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-            modelBuilder.ApplyConfiguration(new ContentTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new LanguageConfiguration());
-            modelBuilder.ApplyConfiguration(new ApiUserConfiguration());
-            modelBuilder.ApplyConfiguration(new PasteConfiguration());
-            modelBuilder.ApplyConfiguration(new CommentConfiguration());
-            modelBuilder.ApplyConfiguration(new RatingConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
         }
