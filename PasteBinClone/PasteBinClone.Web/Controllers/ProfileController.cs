@@ -5,27 +5,18 @@ using Newtonsoft.Json;
 using PasteBinClone.Web.Interfaces;
 using PasteBinClone.Web.Models;
 using PasteBinClone.Web.Models.ViewModel;
+using PasteBinClone.Web.Models.ViewModel.Paste;
 using PasteBinClone.Web.Request;
 using PasteBinClone.Web.Services;
 
 namespace PasteBinClone.Web.Controllers
 {
-    public class ProfileController(IBaseService baseService,IUserInfo userInfo) : Controller
+    [Authorize]
+    public class ProfileController(IBaseService baseService, IUserInfo userInfo) : Controller
     {
         private readonly IBaseService _baseService = baseService;
         private readonly IUserInfo _userInfo = userInfo;
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Edit()
-        {
-            return View();
-        }
-
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> UserPastes(int pageNumber = 1)
         {
@@ -33,7 +24,7 @@ namespace PasteBinClone.Web.Controllers
 
             string userId = _userInfo.GetUserId(accessToken);
 
-            var response = await _baseService.GetById(userId, RouteConst.ProfileRoute, accessToken, obj: pageNumber);
+            var response = await _baseService.GetById(userId, RouteConst.UserPasteRoute, accessToken, obj: pageNumber);
 
             if (response != null && response.IsSuccess)
             {
@@ -48,6 +39,27 @@ namespace PasteBinClone.Web.Controllers
                 };
 
                 return View(pastesVM);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            string userId = _userInfo.GetUserId(accessToken);
+
+            var response = await _baseService.GetById(userId, RouteConst.ProfileRoute, accessToken);
+
+            if (response != null && response.IsSuccess)
+            {
+                ProfileVM userPastes = JsonConvert.DeserializeObject<ProfileVM>(response.Data.ToString());
+
+                return View(userPastes);
             }
             else
             {
