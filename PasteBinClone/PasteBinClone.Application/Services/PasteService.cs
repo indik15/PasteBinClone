@@ -43,6 +43,7 @@ namespace PasteBinClone.Application.Services
 
                 Paste paste = new()
                 {
+                    Id = Guid.NewGuid(),
                     Title = pasteDto.Title,
                     BodyUrl = pasteId,
                     IsPublic = pasteDto.IsPublic,
