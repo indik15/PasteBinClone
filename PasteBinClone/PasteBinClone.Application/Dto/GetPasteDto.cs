@@ -21,7 +21,7 @@ namespace PasteBinClone.Application.Dto
         public CategoryVM Category { get; set; }
         public ContentTypeVM Type { get; set; }
         public LanguageVM Language { get; set; }
-        public Guid UserId { get; set; }    
+        public string UserId { get; set; }    
         public string UserName { get; set; }
         public ICollection<CommentDto> Comments { get; set; }
 
