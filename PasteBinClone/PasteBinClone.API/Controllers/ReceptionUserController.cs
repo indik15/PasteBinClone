@@ -14,7 +14,7 @@ namespace PasteBinClone.API.Controllers
         private readonly IApiUserService _userService = userService;
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ApiUserViewModel apiUser)
+        public async Task<ActionResult> Post([FromBody] ApiUserDto apiUser)
         {
             if(apiUser.ApiCode != _configuration["IdentityUser:SecretKey"])
             {

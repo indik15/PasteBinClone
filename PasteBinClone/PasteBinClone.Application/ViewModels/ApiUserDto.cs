@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Application.ViewModels
 {
-    public class ApiUserViewModel
+    public class ApiUserDto
     {
         public ApiUser? ApiUser { get; set; }
         public string? ApiCode { get; set; }
