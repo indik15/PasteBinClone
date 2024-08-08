@@ -50,7 +50,7 @@ PasteBinClone is designed as a full stack web application with a backend based o
   + In-Memory Database
 
 ## Images
-Next, we will demonstrate some of the main pages of the website
+Next, I'll demonstrate some of the main pages of the site.
 ### Login page
 ![Login](https://github.com/user-attachments/assets/588b44da-f081-4a3d-b0d7-dc61662f7ff6)
 ### Home page
