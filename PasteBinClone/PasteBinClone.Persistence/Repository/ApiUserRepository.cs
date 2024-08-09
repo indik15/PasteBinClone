@@ -36,6 +36,19 @@ namespace PasteBinClone.Persistence.Repository
             }
 
             ApiUser user =  await _db.ApiUsers
+                .FirstOrDefaultAsync(u => u.UserId == id);
+
+            return user;
+        }
+
+        public async Task<ApiUser> GetByIdWithUserPasteInfo(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
+            ApiUser user = await _db.ApiUsers
                 .Include(u => u.UserPasteInfo)
                 .FirstOrDefaultAsync(u => u.UserId == id);
 

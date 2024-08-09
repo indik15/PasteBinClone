@@ -30,7 +30,7 @@ namespace PasteBinClone.API.Controllers
             Log.Information("Request to receive user profile by user id: {@id}", userId);
 
             IEnumerable<HomePasteDto> pastes = await _pasteService.GetFiveUserPastes(userId);
-            ApiUser apiUser = await _userService.GetApiUserById(userId);
+            ApiUser apiUser = await _userService.GetApiUserByIdWithUserPasteInfo(userId);
 
             if (apiUser == null)
             {

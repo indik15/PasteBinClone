@@ -18,5 +18,8 @@ namespace PasteBinClone.Application.Services
 
         public async Task<ApiUser> GetApiUserById(string id) =>
             await _userRepository.GetById(id);
+
+        public async Task<ApiUser> GetApiUserByIdWithUserPasteInfo(string id) =>
+            await _userRepository.GetByIdWithUserPasteInfo(id);
     }
 }

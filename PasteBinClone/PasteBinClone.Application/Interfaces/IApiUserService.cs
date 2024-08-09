@@ -12,5 +12,6 @@ namespace PasteBinClone.Application.Interfaces
     {
         Task<bool> CreateUser(ApiUser user);
         Task<ApiUser> GetApiUserById(string id);
+        Task<ApiUser> GetApiUserByIdWithUserPasteInfo(string id);
     }
 }

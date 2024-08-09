@@ -10,6 +10,7 @@ namespace PasteBinClone.Application.Interfaces
     public interface IApiUserRepository
     {
         Task<ApiUser> GetById(string id);
+        Task<ApiUser> GetByIdWithUserPasteInfo(string id);
         Task<bool> Create(ApiUser user);
     }
 }
