@@ -13,33 +13,8 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Tests.UnitTests.PasteTest
 {
-    public class CreatePasteTest
+    public class CreatePasteTest : PasteTestBase
     {
-        private readonly Mock<IMapper> _mapperMock;
-        private readonly Mock<IPasteRepository> _pasteRepositoryMock;
-        private readonly Mock<IAmazonStorageService> _amazonS3Mock;
-        private readonly Mock<IPasswordHasher> _hasherMock;
-        private readonly Mock<IApiUserRepository> _userRepositoryMock;
-        private readonly Mock<IRatingRepository> _ratingRepositoryMock;
-        private readonly PasteService _pasteService;
-
-        public CreatePasteTest()
-        {
-            _mapperMock = new();
-            _pasteRepositoryMock = new();
-            _amazonS3Mock = new();
-            _hasherMock = new();
-            _userRepositoryMock = new();
-            _ratingRepositoryMock = new();
-
-            _pasteService = new PasteService(
-                _pasteRepositoryMock.Object,
-                _mapperMock.Object,
-                _amazonS3Mock.Object,
-                _hasherMock.Object,
-                _userRepositoryMock.Object,
-                _ratingRepositoryMock.Object);
-        }
         #region CreatePublicPasteTests
         [Fact]
         public async Task CreatePublicPaste_SuccessResult_ReturnsPasteID()
@@ -163,50 +138,5 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             result.Should().BeEmpty();
         }
         #endregion
-
-        private static PasteDto PublicPasteDto => new PasteDto
-        {
-            Id = Guid.NewGuid(),
-            Title = "Test",
-            Body = "TestPublicBody",
-            IsPublic = true,
-            Password = null,
-            CreateAt = DateTime.Now,
-            ExpireAt = DateTime.Now.AddMinutes(30),
-            CategoryId = 1,
-            LanguageId = 1,
-            TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
-        };
-
-        private static PasteDto PrivatePasteDto => new PasteDto
-        {
-            Id = Guid.NewGuid(),
-            Title = "Test",
-            Body = "TestPrivateBody",
-            IsPublic = false,
-            Password = "123",
-            CreateAt = DateTime.Now,
-            ExpireAt = DateTime.Now.AddMinutes(30),
-            CategoryId = 1,
-            LanguageId = 1,
-            TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
-        };
-
-        private static PasteDto PrivatePasteDtoNullPassword => new PasteDto
-        {
-            Id = Guid.NewGuid(),
-            Title = "Test",
-            Body = "TestPrivateBody",
-            IsPublic = false,
-            Password = null,
-            CreateAt = DateTime.Now,
-            ExpireAt = DateTime.Now.AddMinutes(30),
-            CategoryId = 1,
-            LanguageId = 1,
-            TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
-        };
     }
 }

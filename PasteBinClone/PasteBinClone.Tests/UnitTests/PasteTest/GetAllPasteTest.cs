@@ -14,35 +14,8 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Tests.UnitTests.PasteTest
 {
-    public class GetAllPasteTest
+    public class GetAllPasteTest : PasteTestBase
     {
-        private readonly Mock<IMapper> _mapperMock;
-        private readonly Mock<IPasteRepository> _pasteRepositoryMock;
-        private readonly Mock<IAmazonStorageService> _amazonS3Mock;
-        private readonly Mock<IPasswordHasher> _hasherMock;
-        private readonly Mock<IApiUserRepository> _userRepositoryMock;
-        private readonly Mock<IRatingRepository> _ratingRepositoryMock;
-        private readonly PasteService _pasteService;
-
-        public GetAllPasteTest()
-        {
-            _mapperMock = new();
-            _pasteRepositoryMock = new();
-            _amazonS3Mock = new();
-            _hasherMock = new();
-            _userRepositoryMock = new();
-            _ratingRepositoryMock = new();
-
-            _pasteService = new PasteService(
-                _pasteRepositoryMock.Object,
-                _mapperMock.Object,
-                _amazonS3Mock.Object,
-                _hasherMock.Object,
-                _userRepositoryMock.Object,
-                _ratingRepositoryMock.Object);
-        }
-        #region GetPasteTests
-
         [Fact]
         public async Task GetAllPaste_SuccessResult_ReturnsCollectionOfPastes()
         {
@@ -188,71 +161,5 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             result.pastes.Should().BeNull();
             result.totalPages.Should().Be(0);
         }
-        #endregion
-
-        private static IEnumerable<PasteDto> PasteDtoList => new List<PasteDto>
-        {
-            new PasteDto
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test1",
-                Body = "TestPublicBody",
-                IsPublic = true,
-                Password = null,
-                CreateAt = DateTime.Now,
-                ExpireAt = DateTime.Now.AddMinutes(30),
-                CategoryId = 1,
-                LanguageId = 1,
-                TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
-            },
-            new PasteDto
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test2",
-                Body = "TestPublicBody",
-                IsPublic = true,
-                Password = null,
-                CreateAt = DateTime.Now,
-                ExpireAt = DateTime.Now.AddMinutes(30),
-                CategoryId = 1,
-                LanguageId = 1,
-                TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
-            },
-
-        };
-
-        private static IEnumerable<Paste> PasteList => new List<Paste>
-        {
-            new Paste
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test1",
-                BodyUrl = Guid.NewGuid().ToString(),
-                IsPublic = true,
-                Password = null,
-                CreateAt = DateTime.Now,
-                ExpireAt = DateTime.Now.AddMinutes(30),
-                CategoryId = 1,
-                LanguageId = 1,
-                TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
-            },
-            new Paste
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test2",
-                BodyUrl = Guid.NewGuid().ToString(),
-                IsPublic = true,
-                Password = null,
-                CreateAt = DateTime.Now,
-                ExpireAt = DateTime.Now.AddMinutes(30),
-                CategoryId = 1,
-                LanguageId = 1,
-                TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
-            }
-        };
     }
 }

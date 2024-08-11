@@ -13,33 +13,8 @@ using System.Threading.Tasks;
 
 namespace PasteBinClone.Tests.UnitTests.PasteTest
 {
-    public class UpdatePasteTest
+    public class UpdatePasteTest : PasteTestBase
     {
-        private readonly Mock<IMapper> _mapperMock;
-        private readonly Mock<IPasteRepository> _pasteRepositoryMock;
-        private readonly Mock<IAmazonStorageService> _amazonS3Mock;
-        private readonly Mock<IPasswordHasher> _hasherMock;
-        private readonly Mock<IApiUserRepository> _userRepositoryMock;
-        private readonly Mock<IRatingRepository> _ratingRepositoryMock;
-        private readonly PasteService _pasteService;
-
-        public UpdatePasteTest()
-        {
-            _mapperMock = new();
-            _pasteRepositoryMock = new();
-            _amazonS3Mock = new();
-            _hasherMock = new();
-            _userRepositoryMock = new();
-            _ratingRepositoryMock = new();
-
-            _pasteService = new PasteService(
-                _pasteRepositoryMock.Object,
-                _mapperMock.Object,
-                _amazonS3Mock.Object,
-                _hasherMock.Object,
-                _userRepositoryMock.Object,
-                _ratingRepositoryMock.Object);
-        }
 
         [Fact]
         public async Task UpdatePaste_SuccessResult_ReturnsTrue()
@@ -127,35 +102,5 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             result.Should().BeFalse();
 
         }
-
-        private static Paste PublicPaste => new Paste
-        {
-            Id = Guid.NewGuid(),
-            Title = "Test",
-            BodyUrl = "Url",
-            IsPublic = true,
-            Password = null,
-            CreateAt = DateTime.Now,
-            ExpireAt = DateTime.Now.AddMinutes(30),
-            CategoryId = 1,
-            LanguageId = 1,
-            TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
-        };
-
-        private static PasteDto PublicPasteDto => new PasteDto
-        {
-            Id = Guid.NewGuid(),
-            Title = "Test",
-            Body = "TestPublicBody",
-            IsPublic = true,
-            Password = null,
-            CreateAt = DateTime.Now,
-            ExpireAt = DateTime.Now.AddMinutes(30),
-            CategoryId = 1,
-            LanguageId = 1,
-            TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
-        };
     }
 }
