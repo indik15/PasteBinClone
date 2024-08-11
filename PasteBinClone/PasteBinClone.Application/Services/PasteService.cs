@@ -85,17 +85,20 @@ namespace PasteBinClone.Application.Services
         {
             Paste paste = await _pasteRepository.GetById(id);
 
-            bool awsDeletionResult = await _amazonStorage.DeleteFile(paste.BodyUrl);
-
-            //if the deletion was successful, the method will return true
-            if (awsDeletionResult)
+            if(paste is not null)
             {
-                bool result = await _pasteRepository.Delete(id);
+                bool awsDeletionResult = await _amazonStorage.DeleteFile(paste.BodyUrl);
 
-                if (result)
+                //if the deletion was successful, the method will return true
+                if (awsDeletionResult)
                 {
-                    Log.Information("Object {@i} successfully deleted.", id);
-                    return true;
+                    bool result = await _pasteRepository.Delete(id);
+
+                    if (result)
+                    {
+                        Log.Information("Object {@i} successfully deleted.", id);
+                        return true;
+                    }
                 }
             }
 
