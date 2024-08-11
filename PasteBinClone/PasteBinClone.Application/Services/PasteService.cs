@@ -259,26 +259,30 @@ namespace PasteBinClone.Application.Services
         {
 
             var pasteFromDb = await _pasteRepository.GetById(pasteDto.Id);
-            Paste paste = _mapper.Map<Paste>(pasteDto);
 
-            paste.BodyUrl = pasteFromDb.BodyUrl;
-            paste.ExpireAt = pasteFromDb.ExpireAt;
-
-            bool updateResult = await _amazonStorage
-                .UpdateFile(pasteFromDb.BodyUrl, pasteDto.Body);
-
-            //if the update was successful, the method will return true
-            if (updateResult)
+            if(pasteFromDb is not null)
             {
-                bool result = await _pasteRepository.Update(paste);
+                Paste paste = _mapper.Map<Paste>(pasteDto);
 
-                if (result)
+                paste.BodyUrl = pasteFromDb.BodyUrl;
+                paste.ExpireAt = pasteFromDb.ExpireAt;
+
+                bool updateResult = await _amazonStorage
+                    .UpdateFile(pasteFromDb.BodyUrl, pasteDto.Body);
+
+                //if the update was successful, the method will return true
+                if (updateResult)
                 {
-                    Log.Information("Object {@i} updated.", pasteDto.Id);
-                    return true;
+                    bool result = await _pasteRepository.Update(paste);
+
+                    if (result)
+                    {
+                        Log.Information("Object {@i} updated.", pasteDto.Id);
+                        return true;
+                    }
                 }
             }
-
+         
             Log.Error("Object update error.");
             return false;
         }
