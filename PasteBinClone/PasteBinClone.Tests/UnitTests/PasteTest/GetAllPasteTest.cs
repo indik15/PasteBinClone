@@ -23,14 +23,9 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             _pasteRepositoryMock.Setup(u => u.Get(It.IsAny<HomePasteRequestDto>()))
                 .ReturnsAsync((PasteList, 15));
 
-            _pasteRepositoryMock.Setup(u => u.DeleteRange(It.IsAny<IEnumerable<Paste>>()))
-                .ReturnsAsync(true);
+            _mapperMock.Setup(u => u.Map<IEnumerable<HomePasteDto>>(It.IsAny<IEnumerable<Paste>>()))
+                .Returns(HomePasteDtoList);
 
-            _mapperMock.Setup(u => u.Map<IEnumerable<PasteDto>>(PasteDtoList))
-                .Returns(PasteDtoList);
-
-            _amazonS3Mock.Setup(u => u.DeleteRangeFiles(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(true);
             //Act
 
             var result = await _pasteService.GetAllPaste(new HomePasteRequestDto { });
@@ -51,14 +46,9 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             _pasteRepositoryMock.Setup(u => u.Get(It.IsAny<HomePasteRequestDto>()))
                 .ReturnsAsync((null, 15));
 
-            _pasteRepositoryMock.Setup(u => u.DeleteRange(It.IsAny<IEnumerable<Paste>>()))
-                .ReturnsAsync(true);
+            _mapperMock.Setup(u => u.Map<IEnumerable<HomePasteDto>>(It.IsAny<IEnumerable<Paste>>()))
+                .Returns(HomePasteDtoList);
 
-            _mapperMock.Setup(u => u.Map<IEnumerable<PasteDto>>(PasteDtoList))
-                .Returns(PasteDtoList);
-
-            _amazonS3Mock.Setup(u => u.DeleteRangeFiles(It.IsAny<IEnumerable<string>>()))
-                .ReturnsAsync(true);
             //Act
 
             var result = await _pasteService.GetAllPaste(new HomePasteRequestDto { });
@@ -84,8 +74,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             _pasteRepositoryMock.Setup(u => u.DeleteRange(It.IsAny<IEnumerable<Paste>>()))
                 .ReturnsAsync(true);
 
-            _mapperMock.Setup(u => u.Map<IEnumerable<PasteDto>>(PasteDtoList))
-                .Returns(PasteDtoList);
+            _mapperMock.Setup(u => u.Map<IEnumerable<HomePasteDto>>(It.IsAny<IEnumerable<Paste>>()))
+                .Returns(HomePasteDtoList);
 
             _amazonS3Mock.Setup(u => u.DeleteRangeFiles(It.IsAny<IEnumerable<string>>()))
                 .ReturnsAsync(true);
@@ -114,8 +104,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             _pasteRepositoryMock.Setup(u => u.DeleteRange(It.IsAny<IEnumerable<Paste>>()))
                 .ReturnsAsync(false);
 
-            _mapperMock.Setup(u => u.Map<IEnumerable<PasteDto>>(PasteDtoList))
-                .Returns(PasteDtoList);
+            _mapperMock.Setup(u => u.Map<IEnumerable<HomePasteDto>>(It.IsAny<IEnumerable<Paste>>()))
+                .Returns(HomePasteDtoList);
 
             _amazonS3Mock.Setup(u => u.DeleteRangeFiles(It.IsAny<IEnumerable<string>>()))
                 .ReturnsAsync(true);
@@ -144,8 +134,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             _pasteRepositoryMock.Setup(u => u.DeleteRange(It.IsAny<IEnumerable<Paste>>()))
                 .ReturnsAsync(true);
 
-            _mapperMock.Setup(u => u.Map<IEnumerable<PasteDto>>(PasteDtoList))
-                .Returns(PasteDtoList);
+            _mapperMock.Setup(u => u.Map<IEnumerable<HomePasteDto>>(It.IsAny<IEnumerable<Paste>>()))
+                .Returns(HomePasteDtoList);
 
             _amazonS3Mock.Setup(u => u.DeleteRangeFiles(It.IsAny<IEnumerable<string>>()))
                 .ReturnsAsync(false);

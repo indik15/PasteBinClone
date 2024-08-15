@@ -3,6 +3,7 @@ using Moq;
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Application.Services;
+using PasteBinClone.Application.ViewModels;
 using PasteBinClone.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
                 _ratingRepositoryMock.Object);
         }
 
+        public static string UserId = "0A1BBB1F-3B58-4411-956F-83A8E635ED14";
+
         protected static Paste PublicPaste => new Paste
         {
             Id = Guid.NewGuid(),
@@ -52,7 +55,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             CategoryId = 1,
             LanguageId = 1,
             TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
+            UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE",
         };
 
         protected static PasteDto PublicPasteDto => new PasteDto
@@ -67,7 +70,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             CategoryId = 1,
             LanguageId = 1,
             TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
+            UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE",
         };
 
         protected static PasteDto PrivatePasteDto => new PasteDto
@@ -82,7 +85,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             CategoryId = 1,
             LanguageId = 1,
             TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
+            UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE",
         };
 
         protected static PasteDto PrivatePasteDtoNullPassword => new PasteDto
@@ -97,7 +100,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             CategoryId = 1,
             LanguageId = 1,
             TypeId = 1,
-            UserId = Guid.NewGuid().ToString(),
+            UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE",
         };
 
         protected static IEnumerable<PasteDto> PasteDtoList => new List<PasteDto>
@@ -114,7 +117,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
                 CategoryId = 1,
                 LanguageId = 1,
                 TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
+                UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE"
             },
             new PasteDto
             {
@@ -128,9 +131,35 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
                 CategoryId = 1,
                 LanguageId = 1,
                 TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
+                UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE"
             },
 
+        };
+
+        protected static IEnumerable<HomePasteDto> HomePasteDtoList => new List<HomePasteDto>
+        {
+            new HomePasteDto
+            {
+                Id = Guid.NewGuid(),
+                Title = "Test1",
+                IsPublic = true,
+                CreateAt = DateTime.Now,
+                ExpireAt = DateTime.Now.AddMinutes(30),
+                Category = new CategoryVM{id = 1, CategoryName = ""},
+                Language = new LanguageVM{Id = 1, LanguageName = ""},
+                ContentType = new ContentTypeVM{Id = 1, TypeName = ""},
+            },
+            new HomePasteDto
+            {
+                Id = Guid.NewGuid(),
+                Title = "Test2",
+                IsPublic = true,
+                CreateAt = DateTime.Now,
+                ExpireAt = DateTime.Now.AddMinutes(30),
+                Category = new CategoryVM{id = 1, CategoryName = ""},
+                Language = new LanguageVM{Id = 1, LanguageName = ""},
+                ContentType = new ContentTypeVM{Id = 1, TypeName = ""},
+            },
         };
 
         protected static IEnumerable<Paste> PasteList => new List<Paste>
@@ -139,7 +168,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             {
                 Id = Guid.NewGuid(),
                 Title = "Test1",
-                BodyUrl = Guid.NewGuid().ToString(),
+                BodyUrl = "C41CE881-266C-4BFC-84CF-BF95472F6219",
                 IsPublic = true,
                 Password = null,
                 CreateAt = DateTime.Now,
@@ -147,13 +176,13 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
                 CategoryId = 1,
                 LanguageId = 1,
                 TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
+                UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE"
             },
             new Paste
             {
                 Id = Guid.NewGuid(),
                 Title = "Test2",
-                BodyUrl = Guid.NewGuid().ToString(),
+                BodyUrl = "C41CE881-266C-4BFC-84CF-BF95472F6219",
                 IsPublic = true,
                 Password = null,
                 CreateAt = DateTime.Now,
@@ -161,8 +190,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
                 CategoryId = 1,
                 LanguageId = 1,
                 TypeId = 1,
-                UserId = Guid.NewGuid().ToString()
+                UserId = "E9BD9B80-ED09-4C02-9474-F47026BB37AE"
             }
-        };
+        };       
     }
 }
