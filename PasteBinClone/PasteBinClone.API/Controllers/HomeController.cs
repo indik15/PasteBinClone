@@ -5,6 +5,7 @@ using PasteBinClone.API.Response;
 using PasteBinClone.Application.Dto;
 using PasteBinClone.Application.Interfaces;
 using PasteBinClone.Application.ViewModels;
+using Serilog;
 using System.Collections.Generic;
 
 namespace PasteBinClone.API.Controllers
@@ -20,6 +21,8 @@ namespace PasteBinClone.API.Controllers
         [HttpGet]
         public async Task<ActionResult<ResponseAPI>> Get()
         {
+            Log.Information("Request to receive five popular posts");
+
             IEnumerable<HomePasteDto> pasteDtos = await _pasteService.GetTopRatedPastes();
 
             if(pasteDtos == null)
@@ -35,6 +38,8 @@ namespace PasteBinClone.API.Controllers
         [HttpGet("{userId}")]
         public async Task<ActionResult<ResponseAPI>> Get(string userId)
         {
+            Log.Information("Request to receive five pastes of the current user");
+
             IEnumerable<HomePasteDto> pasteDtos = await _pasteService.GetFiveUserPastes(userId);
 
             if (pasteDtos == null)
