@@ -41,7 +41,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
 
 
         [Fact]
-        public async Task GetPasteById_WithNullResultFromPasteRepository_ReturnsNull()
+        public async Task GetPasteById_WithNullResultFromPasteRepository_ThrowsKeyNotFoundException()
         {
             //Arrange
             _pasteRepositoryMock.Setup(u => u.GetById(It.IsAny<Guid>()))
@@ -58,16 +58,16 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
 
             _userRepositoryMock.Setup(u => u.GetById(It.IsAny<string>()))
                 .ReturnsAsync(new ApiUser { Role = "User" });
-            //Act
-            var result = await _pasteService.GetPasteById(Guid.NewGuid());
 
-            //Assert
-            result.getPasteDto.Should().BeNull();
+            // Act & Assert
+            await FluentActions.Invoking(() => _pasteService.GetPasteById(Guid.NewGuid()))
+                .Should()
+                .ThrowAsync<KeyNotFoundException>();
         }
 
 
         [Fact]
-        public async Task GetPasteById_WithExpireTimeInPaste_ReturnsNull()
+        public async Task GetPasteById_WithExpireTimeInPaste_ThrowsKeyNotFoundException()
         {
             //Arrange
 
@@ -86,11 +86,10 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             _userRepositoryMock.Setup(u => u.GetById(It.IsAny<string>()))
                 .ReturnsAsync(new ApiUser { UserId = "17ADE1AC-666B-4DAE-83EF-0502728C7CEC", Role = "User" });
 
-            //Act
-            var result = await _pasteService.GetPasteById(Guid.NewGuid());
-
-            //Assert
-            result.getPasteDto.Should().BeNull();
+            // Act & Assert
+            await FluentActions.Invoking(() => _pasteService.GetPasteById(Guid.NewGuid()))
+                .Should()
+                .ThrowAsync<KeyNotFoundException>();
         }
 
         [Fact]

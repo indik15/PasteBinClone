@@ -71,7 +71,7 @@ namespace PasteBinClone.Tests.UnitTests.CategoryTest
         }
 
         [Fact]
-        public async Task GetAllCategory_WithNullResultFromRepository_ReturnsNull()
+        public async Task GetAllCategory_WithNullResultFromRepository_ReturnsEmptyCollection()
         {
             //Arrange
 
@@ -89,7 +89,8 @@ namespace PasteBinClone.Tests.UnitTests.CategoryTest
             //Assert
 
             //Ensure that the result is null 
-            Assert.Null(categoryServiceResult);
+            Assert.NotNull(categoryServiceResult);
+            Assert.Empty(categoryServiceResult);
         }
         #endregion
 
@@ -128,7 +129,7 @@ namespace PasteBinClone.Tests.UnitTests.CategoryTest
         }
 
         [Fact]
-        public async Task GetCategoryById_NullResultFromRepository_ReturnsNull()
+        public async Task GetCategoryById_NullResultFromRepository_ThrowsKeyNotFoundException()
         {
             //Arrange
 
@@ -141,14 +142,8 @@ namespace PasteBinClone.Tests.UnitTests.CategoryTest
 
             var categoryService = new CategoryService(_baseRepositoryMock.Object, _mapperMock.Object);
 
-            //Act
-            var categoryServiceResult = await categoryService.GetCategoryByID(testId);
-
-            //Assert
-
-            //Ensure that the result is null
-            Assert.Null(categoryServiceResult);
-
+            // Act & Assert
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => categoryService.GetCategoryByID(testId));
         }
         #endregion      
 

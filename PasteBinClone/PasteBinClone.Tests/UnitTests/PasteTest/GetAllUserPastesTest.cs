@@ -34,7 +34,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
         }
 
         [Fact]
-        public async Task GetAllUserPastes_WithNullResultFromPasteRepository_ReturnsNullAndZero()
+        public async Task GetAllUserPastes_WithNullResultFromPasteRepository_ReturnsEmptyCollectionAndZero()
         {
             //Arrange
             int pageNumber = 1;
@@ -50,7 +50,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             var result = await _pasteService.GetAllUserPastes(UserId, pageNumber);
 
             //Assert
-            result.pastes.Should().BeNull();
+            result.pastes.Should().NotBeNull();
+            result.pastes.Should().BeEmpty();
             result.totalPages.Should().Be(0);
         }
     }

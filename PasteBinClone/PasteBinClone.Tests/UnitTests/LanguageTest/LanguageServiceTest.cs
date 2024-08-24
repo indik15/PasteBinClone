@@ -80,7 +80,7 @@ namespace PasteBinClone.Tests.UnitTests.LanguageTest
         }
 
         [Fact]
-        public async Task GetAllLanguage_WithNullResultFromRepository_ReturnsNull()
+        public async Task GetAllLanguage_WithNullResultFromRepository_ReturnsEmptyCollection()
         {
             //Arrange
 
@@ -98,7 +98,8 @@ namespace PasteBinClone.Tests.UnitTests.LanguageTest
             //Assert
 
             //Ensure that the result is null 
-            Assert.Null(result);
+            Assert.NotNull(result);
+            Assert.Empty(result);
         }
         #endregion
 
@@ -135,7 +136,7 @@ namespace PasteBinClone.Tests.UnitTests.LanguageTest
         }
 
         [Fact]
-        public async Task GetLanguageByID_NullResultFromRepository_ReturnsNull()
+        public async Task GetLanguageByID_NullResultFromRepository_ThrowsKeyNotFoundException()
         {
             //Arrange
 
@@ -148,13 +149,8 @@ namespace PasteBinClone.Tests.UnitTests.LanguageTest
 
             var languageService = new LanguageService(_mapperMock.Object, _repositoryMock.Object);
 
-            //Act
-            var result = await languageService.GetLanguageByID(testId);
-
-            //Assert
-
-            //Ensure that the result is null
-            Assert.Null(result);
+            // Act & Assert
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => languageService.GetLanguageByID(testId));
         }
         #endregion
 

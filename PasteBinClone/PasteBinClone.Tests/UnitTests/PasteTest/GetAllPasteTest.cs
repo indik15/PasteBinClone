@@ -40,7 +40,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
         }
 
         [Fact]
-        public async Task GetAllPaste_WithNullResultFromRepository_ReturnsNullAndZero()
+        public async Task GetAllPaste_WithNullResultFromRepository_ReturnsEmptyCollectionAndZero()
         {
             //Arrange
             _pasteRepositoryMock.Setup(u => u.Get(It.IsAny<HomePasteRequestDto>()))
@@ -58,7 +58,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             //Combining checks into 1 block that will be executed at the same time
             using AssertionScope _ = new();
 
-            result.pastes.Should().BeNull();
+            result.pastes.Should().NotBeNull();
+            result.pastes.Should().BeEmpty();
             result.totalPages.Should().Be(0);
         }
 
@@ -93,7 +94,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
         }
 
         [Fact]
-        public async Task GetAllPaste_WithFalseResultFromDeleteMethodInRepository_ReturnsNull()
+        public async Task GetAllPaste_WithFalseResultFromDeleteMethodInRepository_ReturnsEmptyCollection()
         {
             //Arrange
 
@@ -118,12 +119,13 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             //Combining checks into 1 block that will be executed at the same time
             using AssertionScope _ = new();
 
-            result.pastes.Should().BeNull();
+            result.pastes.Should().NotBeNull();
+            result.pastes.Should().BeEmpty();
             result.totalPages.Should().Be(0);
         }
 
         [Fact]
-        public async Task GetAllPaste_WithFalseResultFromDeleteMethodInAmazonS3_ReturnsNull()
+        public async Task GetAllPaste_WithFalseResultFromDeleteMethodInAmazonS3_ReturnsEmptyCollection()
         {
             //Arrange
 
@@ -148,7 +150,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             //Combining checks into 1 block that will be executed at the same time
             using AssertionScope _ = new();
 
-            result.pastes.Should().BeNull();
+            result.pastes.Should().NotBeNull();
+            result.pastes.Should().BeEmpty();
             result.totalPages.Should().Be(0);
         }
     }

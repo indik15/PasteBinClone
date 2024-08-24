@@ -30,7 +30,7 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
         }
 
         [Fact]
-        public async Task GetFiveUserPastes_WithNullResultFromPasteRepository_ReturnsNull()
+        public async Task GetFiveUserPastes_WithNullResultFromPasteRepository_ReturnsEmptyCollection()
         {
             //Arrange
             _pasteRepositoryMock.Setup(u => u.GetTopRatedPastes())
@@ -43,7 +43,8 @@ namespace PasteBinClone.Tests.UnitTests.PasteTest
             var result = await _pasteService.GetTopRatedPastes();
 
             //Assert
-            result.Should().BeNull();
+            result.Should().NotBeNull();
+            result.Should().BeEmpty();
         }
     }
 }

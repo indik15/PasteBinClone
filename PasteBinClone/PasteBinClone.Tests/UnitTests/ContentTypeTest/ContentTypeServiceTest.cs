@@ -79,7 +79,7 @@ namespace PasteBinClone.Tests.UnitTests.ContentTypeTest
         }
 
         [Fact]
-        public async Task GetAllContentType_WithNullResultFromRepository_ReturnsNull()
+        public async Task GetAllContentType_WithNullResultFromRepository_ReturnsEmptyCollection()
         {
             //Arrange
 
@@ -97,7 +97,8 @@ namespace PasteBinClone.Tests.UnitTests.ContentTypeTest
             //Assert
 
             //Ensure that the result is null 
-            Assert.Null(result);
+            Assert.NotNull(result);
+            Assert.Empty(result);
         }
 
         #endregion
@@ -133,7 +134,7 @@ namespace PasteBinClone.Tests.UnitTests.ContentTypeTest
         }
 
         [Fact]
-        public async Task GetContentTypeById_NullResultFromRepository_ReturnsNull()
+        public async Task GetContentTypeById_NullResultFromRepository_ThrowsKeyNotFoundException()
         {
             //Arrange
 
@@ -146,13 +147,8 @@ namespace PasteBinClone.Tests.UnitTests.ContentTypeTest
 
             var categoryService = new ContentTypeService(_repositoryMock.Object, _mapperMock.Object);
 
-            //Act
-            var categoryServiceResult = await categoryService.GetContentTypeById(testId);
-
-            //Assert
-
-            //Ensure that the result is null
-            Assert.Null(categoryServiceResult);
+            // Act & Assert
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => categoryService.GetContentTypeById(testId));
 
         }
         #endregion
