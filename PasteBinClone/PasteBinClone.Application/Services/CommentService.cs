@@ -60,7 +60,7 @@ namespace PasteBinClone.Application.Services
             {
                 Log.Information("Comment not found.");
 
-                return (null, 0);
+                return (Enumerable.Empty<CommentDto>(), 0);
             }
 
             Log.Information("Received comments: {@Count}", comments.Count());

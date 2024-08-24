@@ -61,20 +61,13 @@ namespace PasteBinClone.Persistence.Services
 
         public async Task<string> GetFile(string id)
         {
-            try
-            {
-                //Send request
-                var result = await _client.GetObjectAsync(_bucketName, id);
+            //Send request
+            var result = await _client.GetObjectAsync(_bucketName, id);
 
-                using var stream = new StreamReader(result.ResponseStream);
+            using var stream = new StreamReader(result.ResponseStream);
 
-                //Read and return text from the Stream
-                return await stream.ReadToEndAsync();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            //Read and return text from the Stream
+            return await stream.ReadToEndAsync();
         }
 
         public async Task<bool> UpdateFile(string id, string body)
@@ -96,34 +89,26 @@ namespace PasteBinClone.Persistence.Services
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
 
         public async Task<(bool, string?)> UploadFile(string body)
-        {          
-            try
+        {
+            string id = Guid.NewGuid().ToString();
+
+            //Create a request
+            var request = new PutObjectRequest
             {
-                string id = Guid.NewGuid().ToString();
+                BucketName = _bucketName,
+                Key = id,
+                ContentBody = body,
+            };
 
-                //Create a request
-                var request = new PutObjectRequest
-                {
-                    BucketName = _bucketName,
-                    Key = id,
-                    ContentBody = body,
-                };
+            //Send request
+            await _client.PutObjectAsync(request);
 
-                //Send request
-                await _client.PutObjectAsync(request);
-
-                return (true, id);
-            }
-            catch (Exception)
-            {
-                return (false, null);
-            }
+            return (true, id);
         }
     }
 }

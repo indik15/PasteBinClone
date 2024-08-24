@@ -64,7 +64,7 @@ namespace PasteBinClone.Application.Services
             if(languages == null)
             {
                 Log.Information("Object not found.");
-                return null;
+                return Enumerable.Empty<LanguageDto>();
             }
 
             Log.Information("Received objects: {@Count}", languages.Count());
@@ -77,8 +77,7 @@ namespace PasteBinClone.Application.Services
 
             if(language == null)
             {
-                Log.Information("Object {@i} not found.", id);
-                return null;
+                throw new KeyNotFoundException();
             }
 
             return _mapper.Map<LanguageDto>(language);

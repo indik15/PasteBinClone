@@ -118,7 +118,7 @@ namespace PasteBinClone.Application.Services
             if (pastes == null)
             {
                 Log.Information("Object not found.");
-                return (null, 0);
+                return (Enumerable.Empty<HomePasteDto>(), 0);
             }
 
             foreach(var obj in pastes)
@@ -140,13 +140,13 @@ namespace PasteBinClone.Application.Services
                 if(!resultFromDb)
                 {
                     Log.Information("Error deleting objects from the database");
-                    return (null, 0);
+                    return (Enumerable.Empty<HomePasteDto>(), 0);
                 }
 
                 if (!resultFromS3)
                 {
                     Log.Information("Error deleting objects from the AWS S3");
-                    return (null, 0);
+                    return (Enumerable.Empty<HomePasteDto>(), 0);
                 }
             }
 
@@ -165,7 +165,7 @@ namespace PasteBinClone.Application.Services
 
             if (pastes == null)
             {
-                return (null, 0);
+                return (Enumerable.Empty<HomePasteDto>(), 0);
             }
 
             IEnumerable<HomePasteDto> pastesDto = _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
@@ -179,7 +179,7 @@ namespace PasteBinClone.Application.Services
 
             if (pastes == null)
             {
-                return null;
+                return Enumerable.Empty<HomePasteDto>();
             }
 
             return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);
@@ -192,15 +192,15 @@ namespace PasteBinClone.Application.Services
             if(paste == null)
             {
                 Log.Information("Object {@i} not found.", id);
-                return (null, "");
+                throw new KeyNotFoundException();
             }
 
-            if(DateTime.Now > paste.ExpireAt)
+            if (DateTime.Now > paste.ExpireAt)
             {
                 await _amazonStorage.DeleteFile(paste.BodyUrl);
                 await _pasteRepository.Delete(id);
 
-                return (null, "");
+                throw new KeyNotFoundException();
             }
 
             var user = await _apiUser.GetById(userId);
@@ -252,7 +252,7 @@ namespace PasteBinClone.Application.Services
 
             if (pastes == null)
             {
-                return null;
+                return Enumerable.Empty<HomePasteDto>();
             }
 
             return _mapper.Map<IEnumerable<HomePasteDto>>(pastes);

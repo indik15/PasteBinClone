@@ -69,7 +69,7 @@ namespace PasteBinClone.Application.Services
             {
                 Log.Information("Object not found.");
 
-                return null;
+                return Enumerable.Empty<ContentTypeDto>();
             }
             Log.Information("Received objects: {@Count}", contentTypes.Count());
 
@@ -82,9 +82,7 @@ namespace PasteBinClone.Application.Services
 
             if(contentType == null)
             {
-                Log.Information("Object {@i} not found.", id);
-
-                return null;
+                throw new KeyNotFoundException();
             }
 
             return _mapper.Map<ContentTypeDto>(contentType);

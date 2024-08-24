@@ -68,7 +68,7 @@ namespace PasteBinClone.Application.Services
             {
                 Log.Information("Object not found.");
 
-                return null;
+                return Enumerable.Empty<CategoryDto>();
             }
 
             Log.Information("Received objects: {@Count}", categories.Count());
@@ -82,9 +82,7 @@ namespace PasteBinClone.Application.Services
 
             if(category == null)
             {
-                Log.Information("Object {@i} not found.", id);
-
-                return null;
+                throw new KeyNotFoundException();
             }
             return _mapper.Map<CategoryDto>(category);
         }
